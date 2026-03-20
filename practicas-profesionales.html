@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prácticas Profesionales - Facultad de Cultura Física</title>
+    <style>
+        /* --- ESTILOS AVANZADOS --- */
+        :root {
+            --color-fondo: #121212;
+            --color-dorado-principal: #D4AF37;
+            --color-dorado-secundario: #B8860B;
+            --color-texto-base: rgba(255, 255, 255, 0.87);
+            --fondo-tarjeta: #1E1E1E;
+            --radio-borde: 12px;
+            --color-error: #ff4c4c;
+            --color-success: #4caf50;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Playfair+Display:wght@700&display=swap');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--color-fondo);
+            color: var(--color-texto-base);
+            padding: 20px;
+        }
+
+        #background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #1a1a1a, #2c2c2c, #121212, #000000);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .main-container {
+            background-color: var(--fondo-tarjeta);
+            padding: 50px 40px;
+            border-radius: var(--radio-borde);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--color-dorado-principal);
+            font-size: 2.2em;
+            margin: 0 0 10px 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        p.subtitle {
+            font-size: 1em;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        form {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--color-dorado-principal);
+            font-size: 0.9em;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            background-color: rgba(0, 0, 0, 0.2);
+            color: var(--color-texto-base);
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-dorado-principal);
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        button.submit-btn {
+            background-color: var(--color-dorado-principal);
+            color: var(--color-fondo);
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            margin-top: 10px;
+        }
+
+        button.submit-btn:hover {
+            background-color: var(--color-dorado-secundario);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: var(--color-texto-base);
+            opacity: 0.7;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+            color: var(--color-dorado-principal);
+        }
+
+        #status-message {
+            margin-top: 15px;
+            font-weight: 500;
+            font-size: 0.95em;
+            text-align: center;
+        }
+        .success { color: var(--color-success); }
+        .error { color: var(--color-error); }
+
+    </style>
+</head>
+<body>
+
+    <div id="background-animation"></div>
+
+    <div class="main-container">
+        <h1>Prácticas Profesionales</h1>
+        <p class="subtitle">Facultad de Cultura Física - Registro</p>
+        
+        <form id="practicas-form">
+            <div class="form-group">
+                <label for="nombre">Nombre Completo</label>
+                <input type="text" id="nombre" required placeholder="Ej. Juan Pérez">
+            </div>
+
+            <div class="form-group">
+                <label for="matricula">Matrícula</label>
+                <input type="text" id="matricula" required placeholder="Ej. 202112345">
+            </div>
+
+            <div class="form-group">
+                <label for="semestre">Semestre Actual</label>
+                <select id="semestre" required>
+                    <option value="" disabled selected>Selecciona tu semestre</option>
+                    <option value="6">6to Semestre</option>
+                    <option value="7">7mo Semestre</option>
+                    <option value="8">8vo Semestre</option>
+                    <option value="9">9no Semestre</option>
+                    <option value="Egresado">Egresado</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="area">Área de Interés</label>
+                <select id="area" required>
+                    <option value="" disabled selected>Selecciona un área</option>
+                    <option value="Entrenamiento Deportivo">Entrenamiento Deportivo</option>
+                    <option value="Rehabilitación">Rehabilitación</option>
+                    <option value="Educación Física">Educación Física</option>
+                    <option value="Gestión Deportiva">Gestión Deportiva</option>
+                    <option value="Otra">Otra</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="comentarios">Comentarios o Dudas (Opcional)</label>
+                <textarea id="comentarios" placeholder="Escribe aquí..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Enviar Registro</button>
+            <div id="status-message"></div>
+        </form>
+
+        <a href="index.html" class="back-link">← Volver al Inicio</a>
+    </div>
+
+    <!-- Firebase SDK (Version 9+ Modular) -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        // TODO: Reemplaza esto con la configuración de tu proyecto en Firebase
+        // 1. Ve a la consola de Firebase: https://console.firebase.google.com/
+        // 2. Crea un proyecto nuevo.
+        // 3. Registra una aplicación web (</> icono).
+        const firebaseConfig = {
+            apiKey: "AIzaSyAHhDJQcaDgojC0qRXQeG3M2y55KgtBaog",
+            authDomain: "sistema-de-practicas-cfbuap.firebaseapp.com",
+            projectId: "sistema-de-practicas-cfbuap",
+            storageBucket: "sistema-de-practicas-cfbuap.firebasestorage.app",
+            messagingSenderId: "802276056298",
+            appId: "1:802276056298:web:9a390b2d13825b66d60b93"
+        };
+
+        let app;
+        let db;
+
+        try {
+            app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            console.log("Firebase inicializado correctamente con tu base de datos.");
+        } catch (e) {
+            console.error("Error al inicializar Firebase", e);
+        }
+
+        const form = document.getElementById('practicas-form');
+        const statusMessage = document.getElementById('status-message');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = document.querySelector('.submit-btn');
+            btn.textContent = "Enviando...";
+            btn.disabled = true;
+
+            const data = {
+                nombre: document.getElementById('nombre').value,
+                matricula: document.getElementById('matricula').value,
+                semestre: document.getElementById('semestre').value,
+                area: document.getElementById('area').value,
+                comentarios: document.getElementById('comentarios').value,
+                fecha_registro: new Date().toISOString()
+            };
+
+            try {
+                const docRef = await addDoc(collection(db, "practicas_profesionales"), data);
+                statusMessage.textContent = "¡Registro enviado correctamente!";
+                statusMessage.className = "success";
+                form.reset();
+            } catch (error) {
+                console.error("Error añadiendo el documento: ", error);
+                statusMessage.textContent = "Error al enviar el registro. Inténtalo más tarde.";
+                statusMessage.className = "error";
+            } finally {
+                btn.textContent = "Enviar Registro";
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

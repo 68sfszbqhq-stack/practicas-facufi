@@ -1,0 +1,23 @@
+{
+  "name": "territorio-de-campeones",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/68sfszbqhq-stack/Territorio-de-campeones.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/68sfszbqhq-stack/Territorio-de-campeones/issues"
+  },
+  "homepage": "https://github.com/68sfszbqhq-stack/Territorio-de-campeones#readme",
+  "dependencies": {
+    "firebase": "^12.11.0"
+  }
+}
