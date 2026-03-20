@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prácticas Profesionales - Facultad de Cultura Física</title>
+    <title>Prácticas Curriculares - Facultad de Cultura Física</title>
     <style>
         /* --- ESTILOS AVANZADOS --- */
         :root {
@@ -167,7 +167,7 @@
     <div id="background-animation"></div>
 
     <div class="main-container">
-        <h1>Prácticas Profesionales</h1>
+        <h1>Prácticas Curriculares</h1>
         <p class="subtitle">Facultad de Cultura Física - Registro</p>
         
         <form id="practicas-form">
@@ -267,7 +267,7 @@
             };
 
             try {
-                const docRef = await addDoc(collection(db, "practicas_profesionales"), data);
+                const docRef = await addDoc(collection(db, "practicas_curriculares"), data);
                 statusMessage.textContent = "¡Registro enviado correctamente!";
                 statusMessage.className = "success";
                 form.reset();
