@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil de Docente – Prácticas Curriculares FCF</title>
+  <meta name="description" content="Perfil del docente en el sistema de Prácticas Curriculares de la Facultad de Cultura Física BUAP.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #D4AF37;
+      --gold-dark: #A8882A;
+      --gold-light: #F0D060;
+      --bg: #0D0D0D;
+      --surface: #161616;
+      --surface2: #1F1F1F;
+      --surface3: #2A2A2A;
+      --text: rgba(255,255,255,0.9);
+      --text-muted: rgba(255,255,255,0.5);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .bg-canvas {
+      position: fixed; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse at 85% 15%, rgba(212,175,55,0.07) 0%, transparent 50%),
+                  radial-gradient(ellipse at 15% 85%, rgba(212,175,55,0.04) 0%, transparent 50%),
+                  linear-gradient(135deg, #0a0a0a 0%, #111111 100%);
+    }
+
+    /* TOP BAR */
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(212,175,55,0.1);
+      padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .topbar-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.88em; color: var(--gold); }
+    .topbar-brand span { font-size: 20px; }
+    .btn-outline-sm {
+      padding: 7px 16px;
+      border: 1px solid rgba(212,175,55,0.3);
+      border-radius: 20px;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 5px;
+    }
+    .btn-outline-sm:hover { border-color: var(--gold); color: var(--gold); background: rgba(212,175,55,0.05); }
+
+    main {
+      position: relative; z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero */
+    .hero-card {
+      background: linear-gradient(135deg, rgba(212,175,55,0.12) 0%, rgba(212,175,55,0.04) 100%);
+      border: 1px solid rgba(212,175,55,0.2);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      display: flex; align-items: center; gap: 28px;
+      margin-bottom: 24px;
+      animation: fadeInUp 0.5s ease both;
+    }
+    .avatar-docente {
+      width: 96px; height: 96px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.2em;
+      font-weight: 800;
+      color: #000;
+      flex-shrink: 0;
+      box-shadow: 0 8px 32px rgba(212,175,55,0.35);
+      letter-spacing: -1px;
+    }
+    .hero-info .small-label { font-size: 0.68em; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); font-weight: 700; margin-bottom: 6px; }
+    .hero-info h2 { font-family: 'Playfair Display', serif; font-size: 1.6em; line-height: 1.2; margin-bottom: 10px; }
+    .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill { padding: 5px 14px; border-radius: 20px; font-size: 0.72em; font-weight: 600; letter-spacing: 0.5px; }
+    .pill-gold { background: rgba(212,175,55,0.15); color: var(--gold); border: 1px solid rgba(212,175,55,0.25); }
+    .pill-grey { background: var(--surface3); color: var(--text-muted); }
+    .pill-blue { background: rgba(100,181,246,0.1); color: #64B5F6; border: 1px solid rgba(100,181,246,0.2); }
+
+    /* Stats bar */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+      animation: fadeInUp 0.5s ease 0.1s both;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .stat-card:hover { border-color: rgba(212,175,55,0.2); background: var(--surface2); transform: translateY(-2px); }
+    .stat-num { font-size: 2em; font-weight: 800; color: var(--gold); line-height: 1; }
+    .stat-label { font-size: 0.7em; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); font-weight: 600; margin-top: 6px; }
+
+    /* Section card */
+    .section-card {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .section-card:nth-child(3) { animation: fadeInUp 0.5s ease 0.2s both; }
+    .section-card:nth-child(4) { animation: fadeInUp 0.5s ease 0.3s both; }
+    .section-card:nth-child(5) { animation: fadeInUp 0.5s ease 0.4s both; }
+    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .section-icon { width: 36px; height: 36px; background: rgba(212,175,55,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .section-header h3 { font-size: 0.95em; font-weight: 700; }
+    .section-header .counter { margin-left: auto; font-size: 0.75em; color: var(--text-muted); font-weight: 500; }
+
+    /* Sección row */
+    .seccion-row {
+      background: var(--surface2);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      margin-bottom: 10px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 16px;
+      align-items: center;
+      transition: all 0.2s;
+    }
+    .seccion-row:hover { background: var(--surface3); border: 1px solid rgba(212,175,55,0.1); }
+    .seccion-row:last-child { margin-bottom: 0; }
+    .seccion-nrc {
+      background: rgba(212,175,55,0.15);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: 800;
+      font-size: 0.82em;
+      color: var(--gold);
+      text-align: center;
+      min-width: 70px;
+    }
+    .seccion-nrc small { display: block; font-size: 0.7em; font-weight: 500; color: var(--text-muted); }
+    .seccion-info {}
+    .seccion-info .si-title { font-weight: 700; font-size: 0.88em; margin-bottom: 4px; }
+    .seccion-info .si-sub { font-size: 0.75em; color: var(--text-muted); }
+    .seccion-badge {
+      text-align: right;
+      font-size: 0.75em;
+      color: var(--text-muted);
+    }
+    .seccion-badge strong { display: block; font-size: 1.4em; color: var(--text); font-weight: 700; }
+
+    /* Alumnos table */
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.83em;
+    }
+    thead tr { border-bottom: 1px solid rgba(212,175,55,0.2); }
+    thead th {
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 0.72em;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+    tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.15s;
+    }
+    tbody tr:hover { background: rgba(255,255,255,0.03); }
+    tbody td { padding: 10px 12px; vertical-align: middle; }
+    .td-rank { color: var(--text-muted); font-size: 0.8em; font-weight: 600; }
+    .td-nombre { font-weight: 600; }
+    .td-mat { color: var(--text-muted); font-size: 0.88em; font-family: monospace; }
+    .td-prom {
+      font-weight: 700; font-size: 0.95em;
+    }
+    .td-badge span {
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.75em;
+      font-weight: 600;
+    }
+    .badge-excelente { background: rgba(76,175,125,0.15); color: #4CAF7D; }
+    .badge-muy-bueno { background: rgba(100,181,246,0.15); color: #64B5F6; }
+    .badge-bueno { background: rgba(212,175,55,0.15); color: var(--gold); }
+    .badge-regular { background: rgba(255,183,77,0.15); color: #FFB74D; }
+    .badge-suficiente { background: rgba(239,83,80,0.15); color: #EF5350; }
+
+    /* Filter tabs */
+    .filter-tabs {
+      display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: transparent;
+      color: var(--text-muted);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn.active, .filter-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(212,175,55,0.08); }
+
+    .search-input {
+      width: 100%;
+      padding: 10px 14px;
+      background: var(--surface2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.85em;
+      margin-bottom: 14px;
+      transition: all 0.2s;
+    }
+    .search-input:focus { outline: none; border-color: var(--gold); background: var(--surface3); }
+    .search-input::placeholder { color: var(--text-muted); }
+
+    .empty-state {
+      text-align: center;
+      padding: 30px;
+      color: var(--text-muted);
+      font-size: 0.85em;
+    }
+
+    @media (max-width: 600px) {
+      .hero-card { flex-direction: column; text-align: center; }
+      .pills { justify-content: center; }
+      .stats-bar { grid-template-columns: 1fr 1fr; }
+      .seccion-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-canvas"></div>
+
+<nav class="topbar">
+  <div class="topbar-brand">
+    <span>🏆</span> Prácticas Curriculares FCF
+  </div>
+  <div class="topbar-actions">
+    <a href="login.html" class="btn-outline-sm" onclick="sessionStorage.clear()">🚪 Cerrar sesión</a>
+  </div>
+</nav>
+
+<main id="main-content">
+  <p style="color:var(--text-muted); text-align:center; padding:40px;">Cargando perfil...</p>
+</main>
+
+<script src="data.js"></script>
+<script>
+  let docenteData = null;
+  let alumnosPorSeccion = {};
+  let nrcActivo = 'todos';
+
+  function init() {
+    const tipo = sessionStorage.getItem('usuario_tipo');
+    const dataRaw = sessionStorage.getItem('usuario_data');
+
+    if (tipo !== 'docente' || !dataRaw) {
+      window.location.href = 'login.html';
+      return;
+    }
+
+    docenteData = JSON.parse(dataRaw);
+
+    // Recargar datos completos del docente desde DOCENTES array
+    const full = DOCENTES.find(d => d.id === docenteData.id);
+    if (full) docenteData = full;
+
+    renderPerfil();
+  }
+
+  function getMisAlumnos() {
+    const nrcs = docenteData.secciones.map(s => s.nrc);
+    return ALUMNOS.filter(a => nrcs.includes(a.nrc));
+  }
+
+  function getAlumnosFiltrados() {
+    let alumnos = getMisAlumnos();
+    if (nrcActivo !== 'todos') {
+      alumnos = alumnos.filter(a => a.nrc === parseInt(nrcActivo));
+    }
+    const q = document.getElementById('search-input')?.value?.toLowerCase() || '';
+    if (q) {
+      alumnos = alumnos.filter(a =>
+        a.nombre.toLowerCase().includes(q) || a.matricula.includes(q)
+      );
+    }
+    return alumnos.sort((a,b) => b.promedio - a.promedio);
+  }
+
+  function renderTabla() {
+    const alumnos = getAlumnosFiltrados();
+    const tbody = document.getElementById('tabla-alumnos');
+    if (!tbody) return;
+
+    if (alumnos.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="5"><div class="empty-state">No se encontraron alumnos</div></td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = alumnos.map((a, i) => {
+      const badge = getPromedioBadge(a.promedio);
+      const nombreFmt = toTitleCase(a.nombre);
+      return `<tr>
+        <td class="td-rank">#${i+1}</td>
+        <td class="td-nombre">${nombreFmt}</td>
+        <td class="td-mat">${a.matricula}</td>
+        <td class="td-prom">${a.promedio.toFixed(2)}</td>
+        <td class="td-badge"><span class="${badge.class}">${badge.label}</span></td>
+      </tr>`;
+    }).join('');
+  }
+
+  function setFilter(nrc) {
+    nrcActivo = nrc;
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.nrc === String(nrc));
+    });
+    renderTabla();
+  }
+
+  function renderPerfil() {
+    const docente = docenteData;
+    const nombre = toTitleCase(docente.nombre.replace(' - ', ' '));
+    const initials = getInitials(docente.nombre.replace(' - ', ' '));
+    const misAlumnos = getMisAlumnos();
+    const totalAlumnos = misAlumnos.length;
+    const promedioGrupal = (misAlumnos.reduce((acc, a) => acc + a.promedio, 0) / totalAlumnos).toFixed(2);
+    const numSecciones = docente.secciones.length;
+
+    // Calcular distribución
+    const dist = { excelente: 0, bueno: 0, regular: 0 };
+    misAlumnos.forEach(a => {
+      if (a.promedio >= 9.0) dist.excelente++;
+      else if (a.promedio >= 8.0) dist.bueno++;
+      else dist.regular++;
+    });
+
+    const seccionesHTML = docente.secciones.map(s => {
+      const alu = ALUMNOS.filter(a => a.nrc === s.nrc);
+      return `
+        <div class="seccion-row">
+          <div class="seccion-nrc">
+            ${s.nrc}
+            <small>NRC</small>
+          </div>
+          <div class="seccion-info">
+            <div class="si-title">Sección ${s.seccion}</div>
+            <div class="si-sub">${getNombreDias(s.dias)} · ${formatHora(s.hora)} · Salón ${s.salon}</div>
+          </div>
+          <div class="seccion-badge">
+            <strong>${alu.length}</strong>
+            alumnos
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Filter buttons
+    const filterBtns = `<button class="filter-btn active" data-nrc="todos" onclick="setFilter('todos')">Todos (${totalAlumnos})</button>` +
+      docente.secciones.map(s => {
+        const cnt = ALUMNOS.filter(a => a.nrc === s.nrc).length;
+        return `<button class="filter-btn" data-nrc="${s.nrc}" onclick="setFilter('${s.nrc}')">Secc. ${s.seccion} (${cnt})</button>`;
+      }).join('');
+
+    document.getElementById('main-content').innerHTML = `
+      <!-- Hero -->
+      <div class="hero-card">
+        <div class="avatar-docente">${initials}</div>
+        <div class="hero-info">
+          <p class="small-label">👨‍🏫 Docente – Primavera 2026</p>
+          <h2>${nombre}</h2>
+          <div class="pills">
+            <span class="pill pill-gold">🆔 ${docente.id}</span>
+            <span class="pill pill-blue">LEFS 201</span>
+            <span class="pill pill-grey">${numSecciones} sección${numSecciones > 1 ? 'es' : ''}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-bar">
+        <div class="stat-card">
+          <div class="stat-num">${totalAlumnos}</div>
+          <div class="stat-label">Alumnos totales</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" style="color:#4CAF7D">${promedioGrupal}</div>
+          <div class="stat-label">Promedio grupal</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">${dist.excelente}</div>
+          <div class="stat-label">Con promedio ≥ 9.0</div>
+        </div>
+      </div>
+
+      <!-- Secciones -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-icon">📋</div>
+          <h3>Mis Secciones</h3>
+          <span class="counter">${numSecciones} sección${numSecciones > 1 ? 'es' : ''}</span>
+        </div>
+        ${seccionesHTML}
+      </div>
+
+      <!-- Materia -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-icon">📚</div>
+          <h3>Información de la Materia</h3>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <div>
+            <p style="font-size:0.7em; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); font-weight:600; margin-bottom:4px;">Materia</p>
+            <p style="font-weight:600; font-size:0.9em;">Práct. de la Educ. Fís. II (NMS)</p>
+          </div>
+          <div>
+            <p style="font-size:0.7em; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); font-weight:600; margin-bottom:4px;">Clave</p>
+            <p style="font-weight:600; font-size:0.9em;">LEFS 201</p>
+          </div>
+          <div>
+            <p style="font-size:0.7em; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); font-weight:600; margin-bottom:4px;">Plan de estudios</p>
+            <p style="font-weight:600; font-size:0.9em;">LEF-2016</p>
+          </div>
+          <div>
+            <p style="font-size:0.7em; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); font-weight:600; margin-bottom:4px;">Período</p>
+            <p style="font-weight:600; font-size:0.9em;">Primavera 2026 (202625)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lista de alumnos -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-icon">🎓</div>
+          <h3>Lista de Alumnos</h3>
+          <span class="counter">Ordenados por promedio</span>
+        </div>
+        <div class="filter-tabs" id="filter-tabs">${filterBtns}</div>
+        <input type="text" id="search-input" class="search-input" placeholder="🔍 Buscar por nombre o matrícula..."
+               oninput="renderTabla()">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Matrícula</th>
+                <th>Promedio</th>
+                <th>Nivel</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-alumnos">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+
+    renderTabla();
+  }
+
+  init();
+</script>
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil de Alumno – Prácticas Curriculares FCF</title>
+  <meta name="description" content="Perfil del alumno en el sistema de Prácticas Curriculares de la Facultad de Cultura Física BUAP.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #D4AF37;
+      --gold-dark: #A8882A;
+      --gold-light: #F0D060;
+      --bg: #0D0D0D;
+      --surface: #161616;
+      --surface2: #1F1F1F;
+      --surface3: #2A2A2A;
+      --text: rgba(255,255,255,0.9);
+      --text-muted: rgba(255,255,255,0.5);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* Background */
+    .bg-canvas {
+      position: fixed; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse at 15% 20%, rgba(212,175,55,0.07) 0%, transparent 50%),
+                  radial-gradient(ellipse at 85% 80%, rgba(212,175,55,0.04) 0%, transparent 50%),
+                  linear-gradient(135deg, #0a0a0a 0%, #111111 100%);
+    }
+
+    /* TOP BAR */
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(212,175,55,0.1);
+      padding: 14px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .topbar-brand {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 0.88em; color: var(--gold);
+    }
+    .topbar-brand span { font-size: 20px; }
+    .topbar-actions { display: flex; gap: 10px; align-items: center; }
+    .btn-outline-sm {
+      padding: 7px 16px;
+      border: 1px solid rgba(212,175,55,0.3);
+      border-radius: 20px;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 5px;
+    }
+    .btn-outline-sm:hover { border-color: var(--gold); color: var(--gold); background: rgba(212,175,55,0.05); }
+
+    /* MAIN */
+    main {
+      position: relative; z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    /* Hero card */
+    .hero-card {
+      background: linear-gradient(135deg, rgba(212,175,55,0.12) 0%, rgba(212,175,55,0.04) 100%);
+      border: 1px solid rgba(212,175,55,0.2);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      display: flex; align-items: center; gap: 28px;
+      margin-bottom: 24px;
+      animation: fadeInUp 0.5s ease both;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .avatar {
+      width: 88px; height: 88px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2em;
+      font-weight: 800;
+      color: #000;
+      flex-shrink: 0;
+      box-shadow: 0 8px 32px rgba(212,175,55,0.3);
+      letter-spacing: -1px;
+    }
+
+    .hero-info {}
+    .hero-info .small-label {
+      font-size: 0.68em;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .hero-info h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6em;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.72em;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .pill-gold { background: rgba(212,175,55,0.15); color: var(--gold); border: 1px solid rgba(212,175,55,0.25); }
+    .pill-grey { background: var(--surface3); color: var(--text-muted); }
+
+    /* Badge promedio */
+    .promedio-section {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 24px;
+      animation: fadeInUp 0.5s ease 0.1s both;
+    }
+    .promedio-circle {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-weight: 800;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .promedio-circle::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      padding: 3px;
+      background: conic-gradient(var(--gold) var(--pct, 0%), rgba(255,255,255,0.07) 0%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+    .promedio-num { font-size: 1.6em; color: var(--gold); line-height: 1; }
+    .promedio-label { font-size: 0.6em; color: var(--text-muted); margin-top: 2px; }
+
+    .badge-box {
+      flex: 1;
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+    }
+    .badge-box .badge-label {
+      font-size: 0.7em; text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--text-muted); font-weight: 600; margin-bottom: 6px;
+    }
+    .badge-box .badge-value { font-size: 1.2em; font-weight: 700; }
+    .badge-excelente { color: #4CAF7D; }
+    .badge-muy-bueno { color: #64B5F6; }
+    .badge-bueno { color: var(--gold); }
+    .badge-regular { color: #FFB74D; }
+    .badge-suficiente { color: #EF5350; }
+
+    /* Info grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+      animation: fadeInUp 0.5s ease 0.2s both;
+    }
+    .info-item {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      transition: all 0.2s;
+    }
+    .info-item:hover { border-color: rgba(212,175,55,0.2); background: var(--surface2); }
+    .info-item .item-label {
+      font-size: 0.68em; text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--text-muted); font-weight: 600; margin-bottom: 6px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .info-item .item-value { font-size: 0.92em; font-weight: 600; }
+
+    /* Section card */
+    .section-card {
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+      animation: fadeInUp 0.5s ease 0.3s both;
+    }
+    .section-header {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .section-icon {
+      width: 36px; height: 36px;
+      background: rgba(212,175,55,0.1);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .section-header h3 { font-size: 0.95em; font-weight: 700; }
+
+    .detail-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.87em;
+    }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-row .dr-label { color: var(--text-muted); font-weight: 500; }
+    .detail-row .dr-value { font-weight: 600; text-align: right; max-width: 60%; }
+
+    /* Ranking position */
+    .ranking-card {
+      background: linear-gradient(135deg, rgba(212,175,55,0.08), rgba(212,175,55,0.02));
+      border: 1px solid rgba(212,175,55,0.15);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      display: flex; align-items: center; gap: 16px;
+      animation: fadeInUp 0.5s ease 0.4s both;
+    }
+    .ranking-emoji { font-size: 2.5em; }
+    .ranking-text {}
+    .ranking-text .rt-label { font-size: 0.7em; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); font-weight: 600; }
+    .ranking-text .rt-pos { font-size: 1.4em; font-weight: 800; color: var(--gold); }
+    .ranking-text .rt-sub { font-size: 0.78em; color: var(--text-muted); margin-top: 2px; }
+
+    @media (max-width: 600px) {
+      .hero-card { flex-direction: column; text-align: center; }
+      .pills { justify-content: center; }
+      .info-grid { grid-template-columns: 1fr; }
+      .promedio-section { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-canvas"></div>
+
+<nav class="topbar">
+  <div class="topbar-brand">
+    <span>🏆</span> Prácticas Curriculares FCF
+  </div>
+  <div class="topbar-actions">
+    <a href="login.html" class="btn-outline-sm" onclick="logout(event)">🚪 Cerrar sesión</a>
+  </div>
+</nav>
+
+<main id="main-content">
+  <p style="color:var(--text-muted); text-align:center; padding:40px;">Cargando perfil...</p>
+</main>
+
+<script src="data.js"></script>
+<script>
+  function logout(e) {
+    sessionStorage.clear();
+  }
+
+  function init() {
+    const tipo = sessionStorage.getItem('usuario_tipo');
+    const dataRaw = sessionStorage.getItem('usuario_data');
+
+    if (tipo !== 'alumno' || !dataRaw) {
+      window.location.href = 'login.html';
+      return;
+    }
+
+    const alumno = JSON.parse(dataRaw);
+    renderPerfil(alumno);
+  }
+
+  function renderPerfil(alumno) {
+    const nombre = toTitleCase(alumno.nombre);
+    const initials = getInitials(alumno.nombre);
+    const badge = getPromedioBadge(alumno.promedio);
+
+    // Encontrar docente completo
+    const docente = DOCENTES.find(d => d.secciones.some(s => s.nrc === alumno.nrc));
+    const seccion = docente ? docente.secciones.find(s => s.nrc === alumno.nrc) : null;
+
+    // Ranking dentro de su sección
+    const compañerosSec = ALUMNOS.filter(a => a.nrc === alumno.nrc).sort((a,b) => b.promedio - a.promedio);
+    const posicionSec = compañerosSec.findIndex(a => a.matricula === alumno.matricula) + 1;
+
+    // Ranking global
+    const todosOrdenados = [...ALUMNOS].sort((a,b) => b.promedio - a.promedio);
+    const posGlobal = todosOrdenados.findIndex(a => a.matricula === alumno.matricula) + 1;
+
+    const diasNombre = seccion ? getNombreDias(seccion.dias) : '—';
+    const horaNombre = seccion ? formatHora(seccion.hora) : '—';
+
+    // Porcentaje para animación del círculo
+    const pct = (alumno.promedio / 10 * 100).toFixed(1);
+
+    // Emoji de posición
+    let rankEmoji = '🏅';
+    if (posGlobal === 1) rankEmoji = '🥇';
+    else if (posGlobal === 2) rankEmoji = '🥈';
+    else if (posGlobal === 3) rankEmoji = '🥉';
+    else if (posGlobal <= 10) rankEmoji = '⭐';
+
+    document.getElementById('main-content').innerHTML = `
+      <!-- Hero -->
+      <div class="hero-card">
+        <div class="avatar">${initials}</div>
+        <div class="hero-info">
+          <p class="small-label">🎓 Alumno Inscrito</p>
+          <h2>${nombre}</h2>
+          <div class="pills">
+            <span class="pill pill-gold">📋 ${alumno.matricula}</span>
+            <span class="pill pill-grey">${alumno.plan}</span>
+            <span class="pill pill-grey">Primavera 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Promedio -->
+      <div class="promedio-section">
+        <div class="promedio-circle" style="--pct:${pct}%">
+          <span class="promedio-num">${alumno.promedio.toFixed(2)}</span>
+          <span class="promedio-label">PROMEDIO</span>
+        </div>
+        <div class="badge-box">
+          <p class="badge-label">Rendimiento</p>
+          <p class="badge-value ${badge.class}">${badge.label}</p>
+          <p style="font-size:0.75em; color:var(--text-muted); margin-top:6px;">
+            ${alumno.promedio >= 9.0 ? '¡Excelente desempeño académico!' : alumno.promedio >= 8.0 ? '¡Buen desempeño académico!' : 'Sigue esforzándote, ¡tú puedes!'}
+          </p>
+        </div>
+      </div>
+
+      <!-- Info grid -->
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="item-label">📚 Materia</div>
+          <div class="item-value">Pract. de la Educ. Fís. II (NMS)</div>
+        </div>
+        <div class="info-item">
+          <div class="item-label">🔑 Clave</div>
+          <div class="item-value">LEFS 201</div>
+        </div>
+        <div class="info-item">
+          <div class="item-label">🏷️ NRC Sección</div>
+          <div class="item-value">${alumno.nrc} · Secc. ${seccion ? seccion.seccion : '—'}</div>
+        </div>
+        <div class="info-item">
+          <div class="item-label">👥 Alumnos en sección</div>
+          <div class="item-value">${compañerosSec.length} inscritos</div>
+        </div>
+        <div class="info-item">
+          <div class="item-label">📅 Días de clase</div>
+          <div class="item-value">${diasNombre}</div>
+        </div>
+        <div class="info-item">
+          <div class="item-label">🕐 Horario</div>
+          <div class="item-value">${horaNombre}</div>
+        </div>
+      </div>
+
+      <!-- Docente -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-icon">👨‍🏫</div>
+          <h3>Información del Docente</h3>
+        </div>
+        <div class="detail-row">
+          <span class="dr-label">Nombre del Docente</span>
+          <span class="dr-value">${docente ? toTitleCase(docente.nombre.replace(' - ', ' ')) : alumno.docente}</span>
+        </div>
+        <div class="detail-row">
+          <span class="dr-label">ID Docente</span>
+          <span class="dr-value">${docente ? docente.id : '—'}</span>
+        </div>
+        <div class="detail-row">
+          <span class="dr-label">Salón</span>
+          <span class="dr-value">${seccion ? seccion.salon : '—'}</span>
+        </div>
+        <div class="detail-row">
+          <span class="dr-label">Materia a impartir</span>
+          <span class="dr-value">Prácticas de la Educación Física II (NMS)</span>
+        </div>
+      </div>
+
+      <!-- Ranking -->
+      <div class="ranking-card">
+        <div class="ranking-emoji">${rankEmoji}</div>
+        <div class="ranking-text">
+          <p class="rt-label">Tu posición en el grupo</p>
+          <p class="rt-pos">#${posicionSec} de ${compañerosSec.length} en tu sección</p>
+          <p class="rt-sub">Posición #${posGlobal} de ${ALUMNOS.length} en el grupo completo · Promedio: ${alumno.promedio.toFixed(2)}</p>
+        </div>
+      </div>
+    `;
+  }
+
+  init();
+</script>
+</body>
+</html>
