@@ -376,6 +376,16 @@
         <div id="preview-sub" style="font-size:.75em;color:var(--text-muted)"></div>
       </div>
       <button class="btn-primary" id="btn-solicitar" onclick="enviarSolicitud()" disabled>Solicitar esta escuela</button>
+      </div> <!-- Cierra selector-normal -->
+
+      <div id="selector-extemporaneo" style="display:none;background:rgba(212,175,55,.05);padding:18px;border-radius:var(--radius-sm);border:1px dashed rgba(212,175,55,.4)">
+        <h4 style="margin-bottom:6px;color:var(--gold);font-size:.95em">Registro de lugar extemporáneo</h4>
+        <p style="font-size:.78em;color:var(--text-muted);margin-bottom:14px;line-height:1.4">Si ya contabas con un lugar asignado desde el inicio del semestre y no necesitas elegir del listado oficial, indícalo aquí.</p>
+        <input type="text" id="ext-nombre" class="school-search" placeholder="Nombre completo de la escuela" style="margin-bottom:10px">
+        <input type="text" id="ext-muni" class="school-search" placeholder="Municipio o Localidad" style="margin-bottom:14px">
+        <button class="btn-primary" onclick="enviarSolicitudExtemporanea()" id="btn-solicitar-ext">Registrar mi lugar de prácticas</button>
+      </div>
+
       <div id="school-alert" class="alert"></div>
     `;
     el.innerHTML = html;
