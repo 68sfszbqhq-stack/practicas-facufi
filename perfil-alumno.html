@@ -493,6 +493,11 @@
         <div id="file-preview-wrap"></div>
         <div class="progress-bar" id="upload-progress-bar" style="display:none"><div class="progress-fill" id="upload-fill" style="width:0%"></div></div>
         <button class="btn-primary" id="btn-upload" onclick="subirPDF()" disabled>Subir documentos a Google Drive</button>
+        <p style="font-size:.75em;color:var(--gold);margin-top:14px;text-align:center;line-height:1.5">
+          ⚠️ <strong>ATENCIÓN:</strong> El archivo deberá nombrarse con el siguiente formato:<br>
+          <em>APELLIDO DEL DOCENTE_NOMBRE COMPLETO DEL ALUMNO_ESCUELA</em><br>
+          <span style="color:var(--text-muted);font-size:.9em">(El sistema lo renombrará automáticamente al subirlo por ti para evitar errores)</span>
+        </p>
       `}
       <div id="docs-alert" class="alert"></div>
     `;
@@ -573,7 +578,7 @@
           matricula: alumnoData.matricula,
           nombre: alumnoData.nombre,
           nrc: alumnoData.nrc,
-          fileName: `${alumnoData.matricula}_${alumnoData.nombre.replace(/\s+/g,'_')}.pdf`,
+          fileName: `${(DOCENTES.find(d=>d.secciones.some(s=>s.nrc===alumnoData.nrc))||{}).primerApellido||'DOCENTE'}_${alumnoData.nombre}_${miSolicitud.escuelaNombre}`.replace(/\s+/g,'_').toUpperCase() + '.pdf',
           fileData: base64
         })
       });
