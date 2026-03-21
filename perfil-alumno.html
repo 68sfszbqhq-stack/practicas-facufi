@@ -4,419 +4,602 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perfil de Alumno – Prácticas Curriculares FCF</title>
-  <meta name="description" content="Perfil del alumno en el sistema de Prácticas Curriculares de la Facultad de Cultura Física BUAP.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --gold: #D4AF37;
-      --gold-dark: #A8882A;
-      --gold-light: #F0D060;
-      --bg: #0D0D0D;
-      --surface: #161616;
-      --surface2: #1F1F1F;
-      --surface3: #2A2A2A;
-      --text: rgba(255,255,255,0.9);
-      --text-muted: rgba(255,255,255,0.5);
-      --radius: 16px;
-      --radius-sm: 10px;
+      --gold: #D4AF37; --gold-dark: #A8882A; --bg: #0D0D0D;
+      --surface: #161616; --surface2: #1F1F1F; --surface3: #2A2A2A;
+      --text: rgba(255,255,255,0.9); --text-muted: rgba(255,255,255,0.5);
+      --radius: 16px; --radius-sm: 10px;
+      --green: #4CAF7D; --orange: #FFB74D; --red: #EF5350; --blue: #64B5F6;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    /* Background */
-    .bg-canvas {
-      position: fixed; inset: 0; z-index: 0;
+    body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    .bg-canvas { position: fixed; inset: 0; z-index: 0;
       background: radial-gradient(ellipse at 15% 20%, rgba(212,175,55,0.07) 0%, transparent 50%),
-                  radial-gradient(ellipse at 85% 80%, rgba(212,175,55,0.04) 0%, transparent 50%),
-                  linear-gradient(135deg, #0a0a0a 0%, #111111 100%);
-    }
-
-    /* TOP BAR */
-    .topbar {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(13,13,13,0.85);
-      backdrop-filter: blur(20px);
+                  linear-gradient(135deg, #0a0a0a 0%, #111 100%); }
+    .topbar { position: sticky; top: 0; z-index: 100;
+      background: rgba(13,13,13,0.85); backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(212,175,55,0.1);
-      padding: 14px 24px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .topbar-brand {
-      display: flex; align-items: center; gap: 10px;
-      font-weight: 700; font-size: 0.88em; color: var(--gold);
-    }
-    .topbar-brand span { font-size: 20px; }
-    .topbar-actions { display: flex; gap: 10px; align-items: center; }
-    .btn-outline-sm {
-      padding: 7px 16px;
-      border: 1px solid rgba(212,175,55,0.3);
-      border-radius: 20px;
-      background: transparent;
-      color: var(--text-muted);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.75em;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-decoration: none;
-      display: inline-flex; align-items: center; gap: 5px;
-    }
-    .btn-outline-sm:hover { border-color: var(--gold); color: var(--gold); background: rgba(212,175,55,0.05); }
-
-    /* MAIN */
-    main {
-      position: relative; z-index: 1;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 32px 20px 60px;
-    }
-
-    /* Hero card */
-    .hero-card {
-      background: linear-gradient(135deg, rgba(212,175,55,0.12) 0%, rgba(212,175,55,0.04) 100%);
-      border: 1px solid rgba(212,175,55,0.2);
-      border-radius: var(--radius);
-      padding: 36px 32px;
-      display: flex; align-items: center; gap: 28px;
-      margin-bottom: 24px;
-      animation: fadeInUp 0.5s ease both;
-    }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .avatar {
-      width: 88px; height: 88px;
-      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2em;
-      font-weight: 800;
-      color: #000;
-      flex-shrink: 0;
-      box-shadow: 0 8px 32px rgba(212,175,55,0.3);
-      letter-spacing: -1px;
-    }
-
-    .hero-info {}
-    .hero-info .small-label {
-      font-size: 0.68em;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--gold);
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .hero-info h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6em;
-      line-height: 1.2;
-      margin-bottom: 10px;
-    }
-    .pills { display: flex; flex-wrap: wrap; gap: 8px; }
-    .pill {
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.72em;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-    .pill-gold { background: rgba(212,175,55,0.15); color: var(--gold); border: 1px solid rgba(212,175,55,0.25); }
-    .pill-grey { background: var(--surface3); color: var(--text-muted); }
-
-    /* Badge promedio */
-    .promedio-section {
-      display: flex; align-items: center; gap: 16px;
-      margin-bottom: 24px;
-      animation: fadeInUp 0.5s ease 0.1s both;
-    }
-    .promedio-circle {
-      width: 100px; height: 100px;
-      border-radius: 50%;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      font-weight: 800;
-      flex-shrink: 0;
-      position: relative;
-    }
-    .promedio-circle::before {
-      content: '';
-      position: absolute; inset: 0;
-      border-radius: 50%;
-      padding: 3px;
-      background: conic-gradient(var(--gold) var(--pct, 0%), rgba(255,255,255,0.07) 0%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-    }
-    .promedio-num { font-size: 1.6em; color: var(--gold); line-height: 1; }
-    .promedio-label { font-size: 0.6em; color: var(--text-muted); margin-top: 2px; }
-
-    .badge-box {
-      flex: 1;
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: var(--radius-sm);
-      padding: 16px 20px;
-    }
-    .badge-box .badge-label {
-      font-size: 0.7em; text-transform: uppercase; letter-spacing: 1.5px;
-      color: var(--text-muted); font-weight: 600; margin-bottom: 6px;
-    }
-    .badge-box .badge-value { font-size: 1.2em; font-weight: 700; }
-    .badge-excelente { color: #4CAF7D; }
-    .badge-muy-bueno { color: #64B5F6; }
-    .badge-bueno { color: var(--gold); }
-    .badge-regular { color: #FFB74D; }
-    .badge-suficiente { color: #EF5350; }
-
-    /* Info grid */
-    .info-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 24px;
-      animation: fadeInUp 0.5s ease 0.2s both;
-    }
-    .info-item {
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: var(--radius-sm);
-      padding: 16px 20px;
-      transition: all 0.2s;
-    }
-    .info-item:hover { border-color: rgba(212,175,55,0.2); background: var(--surface2); }
-    .info-item .item-label {
-      font-size: 0.68em; text-transform: uppercase; letter-spacing: 1.5px;
-      color: var(--text-muted); font-weight: 600; margin-bottom: 6px;
-      display: flex; align-items: center; gap: 6px;
-    }
-    .info-item .item-value { font-size: 0.92em; font-weight: 600; }
-
-    /* Section card */
-    .section-card {
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: var(--radius);
-      padding: 24px;
-      margin-bottom: 20px;
-      animation: fadeInUp 0.5s ease 0.3s both;
-    }
-    .section-header {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 18px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .section-icon {
-      width: 36px; height: 36px;
-      background: rgba(212,175,55,0.1);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
-    }
-    .section-header h3 { font-size: 0.95em; font-weight: 700; }
-
-    .detail-row {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      font-size: 0.87em;
-    }
-    .detail-row:last-child { border-bottom: none; }
-    .detail-row .dr-label { color: var(--text-muted); font-weight: 500; }
-    .detail-row .dr-value { font-weight: 600; text-align: right; max-width: 60%; }
-
-    /* Ranking position */
-    .ranking-card {
-      background: linear-gradient(135deg, rgba(212,175,55,0.08), rgba(212,175,55,0.02));
-      border: 1px solid rgba(212,175,55,0.15);
-      border-radius: var(--radius);
-      padding: 20px 24px;
-      display: flex; align-items: center; gap: 16px;
-      animation: fadeInUp 0.5s ease 0.4s both;
-    }
-    .ranking-emoji { font-size: 2.5em; }
-    .ranking-text {}
-    .ranking-text .rt-label { font-size: 0.7em; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); font-weight: 600; }
-    .ranking-text .rt-pos { font-size: 1.4em; font-weight: 800; color: var(--gold); }
-    .ranking-text .rt-sub { font-size: 0.78em; color: var(--text-muted); margin-top: 2px; }
-
-    @media (max-width: 600px) {
-      .hero-card { flex-direction: column; text-align: center; }
-      .pills { justify-content: center; }
-      .info-grid { grid-template-columns: 1fr; }
-      .promedio-section { flex-direction: column; }
-    }
+      padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar-brand { display: flex; align-items: center; gap:10px; font-weight:700; font-size:.88em; color:var(--gold); }
+    .btn-sm { padding:7px 16px; border:1px solid rgba(212,175,55,0.3); border-radius:20px;
+      background:transparent; color:var(--text-muted); font-family:'Montserrat',sans-serif;
+      font-size:.75em; font-weight:600; cursor:pointer; transition:all .2s; text-decoration:none;
+      display:inline-flex; align-items:center; gap:5px; }
+    .btn-sm:hover { border-color:var(--gold); color:var(--gold); background:rgba(212,175,55,.05); }
+    main { position:relative; z-index:1; max-width:800px; margin:0 auto; padding:32px 20px 60px; }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+    /* Hero */
+    .hero-card { background:linear-gradient(135deg,rgba(212,175,55,.12),rgba(212,175,55,.04));
+      border:1px solid rgba(212,175,55,.2); border-radius:var(--radius);
+      padding:28px 28px; display:flex; align-items:center; gap:24px;
+      margin-bottom:20px; animation:fadeInUp .5s ease both; }
+    .avatar { width:76px; height:76px; background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+      border-radius:50%; display:flex; align-items:center; justify-content:center;
+      font-size:1.8em; font-weight:800; color:#000; flex-shrink:0;
+      box-shadow:0 8px 32px rgba(212,175,55,.3); }
+    .hero-info .small-label { font-size:.65em; text-transform:uppercase; letter-spacing:2px; color:var(--gold); font-weight:700; margin-bottom:4px; }
+    .hero-info h2 { font-family:'Playfair Display',serif; font-size:1.4em; margin-bottom:8px; }
+    .pills { display:flex; flex-wrap:wrap; gap:6px; }
+    .pill { padding:4px 12px; border-radius:20px; font-size:.7em; font-weight:600; }
+    .pill-gold { background:rgba(212,175,55,.15); color:var(--gold); border:1px solid rgba(212,175,55,.25); }
+    .pill-grey { background:var(--surface3); color:var(--text-muted); }
+    /* Promedio + ranking */
+    .top-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; animation:fadeInUp .5s ease .1s both; }
+    .stat-box { background:var(--surface); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius-sm); padding:18px; text-align:center; }
+    .stat-box .snum { font-size:2em; font-weight:800; color:var(--gold); }
+    .stat-box .slabel { font-size:.65em; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); font-weight:600; margin-top:4px; }
+    .stat-box .ssub { font-size:.72em; color:var(--text-muted); margin-top:2px; }
+    /* Section cards */
+    .section-card { background:var(--surface); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:22px; margin-bottom:18px; }
+    .section-header { display:flex; align-items:center; gap:10px; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid rgba(255,255,255,.05); }
+    .sh-icon { width:34px; height:34px; background:rgba(212,175,55,.1); border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:16px; }
+    .section-header h3 { font-size:.92em; font-weight:700; }
+    /* Status banner */
+    .status-banner { border-radius:var(--radius-sm); padding:14px 18px; display:flex; align-items:center; gap:12px; margin-bottom:14px; font-size:.85em; }
+    .status-banner.pendiente { background:rgba(255,183,77,.08); border:1px solid rgba(255,183,77,.25); color:var(--orange); }
+    .status-banner.confirmada { background:rgba(76,175,125,.08); border:1px solid rgba(76,175,125,.25); color:var(--green); }
+    .status-banner.sin-solicitud { background:rgba(100,181,246,.06); border:1px solid rgba(100,181,246,.2); color:var(--blue); }
+    .status-banner .sb-icon { font-size:1.5em; flex-shrink:0; }
+    /* School selector */
+    .school-search { width:100%; padding:11px 14px; background:var(--surface2);
+      border:1px solid rgba(255,255,255,.08); border-radius:var(--radius-sm);
+      color:var(--text); font-family:'Montserrat',sans-serif; font-size:.88em;
+      margin-bottom:12px; transition:all .2s; }
+    .school-search:focus { outline:none; border-color:var(--gold); background:var(--surface3); }
+    .school-search::placeholder { color:var(--text-muted); }
+    .school-list { max-height:280px; overflow-y:auto; border-radius:var(--radius-sm); border:1px solid rgba(255,255,255,.06); }
+    .school-list::-webkit-scrollbar { width:4px; }
+    .school-list::-webkit-scrollbar-track { background:var(--surface2); }
+    .school-list::-webkit-scrollbar-thumb { background:var(--gold-dark); border-radius:2px; }
+    .school-item { padding:12px 16px; border-bottom:1px solid rgba(255,255,255,.04);
+      cursor:pointer; transition:all .15s; display:flex; align-items:center; gap:12px; }
+    .school-item:last-child { border-bottom:none; }
+    .school-item:hover { background:rgba(212,175,55,.06); }
+    .school-item.selected { background:rgba(212,175,55,.12); border-left:3px solid var(--gold); }
+    .school-item.taken { opacity:.45; cursor:not-allowed; }
+    .si-num { width:28px; height:28px; background:var(--surface3); border-radius:7px;
+      display:flex; align-items:center; justify-content:center; font-size:.72em; font-weight:700; color:var(--text-muted); flex-shrink:0; }
+    .school-item.selected .si-num { background:var(--gold); color:#000; }
+    .si-info {}
+    .si-name { font-size:.85em; font-weight:600; }
+    .si-sub { font-size:.72em; color:var(--text-muted); margin-top:2px; }
+    .si-tag { margin-left:auto; flex-shrink:0; }
+    .tag-taken { background:rgba(239,83,80,.1); color:var(--red); border:1px solid rgba(239,83,80,.2); padding:3px 9px; border-radius:10px; font-size:.65em; font-weight:700; }
+    .tag-free { background:rgba(76,175,125,.1); color:var(--green); border:1px solid rgba(76,175,125,.2); padding:3px 9px; border-radius:10px; font-size:.65em; font-weight:700; }
+    /* Priority badge */
+    .priority-badge { display:inline-flex; align-items:center; gap:6px; padding:6px 14px;
+      background:rgba(212,175,55,.1); border:1px solid rgba(212,175,55,.2);
+      border-radius:20px; font-size:.78em; font-weight:700; color:var(--gold); margin-bottom:12px; }
+    /* Buttons */
+    .btn-primary { width:100%; padding:13px; background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+      border:none; border-radius:50px; color:#000; font-family:'Montserrat',sans-serif;
+      font-size:.92em; font-weight:700; cursor:pointer; transition:all .3s; margin-top:6px; }
+    .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(212,175,55,.3); }
+    .btn-primary:disabled { opacity:.5; cursor:not-allowed; transform:none; }
+    .btn-danger { width:100%; padding:11px; background:transparent; border:1px solid rgba(239,83,80,.35);
+      border-radius:50px; color:var(--red); font-family:'Montserrat',sans-serif;
+      font-size:.85em; font-weight:600; cursor:pointer; transition:all .2s; margin-top:8px; }
+    .btn-danger:hover { background:rgba(239,83,80,.08); }
+    /* PDF upload */
+    .upload-zone { border:2px dashed rgba(212,175,55,.25); border-radius:var(--radius-sm);
+      padding:28px; text-align:center; cursor:pointer; transition:all .2s; margin-bottom:12px;
+      background:rgba(212,175,55,.03); }
+    .upload-zone:hover, .upload-zone.dragover { border-color:var(--gold); background:rgba(212,175,55,.08); }
+    .upload-zone .uz-icon { font-size:2em; margin-bottom:8px; }
+    .upload-zone .uz-title { font-size:.88em; font-weight:600; margin-bottom:4px; }
+    .upload-zone .uz-sub { font-size:.72em; color:var(--text-muted); }
+    .file-preview { background:var(--surface2); border:1px solid rgba(212,175,55,.2);
+      border-radius:var(--radius-sm); padding:14px 16px; display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+    .fp-icon { font-size:1.8em; flex-shrink:0; }
+    .fp-name { font-size:.85em; font-weight:600; flex:1; word-break:break-all; }
+    .fp-size { font-size:.72em; color:var(--text-muted); margin-top:2px; }
+    .fp-remove { background:none; border:none; color:var(--red); font-size:1.1em; cursor:pointer; padding:4px; flex-shrink:0; }
+    /* Upload progress */
+    .progress-bar { height:4px; background:var(--surface3); border-radius:2px; margin-bottom:8px; overflow:hidden; }
+    .progress-fill { height:100%; background:linear-gradient(90deg,var(--gold),var(--gold-dark)); border-radius:2px; transition:width .4s; }
+    /* Info rows */
+    .detail-row { display:flex; justify-content:space-between; align-items:center;
+      padding:10px 0; border-bottom:1px solid rgba(255,255,255,.04); font-size:.85em; }
+    .detail-row:last-child { border-bottom:none; }
+    .dr-label { color:var(--text-muted); font-weight:500; }
+    .dr-value { font-weight:600; text-align:right; }
+    /* Alert */
+    .alert { border-radius:var(--radius-sm); padding:12px 16px; font-size:.8em; margin-top:10px; display:none; }
+    .alert.show { display:block; }
+    .alert.success { background:rgba(76,175,125,.1); border:1px solid rgba(76,175,125,.25); color:var(--green); }
+    .alert.error { background:rgba(239,83,80,.1); border:1px solid rgba(239,83,80,.25); color:var(--red); }
+    .alert.info { background:rgba(100,181,246,.08); border:1px solid rgba(100,181,246,.2); color:var(--blue); }
+    @media(max-width:600px) { .hero-card{flex-direction:column;text-align:center} .pills{justify-content:center} .top-row{grid-template-columns:1fr} }
   </style>
 </head>
 <body>
-
 <div class="bg-canvas"></div>
-
 <nav class="topbar">
-  <div class="topbar-brand">
-    <span>🏆</span> Prácticas Curriculares FCF
-  </div>
-  <div class="topbar-actions">
-    <a href="login.html" class="btn-outline-sm" onclick="logout(event)">🚪 Cerrar sesión</a>
-  </div>
+  <div class="topbar-brand"><span>🏆</span> Prácticas Curriculares FCF</div>
+  <a href="login.html" class="btn-sm" onclick="sessionStorage.clear()">🚪 Cerrar sesión</a>
 </nav>
-
 <main id="main-content">
-  <p style="color:var(--text-muted); text-align:center; padding:40px;">Cargando perfil...</p>
+  <p style="color:var(--text-muted);text-align:center;padding:40px">Cargando...</p>
 </main>
+
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+  import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs }
+    from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAHhDJQcaDgojC0qRXQeG3M2y55KgtBaog",
+    authDomain: "sistema-de-practicas-cfbuap.firebaseapp.com",
+    projectId: "sistema-de-practicas-cfbuap",
+    storageBucket: "sistema-de-practicas-cfbuap.firebasestorage.app",
+    messagingSenderId: "802276056298",
+    appId: "1:802276056298:web:9a390b2d13825b66d60b93"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // URL del Google Apps Script para subir PDFs a Drive
+  // INSTRUCCIÓN: Reemplaza esto con tu URL de Apps Script después de desplegarlo
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/TU_SCRIPT_ID_AQUI/exec';
+
+  window._db = db;
+  window._APPS_SCRIPT_URL = APPS_SCRIPT_URL;
+
+  // ─── Obtener solicitudes existentes (escuelas tomadas)
+  async function getSolicitudes() {
+    const snap = await getDocs(collection(db, 'solicitudes_practicas'));
+    const map = {};
+    snap.forEach(d => { map[d.id] = d.data(); });
+    return map;
+  }
+
+  // ─── Obtener solicitud del alumno
+  async function getMiSolicitud(matricula) {
+    const ref = doc(db, 'solicitudes_practicas', matricula);
+    const snap = await getDoc(ref);
+    return snap.exists() ? snap.data() : null;
+  }
+
+  // ─── Guardar solicitud
+  async function guardarSolicitud(matricula, data) {
+    await setDoc(doc(db, 'solicitudes_practicas', matricula), data);
+  }
+
+  // ─── Cancelar solicitud
+  async function cancelarSolicitud(matricula) {
+    await deleteDoc(doc(db, 'solicitudes_practicas', matricula));
+  }
+
+  window._getSolicitudes = getSolicitudes;
+  window._getMiSolicitud = getMiSolicitud;
+  window._guardarSolicitud = guardarSolicitud;
+  window._cancelarSolicitud = cancelarSolicitud;
+
+  // Signal ready
+  window._firebaseReady = true;
+  document.dispatchEvent(new Event('firebase-ready'));
+</script>
 
 <script src="data.js"></script>
 <script>
-  function logout(e) {
-    sessionStorage.clear();
+  let alumnoData = null;
+  let solicitudesGlobales = {};
+  let miSolicitud = null;
+  let selectedSchoolId = null;
+  let selectedFile = null;
+  let rankGlobal = 0;
+
+  // Esperar Firebase
+  function waitFirebase(cb) {
+    if (window._firebaseReady) cb();
+    else document.addEventListener('firebase-ready', cb, {once: true});
   }
 
   function init() {
     const tipo = sessionStorage.getItem('usuario_tipo');
-    const dataRaw = sessionStorage.getItem('usuario_data');
+    const raw = sessionStorage.getItem('usuario_data');
+    if (tipo !== 'alumno' || !raw) { window.location.href = 'login.html'; return; }
+    alumnoData = JSON.parse(raw);
 
-    if (tipo !== 'alumno' || !dataRaw) {
-      window.location.href = 'login.html';
-      return;
-    }
+    // Calcular ranking global
+    const sorted = [...ALUMNOS].sort((a,b) => b.promedio - a.promedio);
+    rankGlobal = sorted.findIndex(a => a.matricula === alumnoData.matricula) + 1;
 
-    const alumno = JSON.parse(dataRaw);
-    renderPerfil(alumno);
+    waitFirebase(async () => {
+      solicitudesGlobales = await window._getSolicitudes();
+      miSolicitud = await window._getMiSolicitud(alumnoData.matricula);
+      renderPerfil();
+    });
   }
 
-  function renderPerfil(alumno) {
-    const nombre = toTitleCase(alumno.nombre);
-    const initials = getInitials(alumno.nombre);
-    const badge = getPromedioBadge(alumno.promedio);
-
-    // Encontrar docente completo
-    const docente = DOCENTES.find(d => d.secciones.some(s => s.nrc === alumno.nrc));
-    const seccion = docente ? docente.secciones.find(s => s.nrc === alumno.nrc) : null;
-
-    // Ranking dentro de su sección
-    const compañerosSec = ALUMNOS.filter(a => a.nrc === alumno.nrc).sort((a,b) => b.promedio - a.promedio);
-    const posicionSec = compañerosSec.findIndex(a => a.matricula === alumno.matricula) + 1;
-
-    // Ranking global
-    const todosOrdenados = [...ALUMNOS].sort((a,b) => b.promedio - a.promedio);
-    const posGlobal = todosOrdenados.findIndex(a => a.matricula === alumno.matricula) + 1;
-
-    const diasNombre = seccion ? getNombreDias(seccion.dias) : '—';
-    const horaNombre = seccion ? formatHora(seccion.hora) : '—';
-
-    // Porcentaje para animación del círculo
-    const pct = (alumno.promedio / 10 * 100).toFixed(1);
-
-    // Emoji de posición
-    let rankEmoji = '🏅';
-    if (posGlobal === 1) rankEmoji = '🥇';
-    else if (posGlobal === 2) rankEmoji = '🥈';
-    else if (posGlobal === 3) rankEmoji = '🥉';
-    else if (posGlobal <= 10) rankEmoji = '⭐';
+  function renderPerfil() {
+    const nombre = toTitleCase(alumnoData.nombre);
+    const initials = getInitials(alumnoData.nombre);
+    const badge = getPromedioBadge(alumnoData.promedio);
+    const docente = DOCENTES.find(d => d.secciones.some(s => s.nrc === alumnoData.nrc));
+    const seccion = docente ? docente.secciones.find(s => s.nrc === alumnoData.nrc) : null;
+    const compSec = ALUMNOS.filter(a => a.nrc === alumnoData.nrc);
+    const posSec = compSec.sort((a,b)=>b.promedio-a.promedio).findIndex(a=>a.matricula===alumnoData.matricula)+1;
 
     document.getElementById('main-content').innerHTML = `
-      <!-- Hero -->
       <div class="hero-card">
         <div class="avatar">${initials}</div>
         <div class="hero-info">
-          <p class="small-label">🎓 Alumno Inscrito</p>
+          <p class="small-label">🎓 Alumno · Primavera 2026</p>
           <h2>${nombre}</h2>
           <div class="pills">
-            <span class="pill pill-gold">📋 ${alumno.matricula}</span>
-            <span class="pill pill-grey">${alumno.plan}</span>
-            <span class="pill pill-grey">Primavera 2026</span>
+            <span class="pill pill-gold">📋 ${alumnoData.matricula}</span>
+            <span class="pill pill-grey">${alumnoData.plan}</span>
           </div>
         </div>
       </div>
 
-      <!-- Promedio -->
-      <div class="promedio-section">
-        <div class="promedio-circle" style="--pct:${pct}%">
-          <span class="promedio-num">${alumno.promedio.toFixed(2)}</span>
-          <span class="promedio-label">PROMEDIO</span>
+      <div class="top-row">
+        <div class="stat-box">
+          <div class="snum" style="color:${alumnoData.promedio>=9?'var(--green)':'var(--gold)'}">${alumnoData.promedio.toFixed(2)}</div>
+          <div class="slabel">Promedio</div>
+          <div class="ssub"><span class="${badge.class}">${badge.label}</span></div>
         </div>
-        <div class="badge-box">
-          <p class="badge-label">Rendimiento</p>
-          <p class="badge-value ${badge.class}">${badge.label}</p>
-          <p style="font-size:0.75em; color:var(--text-muted); margin-top:6px;">
-            ${alumno.promedio >= 9.0 ? '¡Excelente desempeño académico!' : alumno.promedio >= 8.0 ? '¡Buen desempeño académico!' : 'Sigue esforzándote, ¡tú puedes!'}
-          </p>
+        <div class="stat-box">
+          <div class="snum">🥇 #${rankGlobal}</div>
+          <div class="slabel">Prioridad global</div>
+          <div class="ssub">de ${ALUMNOS.length} alumnos</div>
         </div>
       </div>
 
-      <!-- Info grid -->
-      <div class="info-grid">
-        <div class="info-item">
-          <div class="item-label">📚 Materia</div>
-          <div class="item-value">Pract. de la Educ. Fís. II (NMS)</div>
-        </div>
-        <div class="info-item">
-          <div class="item-label">🔑 Clave</div>
-          <div class="item-value">LEFS 201</div>
-        </div>
-        <div class="info-item">
-          <div class="item-label">🏷️ NRC Sección</div>
-          <div class="item-value">${alumno.nrc} · Secc. ${seccion ? seccion.seccion : '—'}</div>
-        </div>
-        <div class="info-item">
-          <div class="item-label">👥 Alumnos en sección</div>
-          <div class="item-value">${compañerosSec.length} inscritos</div>
-        </div>
-        <div class="info-item">
-          <div class="item-label">📅 Días de clase</div>
-          <div class="item-value">${diasNombre}</div>
-        </div>
-        <div class="info-item">
-          <div class="item-label">🕐 Horario</div>
-          <div class="item-value">${horaNombre}</div>
-        </div>
-      </div>
-
-      <!-- Docente -->
-      <div class="section-card">
+      <!-- Datos académicos -->
+      <div class="section-card" style="animation:fadeInUp .5s ease .15s both">
         <div class="section-header">
-          <div class="section-icon">👨‍🏫</div>
-          <h3>Información del Docente</h3>
+          <div class="sh-icon">📚</div>
+          <h3>Datos Académicos</h3>
         </div>
-        <div class="detail-row">
-          <span class="dr-label">Nombre del Docente</span>
-          <span class="dr-value">${docente ? toTitleCase(docente.nombre.replace(' - ', ' ')) : alumno.docente}</span>
-        </div>
-        <div class="detail-row">
-          <span class="dr-label">ID Docente</span>
-          <span class="dr-value">${docente ? docente.id : '—'}</span>
-        </div>
-        <div class="detail-row">
-          <span class="dr-label">Salón</span>
-          <span class="dr-value">${seccion ? seccion.salon : '—'}</span>
-        </div>
-        <div class="detail-row">
-          <span class="dr-label">Materia a impartir</span>
-          <span class="dr-value">Prácticas de la Educación Física II (NMS)</span>
-        </div>
+        <div class="detail-row"><span class="dr-label">Materia</span><span class="dr-value">Práct. Educ. Fís. II (NMS) – LEFS 201</span></div>
+        <div class="detail-row"><span class="dr-label">Sección / NRC</span><span class="dr-value">Secc. ${seccion?seccion.seccion:'—'} · ${alumnoData.nrc}</span></div>
+        <div class="detail-row"><span class="dr-label">Docente</span><span class="dr-value">${docente?toTitleCase(docente.nombre.replace(' - ',' ')):alumnoData.docente}</span></div>
+        <div class="detail-row"><span class="dr-label">Horario</span><span class="dr-value">${seccion?getNombreDias(seccion.dias)+' · '+formatHora(seccion.hora):'—'}</span></div>
+        <div class="detail-row"><span class="dr-label">Posición en sección</span><span class="dr-value">#${posSec} de ${compSec.length}</span></div>
       </div>
 
-      <!-- Ranking -->
-      <div class="ranking-card">
-        <div class="ranking-emoji">${rankEmoji}</div>
-        <div class="ranking-text">
-          <p class="rt-label">Tu posición en el grupo</p>
-          <p class="rt-pos">#${posicionSec} de ${compañerosSec.length} en tu sección</p>
-          <p class="rt-sub">Posición #${posGlobal} de ${ALUMNOS.length} en el grupo completo · Promedio: ${alumno.promedio.toFixed(2)}</p>
+      <!-- Selector de escuela -->
+      <div class="section-card" id="school-section" style="animation:fadeInUp .5s ease .25s both">
+        <div class="section-header">
+          <div class="sh-icon">🏫</div>
+          <h3>Centro de Prácticas</h3>
         </div>
+        <div id="school-content"></div>
+      </div>
+
+      <!-- Documentos -->
+      <div class="section-card" id="docs-section" style="animation:fadeInUp .5s ease .35s both">
+        <div class="section-header">
+          <div class="sh-icon">📄</div>
+          <h3>Documentos Requeridos</h3>
+        </div>
+        <div id="docs-content"></div>
       </div>
     `;
+
+    renderEscuelaSection();
+    renderDocsSection();
   }
+
+  function renderEscuelaSection() {
+    const el = document.getElementById('school-content');
+    if (!el) return;
+
+    if (miSolicitud) {
+      const esc = ESCUELAS.find(e => e.id === miSolicitud.escuelaId);
+      const isConfirmada = miSolicitud.estado === 'confirmada';
+      el.innerHTML = `
+        <div class="status-banner ${isConfirmada?'confirmada':'pendiente'}">
+          <span class="sb-icon">${isConfirmada?'✅':'⏳'}</span>
+          <div>
+            <strong>${isConfirmada?'Asignación confirmada por el docente':'Solicitud enviada – pendiente de confirmación'}</strong>
+            <div style="font-size:.85em;margin-top:3px;opacity:.8">
+              ${isConfirmada?'Tu docente ha confirmado tu escuela de práctica.':'Tu solicitud fue recibida. El docente la revisará próximamente.'}
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--surface2);border-radius:var(--radius-sm);padding:16px;margin-bottom:12px">
+          <div style="font-size:.68em;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);font-weight:700;margin-bottom:8px">Escuela solicitada</div>
+          <div style="font-weight:700;font-size:.95em;margin-bottom:4px">${esc?toTitleCase(esc.nombre):'—'}</div>
+          <div style="font-size:.78em;color:var(--text-muted)">${esc?esc.municipio+' · CCT: '+esc.cct:'—'}</div>
+          <div style="font-size:.75em;color:var(--text-muted);margin-top:4px">📍 ${esc?esc.direccion:'—'}</div>
+        </div>
+        ${!isConfirmada ? `<button class="btn-danger" onclick="cancelarMiSolicitud()">✕ Cancelar solicitud y elegir otra</button>` : ''}
+        <div id="school-alert" class="alert"></div>
+      `;
+      return;
+    }
+
+    // Sin solicitud – mostrar selector
+    const tomadas = new Set(Object.values(solicitudesGlobales).map(s => s.escuelaId));
+    let html = `
+      <div class="status-banner sin-solicitud">
+        <span class="sb-icon">ℹ️</span>
+        <div><strong>Aún no has seleccionado tu escuela</strong>
+        <div style="font-size:.85em;margin-top:2px;opacity:.8">Tu prioridad es <strong>#${rankGlobal}</strong> de ${ALUMNOS.length} alumnos. Las escuelas se asignan por orden de promedio.</div></div>
+      </div>
+      <div class="priority-badge">🏆 Tu turno de elección: #${rankGlobal}</div>
+      <input type="text" class="school-search" placeholder="🔍 Buscar escuela por nombre o municipio..." id="school-search-inp" oninput="filterSchools()">
+      <div class="school-list" id="school-list-el">
+    `;
+    ESCUELAS.forEach(esc => {
+      const isTaken = tomadas.has(esc.id);
+      html += `
+        <div class="school-item${isTaken?' taken':''}" id="si-${esc.id}" onclick="${isTaken?'':'selectSchool('+esc.id+')'}">
+          <div class="si-num">${esc.id}</div>
+          <div class="si-info">
+            <div class="si-name">${toTitleCase(esc.nombre)}</div>
+            <div class="si-sub">${esc.municipio} · ${esc.cct}</div>
+          </div>
+          <div class="si-tag"><span class="${isTaken?'tag-taken':'tag-free'}">${isTaken?'Ocupada':'Disponible'}</span></div>
+        </div>`;
+    });
+    html += `</div>
+      <div id="selected-school-preview" style="display:none;margin-top:14px;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.2);border-radius:var(--radius-sm);padding:14px">
+        <div style="font-size:.68em;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);font-weight:700;margin-bottom:6px">Escuela seleccionada</div>
+        <div id="preview-nombre" style="font-weight:700;font-size:.92em;margin-bottom:3px"></div>
+        <div id="preview-sub" style="font-size:.75em;color:var(--text-muted)"></div>
+      </div>
+      <button class="btn-primary" id="btn-solicitar" onclick="enviarSolicitud()" disabled>Solicitar esta escuela</button>
+      <div id="school-alert" class="alert"></div>
+    `;
+    el.innerHTML = html;
+  }
+
+  function filterSchools() {
+    const q = document.getElementById('school-search-inp').value.toLowerCase();
+    ESCUELAS.forEach(esc => {
+      const el = document.getElementById('si-'+esc.id);
+      if (!el) return;
+      const match = esc.nombre.toLowerCase().includes(q) || esc.municipio.toLowerCase().includes(q);
+      el.style.display = match ? '' : 'none';
+    });
+  }
+
+  function selectSchool(id) {
+    selectedSchoolId = id;
+    const esc = ESCUELAS.find(e => e.id === id);
+    // Update UI
+    document.querySelectorAll('.school-item').forEach(el => el.classList.remove('selected'));
+    const item = document.getElementById('si-'+id);
+    if (item) item.classList.add('selected');
+    // Preview
+    const preview = document.getElementById('selected-school-preview');
+    if (preview) {
+      preview.style.display = '';
+      document.getElementById('preview-nombre').textContent = toTitleCase(esc.nombre);
+      document.getElementById('preview-sub').textContent = esc.municipio + ' · ' + esc.cct + ' · ' + esc.direccion;
+    }
+    const btn = document.getElementById('btn-solicitar');
+    if (btn) btn.disabled = false;
+  }
+
+  async function enviarSolicitud() {
+    if (!selectedSchoolId) return;
+    const btn = document.getElementById('btn-solicitar');
+    btn.textContent = 'Enviando...'; btn.disabled = true;
+    try {
+      const esc = ESCUELAS.find(e => e.id === selectedSchoolId);
+      await window._guardarSolicitud(alumnoData.matricula, {
+        matricula: alumnoData.matricula,
+        nombre: alumnoData.nombre,
+        promedio: alumnoData.promedio,
+        nrc: alumnoData.nrc,
+        rankGlobal,
+        escuelaId: selectedSchoolId,
+        escuelaNombre: esc.nombre,
+        escuelaCCT: esc.cct,
+        escuelaMunicipio: esc.municipio,
+        estado: 'pendiente',
+        pdfUrl: null,
+        fechaSolicitud: new Date().toISOString()
+      });
+      miSolicitud = await window._getMiSolicitud(alumnoData.matricula);
+      solicitudesGlobales = await window._getSolicitudes();
+      renderEscuelaSection();
+      showAlert('school-alert','success','✅ ¡Solicitud enviada! Tu docente la revisará pronto.');
+    } catch(e) {
+      btn.textContent='Solicitar esta escuela'; btn.disabled=false;
+      showAlert('school-alert','error','Error al enviar la solicitud. Intenta de nuevo.');
+    }
+  }
+
+  async function cancelarMiSolicitud() {
+    if (!confirm('¿Seguro que deseas cancelar tu solicitud y elegir otra escuela?')) return;
+    try {
+      await window._cancelarSolicitud(alumnoData.matricula);
+      miSolicitud = null;
+      solicitudesGlobales = await window._getSolicitudes();
+      renderEscuelaSection();
+    } catch(e) { alert('Error al cancelar. Intenta de nuevo.'); }
+  }
+
+  // ─── DOCS SECTION ─────────────────────────────────────
+  function renderDocsSection() {
+    const el = document.getElementById('docs-content');
+    if (!el) return;
+    const tienePDF = miSolicitud && miSolicitud.pdfUrl;
+    el.innerHTML = `
+      <p style="font-size:.82em;color:var(--text-muted);margin-bottom:14px;line-height:1.6">
+        Sube un <strong style="color:var(--text)">PDF único (máx. 1 MB)</strong> con todos los documentos firmados requeridos para realizar tus prácticas curriculares.
+      </p>
+      ${tienePDF ? `
+        <div class="status-banner confirmada" style="margin-bottom:12px">
+          <span class="sb-icon">📎</span>
+          <div><strong>Documento subido correctamente</strong>
+          <div style="font-size:.82em;margin-top:3px"><a href="${miSolicitud.pdfUrl}" target="_blank" style="color:var(--green)">Ver PDF en Google Drive →</a></div></div>
+        </div>
+        <button class="btn-danger" onclick="renderDocsSection()" style="width:auto;padding:8px 20px;font-size:.78em">Reemplazar documento</button>
+      ` : `
+        <div class="upload-zone" id="upload-zone" onclick="document.getElementById('pdf-input').click()"
+             ondragover="event.preventDefault();this.classList.add('dragover')"
+             ondragleave="this.classList.remove('dragover')"
+             ondrop="handleDrop(event)">
+          <div class="uz-icon">📤</div>
+          <div class="uz-title">Haz clic o arrastra tu PDF aquí</div>
+          <div class="uz-sub">Solo PDF · Máximo 1 MB</div>
+        </div>
+        <input type="file" id="pdf-input" accept=".pdf" style="display:none" onchange="handleFileSelect(event)">
+        <div id="file-preview-wrap"></div>
+        <div class="progress-bar" id="upload-progress-bar" style="display:none"><div class="progress-fill" id="upload-fill" style="width:0%"></div></div>
+        <button class="btn-primary" id="btn-upload" onclick="subirPDF()" disabled>Subir documentos a Google Drive</button>
+      `}
+      <div id="docs-alert" class="alert"></div>
+    `;
+  }
+
+  function handleDrop(e) {
+    e.preventDefault();
+    document.getElementById('upload-zone').classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (file) processFile(file);
+  }
+
+  function handleFileSelect(e) {
+    const file = e.target.files[0];
+    if (file) processFile(file);
+  }
+
+  function processFile(file) {
+    if (file.type !== 'application/pdf') {
+      showAlert('docs-alert','error','⚠️ Solo se aceptan archivos PDF.');
+      return;
+    }
+    if (file.size > 1024 * 1024) {
+      showAlert('docs-alert','error','⚠️ El archivo excede 1 MB. Comprime el PDF antes de subirlo.');
+      return;
+    }
+    selectedFile = file;
+    const sizeMB = (file.size / 1024 / 1024).toFixed(2);
+    const pw = document.getElementById('file-preview-wrap');
+    if (pw) pw.innerHTML = `
+      <div class="file-preview">
+        <span class="fp-icon">📄</span>
+        <div>
+          <div class="fp-name">${file.name}</div>
+          <div class="fp-size">${sizeMB} MB · PDF</div>
+        </div>
+        <button class="fp-remove" onclick="removeFile()" title="Quitar">✕</button>
+      </div>`;
+    const btn = document.getElementById('btn-upload');
+    if (btn) btn.disabled = false;
+  }
+
+  function removeFile() {
+    selectedFile = null;
+    const pw = document.getElementById('file-preview-wrap');
+    if (pw) pw.innerHTML = '';
+    const btn = document.getElementById('btn-upload');
+    if (btn) btn.disabled = true;
+    const inp = document.getElementById('pdf-input');
+    if (inp) inp.value = '';
+  }
+
+  async function subirPDF() {
+    if (!selectedFile) return;
+    if (!miSolicitud) {
+      showAlert('docs-alert','info','ℹ️ Primero selecciona una escuela y envía tu solicitud.');
+      return;
+    }
+
+    const btn = document.getElementById('btn-upload');
+    btn.textContent = 'Subiendo...'; btn.disabled = true;
+
+    const bar = document.getElementById('upload-progress-bar');
+    const fill = document.getElementById('upload-fill');
+    if (bar) bar.style.display = '';
+    if (fill) fill.style.width = '30%';
+
+    try {
+      // Convertir PDF a base64
+      const base64 = await fileToBase64(selectedFile);
+      if (fill) fill.style.width = '60%';
+
+      // Enviar a Google Apps Script
+      const resp = await fetch(window._APPS_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          matricula: alumnoData.matricula,
+          nombre: alumnoData.nombre,
+          nrc: alumnoData.nrc,
+          fileName: `${alumnoData.matricula}_${alumnoData.nombre.replace(/\s+/g,'_')}.pdf`,
+          fileData: base64
+        })
+      });
+      if (fill) fill.style.width = '85%';
+      const result = await resp.json();
+
+      if (result.url) {
+        // Guardar URL en Firestore
+        await window._guardarSolicitud(alumnoData.matricula, { ...miSolicitud, pdfUrl: result.url, fechaPDF: new Date().toISOString() });
+        miSolicitud = await window._getMiSolicitud(alumnoData.matricula);
+        if (fill) fill.style.width = '100%';
+        setTimeout(() => { renderDocsSection(); showAlert('docs-alert','success','✅ Documento subido correctamente a Google Drive.'); }, 400);
+      } else {
+        throw new Error(result.error || 'Error desconocido');
+      }
+    } catch(err) {
+      if (bar) bar.style.display = 'none';
+      btn.textContent = 'Subir documentos a Google Drive'; btn.disabled = false;
+      showAlert('docs-alert','error','❌ Error al subir el PDF. Verifica tu conexión e intenta de nuevo. (' + err.message + ')');
+    }
+  }
+
+  function fileToBase64(file) {
+    return new Promise((res, rej) => {
+      const reader = new FileReader();
+      reader.onload = () => res(reader.result.split(',')[1]);
+      reader.onerror = rej;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function showAlert(id, type, msg) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.className = 'alert show ' + type;
+    el.textContent = msg;
+    setTimeout(() => el.classList.remove('show'), 6000);
+  }
+
+  // Expose globals
+  window.selectSchool = selectSchool;
+  window.filterSchools = filterSchools;
+  window.enviarSolicitud = enviarSolicitud;
+  window.cancelarMiSolicitud = cancelarMiSolicitud;
+  window.handleDrop = handleDrop;
+  window.handleFileSelect = handleFileSelect;
+  window.removeFile = removeFile;
+  window.subirPDF = subirPDF;
+  window.renderDocsSection = renderDocsSection;
 
   init();
 </script>

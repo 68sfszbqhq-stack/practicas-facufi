@@ -4,309 +4,207 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perfil de Docente – Prácticas Curriculares FCF</title>
-  <meta name="description" content="Perfil del docente en el sistema de Prácticas Curriculares de la Facultad de Cultura Física BUAP.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --gold: #D4AF37;
-      --gold-dark: #A8882A;
-      --gold-light: #F0D060;
-      --bg: #0D0D0D;
-      --surface: #161616;
-      --surface2: #1F1F1F;
-      --surface3: #2A2A2A;
-      --text: rgba(255,255,255,0.9);
-      --text-muted: rgba(255,255,255,0.5);
-      --radius: 16px;
-      --radius-sm: 10px;
+      --gold:#D4AF37; --gold-dark:#A8882A; --bg:#0D0D0D;
+      --surface:#161616; --surface2:#1F1F1F; --surface3:#2A2A2A;
+      --text:rgba(255,255,255,.9); --text-muted:rgba(255,255,255,.5);
+      --radius:16px; --radius-sm:10px;
+      --green:#4CAF7D; --orange:#FFB74D; --red:#EF5350; --blue:#64B5F6;
     }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    .bg-canvas {
-      position: fixed; inset: 0; z-index: 0;
-      background: radial-gradient(ellipse at 85% 15%, rgba(212,175,55,0.07) 0%, transparent 50%),
-                  radial-gradient(ellipse at 15% 85%, rgba(212,175,55,0.04) 0%, transparent 50%),
-                  linear-gradient(135deg, #0a0a0a 0%, #111111 100%);
-    }
-
-    /* TOP BAR */
-    .topbar {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(13,13,13,0.85);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(212,175,55,0.1);
-      padding: 14px 24px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .topbar-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.88em; color: var(--gold); }
-    .topbar-brand span { font-size: 20px; }
-    .btn-outline-sm {
-      padding: 7px 16px;
-      border: 1px solid rgba(212,175,55,0.3);
-      border-radius: 20px;
-      background: transparent;
-      color: var(--text-muted);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.75em;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-decoration: none;
-      display: inline-flex; align-items: center; gap: 5px;
-    }
-    .btn-outline-sm:hover { border-color: var(--gold); color: var(--gold); background: rgba(212,175,55,0.05); }
-
-    main {
-      position: relative; z-index: 1;
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 32px 20px 60px;
-    }
-
-    /* Animations */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+    .bg-canvas{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse at 85% 15%,rgba(212,175,55,.07) 0%,transparent 50%),linear-gradient(135deg,#0a0a0a 0%,#111 100%)}
+    .topbar{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,175,55,.1);padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+    .topbar-brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:.88em;color:var(--gold)}
+    .btn-sm{padding:7px 16px;border:1px solid rgba(212,175,55,.3);border-radius:20px;background:transparent;color:var(--text-muted);font-family:'Montserrat',sans-serif;font-size:.75em;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+    .btn-sm:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,175,55,.05)}
+    main{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:32px 20px 60px}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
     /* Hero */
-    .hero-card {
-      background: linear-gradient(135deg, rgba(212,175,55,0.12) 0%, rgba(212,175,55,0.04) 100%);
-      border: 1px solid rgba(212,175,55,0.2);
-      border-radius: var(--radius);
-      padding: 36px 32px;
-      display: flex; align-items: center; gap: 28px;
-      margin-bottom: 24px;
-      animation: fadeInUp 0.5s ease both;
-    }
-    .avatar-docente {
-      width: 96px; height: 96px;
-      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2.2em;
-      font-weight: 800;
-      color: #000;
-      flex-shrink: 0;
-      box-shadow: 0 8px 32px rgba(212,175,55,0.35);
-      letter-spacing: -1px;
-    }
-    .hero-info .small-label { font-size: 0.68em; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); font-weight: 700; margin-bottom: 6px; }
-    .hero-info h2 { font-family: 'Playfair Display', serif; font-size: 1.6em; line-height: 1.2; margin-bottom: 10px; }
-    .pills { display: flex; flex-wrap: wrap; gap: 8px; }
-    .pill { padding: 5px 14px; border-radius: 20px; font-size: 0.72em; font-weight: 600; letter-spacing: 0.5px; }
-    .pill-gold { background: rgba(212,175,55,0.15); color: var(--gold); border: 1px solid rgba(212,175,55,0.25); }
-    .pill-grey { background: var(--surface3); color: var(--text-muted); }
-    .pill-blue { background: rgba(100,181,246,0.1); color: #64B5F6; border: 1px solid rgba(100,181,246,0.2); }
-
-    /* Stats bar */
-    .stats-bar {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 24px;
-      animation: fadeInUp 0.5s ease 0.1s both;
-    }
-    .stat-card {
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: var(--radius-sm);
-      padding: 20px;
-      text-align: center;
-      transition: all 0.2s;
-    }
-    .stat-card:hover { border-color: rgba(212,175,55,0.2); background: var(--surface2); transform: translateY(-2px); }
-    .stat-num { font-size: 2em; font-weight: 800; color: var(--gold); line-height: 1; }
-    .stat-label { font-size: 0.7em; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); font-weight: 600; margin-top: 6px; }
-
+    .hero-card{background:linear-gradient(135deg,rgba(212,175,55,.12),rgba(212,175,55,.04));border:1px solid rgba(212,175,55,.2);border-radius:var(--radius);padding:28px;display:flex;align-items:center;gap:24px;margin-bottom:20px;animation:fadeInUp .5s ease both}
+    .avatar{width:84px;height:84px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2em;font-weight:800;color:#000;flex-shrink:0;box-shadow:0 8px 32px rgba(212,175,55,.3)}
+    .hero-info .small-label{font-size:.65em;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:4px}
+    .hero-info h2{font-family:'Playfair Display',serif;font-size:1.4em;margin-bottom:8px}
+    .pills{display:flex;flex-wrap:wrap;gap:6px}
+    .pill{padding:4px 12px;border-radius:20px;font-size:.7em;font-weight:600}
+    .pill-gold{background:rgba(212,175,55,.15);color:var(--gold);border:1px solid rgba(212,175,55,.25)}
+    .pill-grey{background:var(--surface3);color:var(--text-muted)}
+    .pill-blue{background:rgba(100,181,246,.1);color:var(--blue);border:1px solid rgba(100,181,246,.2)}
+    /* Stats */
+    .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;animation:fadeInUp .5s ease .1s both}
+    .stat-card{background:var(--surface);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-sm);padding:16px;text-align:center;transition:all .2s}
+    .stat-card:hover{border-color:rgba(212,175,55,.2);transform:translateY(-2px)}
+    .stat-num{font-size:1.8em;font-weight:800;color:var(--gold);line-height:1}
+    .stat-label{font-size:.65em;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);font-weight:600;margin-top:5px}
+    /* Tabs */
+    .tab-bar{display:flex;gap:3px;background:var(--surface2);border-radius:var(--radius-sm);padding:5px;margin-bottom:20px;animation:fadeInUp .5s ease .15s both}
+    .tab-btn{flex:1;padding:9px;border-radius:8px;border:none;background:transparent;color:var(--text-muted);font-family:'Montserrat',sans-serif;font-size:.78em;font-weight:600;cursor:pointer;transition:all .2s}
+    .tab-btn.active{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#000}
     /* Section card */
-    .section-card {
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: var(--radius);
-      padding: 24px;
-      margin-bottom: 20px;
-    }
-    .section-card:nth-child(3) { animation: fadeInUp 0.5s ease 0.2s both; }
-    .section-card:nth-child(4) { animation: fadeInUp 0.5s ease 0.3s both; }
-    .section-card:nth-child(5) { animation: fadeInUp 0.5s ease 0.4s both; }
-    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-    .section-icon { width: 36px; height: 36px; background: rgba(212,175,55,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
-    .section-header h3 { font-size: 0.95em; font-weight: 700; }
-    .section-header .counter { margin-left: auto; font-size: 0.75em; color: var(--text-muted); font-weight: 500; }
-
-    /* Sección row */
-    .seccion-row {
-      background: var(--surface2);
-      border-radius: var(--radius-sm);
-      padding: 16px;
-      margin-bottom: 10px;
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 16px;
-      align-items: center;
-      transition: all 0.2s;
-    }
-    .seccion-row:hover { background: var(--surface3); border: 1px solid rgba(212,175,55,0.1); }
-    .seccion-row:last-child { margin-bottom: 0; }
-    .seccion-nrc {
-      background: rgba(212,175,55,0.15);
-      border-radius: 8px;
-      padding: 8px 14px;
-      font-weight: 800;
-      font-size: 0.82em;
-      color: var(--gold);
-      text-align: center;
-      min-width: 70px;
-    }
-    .seccion-nrc small { display: block; font-size: 0.7em; font-weight: 500; color: var(--text-muted); }
-    .seccion-info {}
-    .seccion-info .si-title { font-weight: 700; font-size: 0.88em; margin-bottom: 4px; }
-    .seccion-info .si-sub { font-size: 0.75em; color: var(--text-muted); }
-    .seccion-badge {
-      text-align: right;
-      font-size: 0.75em;
-      color: var(--text-muted);
-    }
-    .seccion-badge strong { display: block; font-size: 1.4em; color: var(--text); font-weight: 700; }
-
-    /* Alumnos table */
-    .table-wrap { overflow-x: auto; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.83em;
-    }
-    thead tr { border-bottom: 1px solid rgba(212,175,55,0.2); }
-    thead th {
-      text-align: left;
-      padding: 10px 12px;
-      font-size: 0.72em;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--gold);
-      font-weight: 700;
-    }
-    tbody tr {
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      transition: background 0.15s;
-    }
-    tbody tr:hover { background: rgba(255,255,255,0.03); }
-    tbody td { padding: 10px 12px; vertical-align: middle; }
-    .td-rank { color: var(--text-muted); font-size: 0.8em; font-weight: 600; }
-    .td-nombre { font-weight: 600; }
-    .td-mat { color: var(--text-muted); font-size: 0.88em; font-family: monospace; }
-    .td-prom {
-      font-weight: 700; font-size: 0.95em;
-    }
-    .td-badge span {
-      padding: 3px 10px;
-      border-radius: 12px;
-      font-size: 0.75em;
-      font-weight: 600;
-    }
-    .badge-excelente { background: rgba(76,175,125,0.15); color: #4CAF7D; }
-    .badge-muy-bueno { background: rgba(100,181,246,0.15); color: #64B5F6; }
-    .badge-bueno { background: rgba(212,175,55,0.15); color: var(--gold); }
-    .badge-regular { background: rgba(255,183,77,0.15); color: #FFB74D; }
-    .badge-suficiente { background: rgba(239,83,80,0.15); color: #EF5350; }
-
+    .section-card{background:var(--surface);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:22px;margin-bottom:18px}
+    .section-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.05)}
+    .sh-icon{width:34px;height:34px;background:rgba(212,175,55,.1);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px}
+    .section-header h3{font-size:.92em;font-weight:700}
+    .section-header .counter{margin-left:auto;font-size:.72em;color:var(--text-muted)}
+    /* Search */
+    .search-inp{width:100%;padding:11px 14px;background:var(--surface2);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius-sm);color:var(--text);font-family:'Montserrat',sans-serif;font-size:.88em;margin-bottom:14px;transition:all .2s}
+    .search-inp:focus{outline:none;border-color:var(--gold);background:var(--surface3)}
+    .search-inp::placeholder{color:var(--text-muted)}
     /* Filter tabs */
-    .filter-tabs {
-      display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;
-    }
-    .filter-btn {
-      padding: 6px 14px;
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: transparent;
-      color: var(--text-muted);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.75em;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .filter-btn.active, .filter-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(212,175,55,0.08); }
-
-    .search-input {
-      width: 100%;
-      padding: 10px 14px;
-      background: var(--surface2);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: var(--radius-sm);
-      color: var(--text);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 0.85em;
-      margin-bottom: 14px;
-      transition: all 0.2s;
-    }
-    .search-input:focus { outline: none; border-color: var(--gold); background: var(--surface3); }
-    .search-input::placeholder { color: var(--text-muted); }
-
-    .empty-state {
-      text-align: center;
-      padding: 30px;
-      color: var(--text-muted);
-      font-size: 0.85em;
-    }
-
-    @media (max-width: 600px) {
-      .hero-card { flex-direction: column; text-align: center; }
-      .pills { justify-content: center; }
-      .stats-bar { grid-template-columns: 1fr 1fr; }
-      .seccion-row { grid-template-columns: 1fr; }
-    }
+    .filter-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+    .filter-btn{padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.1);background:transparent;color:var(--text-muted);font-family:'Montserrat',sans-serif;font-size:.72em;font-weight:600;cursor:pointer;transition:all .2s}
+    .filter-btn.active,.filter-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,175,55,.08)}
+    /* Alumno card in docente view */
+    .alumno-row{background:var(--surface2);border-radius:var(--radius-sm);padding:16px;margin-bottom:10px;transition:all .2s;border:1px solid transparent}
+    .alumno-row:hover{border-color:rgba(212,175,55,.15);background:var(--surface3)}
+    .alumno-row-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+    .alu-avatar{width:38px;height:38px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.82em;font-weight:800;color:#000;flex-shrink:0}
+    .alu-meta{}
+    .alu-nombre{font-weight:700;font-size:.88em}
+    .alu-sub{font-size:.72em;color:var(--text-muted)}
+    .alu-badges{margin-left:auto;display:flex;gap:6px;align-items:center}
+    .prom-chip{padding:4px 10px;border-radius:10px;font-size:.72em;font-weight:700}
+    .alu-school-info{background:var(--surface);border-radius:8px;padding:12px;margin-bottom:10px}
+    .asi-label{font-size:.62em;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);font-weight:700;margin-bottom:4px}
+    .asi-name{font-size:.85em;font-weight:700;margin-bottom:2px}
+    .asi-sub{font-size:.72em;color:var(--text-muted)}
+    .alu-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .btn-confirm{padding:8px 18px;background:rgba(76,175,125,.15);border:1px solid rgba(76,175,125,.3);border-radius:20px;color:var(--green);font-family:'Montserrat',sans-serif;font-size:.75em;font-weight:700;cursor:pointer;transition:all .2s}
+    .btn-confirm:hover{background:rgba(76,175,125,.25)}
+    .btn-confirm:disabled{opacity:.4;cursor:not-allowed}
+    .btn-change{padding:8px 18px;background:rgba(255,183,77,.1);border:1px solid rgba(255,183,77,.25);border-radius:20px;color:var(--orange);font-family:'Montserrat',sans-serif;font-size:.75em;font-weight:700;cursor:pointer;transition:all .2s}
+    .btn-change:hover{background:rgba(255,183,77,.2)}
+    .btn-pdf{padding:8px 18px;background:rgba(100,181,246,.1);border:1px solid rgba(100,181,246,.2);border-radius:20px;color:var(--blue);font-family:'Montserrat',sans-serif;font-size:.75em;font-weight:700;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+    .btn-pdf:hover{background:rgba(100,181,246,.2)}
+    /* Status chips */
+    .chip{padding:4px 10px;border-radius:10px;font-size:.68em;font-weight:700}
+    .chip-pendiente{background:rgba(255,183,77,.12);color:var(--orange)}
+    .chip-confirmada{background:rgba(76,175,125,.12);color:var(--green)}
+    .chip-sin{background:var(--surface3);color:var(--text-muted)}
+    /* Modal */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:1000;display:none;align-items:center;justify-content:center}
+    .modal-overlay.show{display:flex}
+    .modal-box{background:var(--surface);border:1px solid rgba(212,175,55,.2);border-radius:var(--radius);padding:28px;max-width:500px;width:90%;animation:fadeInUp .3s ease}
+    .modal-title{font-family:'Playfair Display',serif;font-size:1.2em;color:var(--gold);margin-bottom:4px}
+    .modal-sub{font-size:.8em;color:var(--text-muted);margin-bottom:18px}
+    .modal-search{width:100%;padding:11px 14px;background:var(--surface2);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius-sm);color:var(--text);font-family:'Montserrat',sans-serif;font-size:.88em;margin-bottom:10px;transition:all .2s}
+    .modal-search:focus{outline:none;border-color:var(--gold)}
+    .modal-school-list{max-height:240px;overflow-y:auto;border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-sm)}
+    .msl-item{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:background .15s;font-size:.83em}
+    .msl-item:hover{background:rgba(212,175,55,.08)}
+    .msl-item:last-child{border-bottom:none}
+    .msl-item.selected{background:rgba(212,175,55,.12);font-weight:700}
+    .modal-actions{display:flex;gap:10px;margin-top:16px}
+    .modal-btn-ok{flex:1;padding:11px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border:none;border-radius:50px;color:#000;font-family:'Montserrat',sans-serif;font-size:.88em;font-weight:700;cursor:pointer}
+    .modal-btn-cancel{padding:11px 20px;background:transparent;border:1px solid rgba(255,255,255,.15);border-radius:50px;color:var(--text-muted);font-family:'Montserrat',sans-serif;font-size:.88em;cursor:pointer}
+    /* Empty state */
+    .empty-state{text-align:center;padding:30px;color:var(--text-muted);font-size:.85em}
+    /* Table */
+    .table-wrap{overflow-x:auto}
+    table{width:100%;border-collapse:collapse;font-size:.82em}
+    thead tr{border-bottom:1px solid rgba(212,175,55,.2)}
+    thead th{text-align:left;padding:10px 12px;font-size:.68em;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);font-weight:700}
+    tbody tr{border-bottom:1px solid rgba(255,255,255,.04);transition:background .15s}
+    tbody tr:hover{background:rgba(255,255,255,.02)}
+    tbody td{padding:10px 12px;vertical-align:middle}
+    .badge-excelente{background:rgba(76,175,125,.15);color:var(--green);padding:3px 9px;border-radius:10px;font-size:.72em;font-weight:700}
+    .badge-muy-bueno{background:rgba(100,181,246,.15);color:var(--blue);padding:3px 9px;border-radius:10px;font-size:.72em;font-weight:700}
+    .badge-bueno{background:rgba(212,175,55,.15);color:var(--gold);padding:3px 9px;border-radius:10px;font-size:.72em;font-weight:700}
+    .badge-regular{background:rgba(255,183,77,.15);color:var(--orange);padding:3px 9px;border-radius:10px;font-size:.72em;font-weight:700}
+    .badge-suficiente{background:rgba(239,83,80,.15);color:var(--red);padding:3px 9px;border-radius:10px;font-size:.72em;font-weight:700}
+    @media(max-width:700px){.hero-card{flex-direction:column;text-align:center}.pills{justify-content:center}.stats-bar{grid-template-columns:1fr 1fr}}
   </style>
 </head>
 <body>
-
 <div class="bg-canvas"></div>
-
 <nav class="topbar">
-  <div class="topbar-brand">
-    <span>🏆</span> Prácticas Curriculares FCF
-  </div>
-  <div class="topbar-actions">
-    <a href="login.html" class="btn-outline-sm" onclick="sessionStorage.clear()">🚪 Cerrar sesión</a>
-  </div>
+  <div class="topbar-brand"><span>🏆</span> Prácticas Curriculares FCF</div>
+  <a href="login.html" class="btn-sm" onclick="sessionStorage.clear()">🚪 Cerrar sesión</a>
 </nav>
 
 <main id="main-content">
-  <p style="color:var(--text-muted); text-align:center; padding:40px;">Cargando perfil...</p>
+  <p style="color:var(--text-muted);text-align:center;padding:40px">Cargando...</p>
 </main>
+
+<!-- Modal reasignación -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box">
+    <p class="modal-title" id="modal-title">Reasignar escuela</p>
+    <p class="modal-sub" id="modal-sub"></p>
+    <input type="text" class="modal-search" id="modal-search" placeholder="🔍 Buscar escuela..." oninput="filterModalSchools()">
+    <div class="modal-school-list" id="modal-school-list"></div>
+    <div class="modal-actions">
+      <button class="modal-btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="modal-btn-ok" id="modal-btn-ok" onclick="confirmarReasignacion()" disabled>Asignar esta escuela</button>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+  import { getFirestore, collection, getDocs, doc, setDoc, updateDoc }
+    from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAHhDJQcaDgojC0qRXQeG3M2y55KgtBaog",
+    authDomain: "sistema-de-practicas-cfbuap.firebaseapp.com",
+    projectId: "sistema-de-practicas-cfbuap",
+    storageBucket: "sistema-de-practicas-cfbuap.firebasestorage.app",
+    messagingSenderId: "802276056298",
+    appId: "1:802276056298:web:9a390b2d13825b66d60b93"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  async function getSolicitudes() {
+    const snap = await getDocs(collection(db, 'solicitudes_practicas'));
+    const arr = [];
+    snap.forEach(d => arr.push({ id: d.id, ...d.data() }));
+    return arr;
+  }
+
+  async function updateSolicitud(matricula, data) {
+    await updateDoc(doc(db, 'solicitudes_practicas', matricula), data);
+  }
+
+  window._db = db;
+  window._getSolicitudes = getSolicitudes;
+  window._updateSolicitud = updateSolicitud;
+  window._firebaseReady = true;
+  document.dispatchEvent(new Event('firebase-ready'));
+</script>
 
 <script src="data.js"></script>
 <script>
   let docenteData = null;
-  let alumnosPorSeccion = {};
-  let nrcActivo = 'todos';
+  let todasSolicitudes = [];
+  let activeTab = 'solicitudes';
+  let nrcFiltro = 'todos';
+  let modalMatricula = null;
+  let modalEscuelaId = null;
+
+  function waitFirebase(cb) {
+    if (window._firebaseReady) cb();
+    else document.addEventListener('firebase-ready', cb, { once: true });
+  }
 
   function init() {
     const tipo = sessionStorage.getItem('usuario_tipo');
-    const dataRaw = sessionStorage.getItem('usuario_data');
-
-    if (tipo !== 'docente' || !dataRaw) {
-      window.location.href = 'login.html';
-      return;
-    }
-
-    docenteData = JSON.parse(dataRaw);
-
-    // Recargar datos completos del docente desde DOCENTES array
+    const raw = sessionStorage.getItem('usuario_data');
+    if (tipo !== 'docente' || !raw) { window.location.href = 'login.html'; return; }
+    docenteData = JSON.parse(raw);
     const full = DOCENTES.find(d => d.id === docenteData.id);
     if (full) docenteData = full;
 
-    renderPerfil();
+    waitFirebase(async () => {
+      todasSolicitudes = await window._getSolicitudes();
+      renderPage();
+    });
   }
 
   function getMisAlumnos() {
@@ -314,192 +212,298 @@
     return ALUMNOS.filter(a => nrcs.includes(a.nrc));
   }
 
-  function getAlumnosFiltrados() {
-    let alumnos = getMisAlumnos();
-    if (nrcActivo !== 'todos') {
-      alumnos = alumnos.filter(a => a.nrc === parseInt(nrcActivo));
-    }
-    const q = document.getElementById('search-input')?.value?.toLowerCase() || '';
-    if (q) {
-      alumnos = alumnos.filter(a =>
-        a.nombre.toLowerCase().includes(q) || a.matricula.includes(q)
-      );
-    }
-    return alumnos.sort((a,b) => b.promedio - a.promedio);
+  function getMisSolicitudes() {
+    const nrcs = docenteData.secciones.map(s => s.nrc);
+    return todasSolicitudes.filter(s => nrcs.includes(s.nrc));
   }
 
-  function renderTabla() {
-    const alumnos = getAlumnosFiltrados();
-    const tbody = document.getElementById('tabla-alumnos');
-    if (!tbody) return;
-
-    if (alumnos.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="5"><div class="empty-state">No se encontraron alumnos</div></td></tr>`;
-      return;
-    }
-
-    tbody.innerHTML = alumnos.map((a, i) => {
-      const badge = getPromedioBadge(a.promedio);
-      const nombreFmt = toTitleCase(a.nombre);
-      return `<tr>
-        <td class="td-rank">#${i+1}</td>
-        <td class="td-nombre">${nombreFmt}</td>
-        <td class="td-mat">${a.matricula}</td>
-        <td class="td-prom">${a.promedio.toFixed(2)}</td>
-        <td class="td-badge"><span class="${badge.class}">${badge.label}</span></td>
-      </tr>`;
-    }).join('');
-  }
-
-  function setFilter(nrc) {
-    nrcActivo = nrc;
-    document.querySelectorAll('.filter-btn').forEach(b => {
-      b.classList.toggle('active', b.dataset.nrc === String(nrc));
-    });
-    renderTabla();
-  }
-
-  function renderPerfil() {
-    const docente = docenteData;
-    const nombre = toTitleCase(docente.nombre.replace(' - ', ' '));
-    const initials = getInitials(docente.nombre.replace(' - ', ' '));
+  function renderPage() {
+    const nombre = toTitleCase(docenteData.nombre.replace(' - ', ' '));
+    const initials = getInitials(docenteData.nombre.replace(' - ', ' '));
     const misAlumnos = getMisAlumnos();
-    const totalAlumnos = misAlumnos.length;
-    const promedioGrupal = (misAlumnos.reduce((acc, a) => acc + a.promedio, 0) / totalAlumnos).toFixed(2);
-    const numSecciones = docente.secciones.length;
-
-    // Calcular distribución
-    const dist = { excelente: 0, bueno: 0, regular: 0 };
-    misAlumnos.forEach(a => {
-      if (a.promedio >= 9.0) dist.excelente++;
-      else if (a.promedio >= 8.0) dist.bueno++;
-      else dist.regular++;
-    });
-
-    const seccionesHTML = docente.secciones.map(s => {
-      const alu = ALUMNOS.filter(a => a.nrc === s.nrc);
-      return `
-        <div class="seccion-row">
-          <div class="seccion-nrc">
-            ${s.nrc}
-            <small>NRC</small>
-          </div>
-          <div class="seccion-info">
-            <div class="si-title">Sección ${s.seccion}</div>
-            <div class="si-sub">${getNombreDias(s.dias)} · ${formatHora(s.hora)} · Salón ${s.salon}</div>
-          </div>
-          <div class="seccion-badge">
-            <strong>${alu.length}</strong>
-            alumnos
-          </div>
-        </div>
-      `;
-    }).join('');
-
-    // Filter buttons
-    const filterBtns = `<button class="filter-btn active" data-nrc="todos" onclick="setFilter('todos')">Todos (${totalAlumnos})</button>` +
-      docente.secciones.map(s => {
-        const cnt = ALUMNOS.filter(a => a.nrc === s.nrc).length;
-        return `<button class="filter-btn" data-nrc="${s.nrc}" onclick="setFilter('${s.nrc}')">Secc. ${s.seccion} (${cnt})</button>`;
-      }).join('');
+    const misSols = getMisSolicitudes();
+    const pendientes = misSols.filter(s => s.estado === 'pendiente').length;
+    const confirmadas = misSols.filter(s => s.estado === 'confirmada').length;
+    const conPDF = misSols.filter(s => s.pdfUrl).length;
 
     document.getElementById('main-content').innerHTML = `
-      <!-- Hero -->
       <div class="hero-card">
-        <div class="avatar-docente">${initials}</div>
+        <div class="avatar">${initials}</div>
         <div class="hero-info">
-          <p class="small-label">👨‍🏫 Docente – Primavera 2026</p>
+          <p class="small-label">👨‍🏫 Docente · Primavera 2026</p>
           <h2>${nombre}</h2>
           <div class="pills">
-            <span class="pill pill-gold">🆔 ${docente.id}</span>
+            <span class="pill pill-gold">🆔 ${docenteData.id}</span>
             <span class="pill pill-blue">LEFS 201</span>
-            <span class="pill pill-grey">${numSecciones} sección${numSecciones > 1 ? 'es' : ''}</span>
+            <span class="pill pill-grey">${docenteData.secciones.length} sección(es)</span>
           </div>
         </div>
       </div>
 
-      <!-- Stats -->
       <div class="stats-bar">
-        <div class="stat-card">
-          <div class="stat-num">${totalAlumnos}</div>
-          <div class="stat-label">Alumnos totales</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num" style="color:#4CAF7D">${promedioGrupal}</div>
-          <div class="stat-label">Promedio grupal</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">${dist.excelente}</div>
-          <div class="stat-label">Con promedio ≥ 9.0</div>
-        </div>
+        <div class="stat-card"><div class="stat-num">${misAlumnos.length}</div><div class="stat-label">Alumnos</div></div>
+        <div class="stat-card"><div class="stat-num" style="color:var(--orange)">${pendientes}</div><div class="stat-label">Pendientes</div></div>
+        <div class="stat-card"><div class="stat-num" style="color:var(--green)">${confirmadas}</div><div class="stat-label">Confirmadas</div></div>
+        <div class="stat-card"><div class="stat-num" style="color:var(--blue)">${conPDF}</div><div class="stat-label">Con documento</div></div>
       </div>
 
-      <!-- Secciones -->
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-icon">📋</div>
-          <h3>Mis Secciones</h3>
-          <span class="counter">${numSecciones} sección${numSecciones > 1 ? 'es' : ''}</span>
-        </div>
-        ${seccionesHTML}
+      <div class="tab-bar">
+        <button class="tab-btn ${activeTab==='solicitudes'?'active':''}" onclick="switchTab('solicitudes')">📋 Solicitudes de Escuela</button>
+        <button class="tab-btn ${activeTab==='lista'?'active':''}" onclick="switchTab('lista')">🎓 Lista de Alumnos</button>
       </div>
 
-      <!-- Materia -->
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-icon">📚</div>
-          <h3>Información de la Materia</h3>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-          <div>
-            <p style="font-size:0.7em; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); font-weight:600; margin-bottom:4px;">Materia</p>
-            <p style="font-weight:600; font-size:0.9em;">Práct. de la Educ. Fís. II (NMS)</p>
-          </div>
-          <div>
-            <p style="font-size:0.7em; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); font-weight:600; margin-bottom:4px;">Clave</p>
-            <p style="font-weight:600; font-size:0.9em;">LEFS 201</p>
-          </div>
-          <div>
-            <p style="font-size:0.7em; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); font-weight:600; margin-bottom:4px;">Plan de estudios</p>
-            <p style="font-weight:600; font-size:0.9em;">LEF-2016</p>
-          </div>
-          <div>
-            <p style="font-size:0.7em; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); font-weight:600; margin-bottom:4px;">Período</p>
-            <p style="font-weight:600; font-size:0.9em;">Primavera 2026 (202625)</p>
-          </div>
-        </div>
-      </div>
+      <div id="tab-content"></div>
+    `;
 
-      <!-- Lista de alumnos -->
+    renderTab();
+  }
+
+  function switchTab(tab) {
+    activeTab = tab;
+    document.querySelectorAll('.tab-btn').forEach((b,i) => {
+      b.classList.toggle('active', (i===0&&tab==='solicitudes')||(i===1&&tab==='lista'));
+    });
+    renderTab();
+  }
+
+  function renderTab() {
+    if (activeTab === 'solicitudes') renderSolicitudesTab();
+    else renderListaTab();
+  }
+
+  // ─── TAB SOLICITUDES ─────────────────────────────────
+  function renderSolicitudesTab() {
+    const el = document.getElementById('tab-content');
+    const misAlumnos = getMisAlumnos();
+    const misSols = getMisSolicitudes();
+
+    // Ordenar alumnos por promedio (mayor prioridad primero)
+    const sorted = [...misAlumnos].sort((a,b) => b.promedio - a.promedio);
+
+    // Filtros sección
+    const filterBtns = `<button class="filter-btn ${nrcFiltro==='todos'?'active':''}" onclick="setNrcFiltro('todos')">Todos</button>` +
+      docenteData.secciones.map(s => `<button class="filter-btn ${nrcFiltro===String(s.nrc)?'active':''}" onclick="setNrcFiltro('${s.nrc}')">Secc. ${s.seccion}</button>`).join('');
+
+    let html = `
       <div class="section-card">
         <div class="section-header">
-          <div class="section-icon">🎓</div>
+          <div class="sh-icon">🏫</div>
+          <h3>Solicitudes de Centro de Prácticas</h3>
+          <span class="counter">Ordenados por prioridad (promedio)</span>
+        </div>
+        <div class="filter-tabs">${filterBtns}</div>
+        <input type="text" class="search-inp" id="sol-search" placeholder="🔍 Buscar alumno por nombre o matrícula..." oninput="renderSolicitudesTab()">
+    `;
+
+    const q = document.getElementById('sol-search')?.value?.toLowerCase() || '';
+    const filtered = sorted.filter(a => {
+      if (nrcFiltro !== 'todos' && a.nrc !== parseInt(nrcFiltro)) return false;
+      if (q && !a.nombre.toLowerCase().includes(q) && !a.matricula.includes(q)) return false;
+      return true;
+    });
+
+    // Ranking global
+    const globalSorted = [...ALUMNOS].sort((a,b) => b.promedio - a.promedio);
+
+    if (filtered.length === 0) {
+      html += `<div class="empty-state">No se encontraron alumnos</div>`;
+    } else {
+      filtered.forEach(alumno => {
+        const sol = misSols.find(s => s.matricula === alumno.matricula);
+        const badge = getPromedioBadge(alumno.promedio);
+        const rankG = globalSorted.findIndex(a => a.matricula === alumno.matricula) + 1;
+        const initials = getInitials(alumno.nombre);
+
+        let schoolBlock = '';
+        if (sol) {
+          const esc = ESCUELAS.find(e => e.id === sol.escuelaId);
+          const isConf = sol.estado === 'confirmada';
+          schoolBlock = `
+            <div class="alu-school-info">
+              <div class="asi-label">Escuela solicitada</div>
+              <div class="asi-name">${esc ? toTitleCase(esc.nombre) : sol.escuelaNombre}</div>
+              <div class="asi-sub">${esc ? esc.municipio + ' · CCT: ' + esc.cct : ''}</div>
+            </div>
+            <div class="alu-actions">
+              <button class="btn-confirm" onclick="confirmarEscuela('${alumno.matricula}')" ${isConf?'disabled':''}>
+                ${isConf ? '✅ Confirmada' : '✅ Confirmar escuela'}
+              </button>
+              <button class="btn-change" onclick="openModal('${alumno.matricula}','${alumno.nombre}')">🔄 Cambiar escuela</button>
+              ${sol.pdfUrl ? `<a href="${sol.pdfUrl}" target="_blank" class="btn-pdf">📎 Ver PDF</a>` : '<span style="font-size:.72em;color:var(--text-muted);padding:8px 0">Sin documento aún</span>'}
+            </div>`;
+        } else {
+          schoolBlock = `<div style="font-size:.8em;color:var(--text-muted);padding:8px 0;font-style:italic">Este alumno aún no ha solicitado escuela.</div>`;
+        }
+
+        html += `
+          <div class="alumno-row">
+            <div class="alumno-row-top">
+              <div class="alu-avatar">${initials}</div>
+              <div class="alu-meta">
+                <div class="alu-nombre">${toTitleCase(alumno.nombre)}</div>
+                <div class="alu-sub">Matrícula ${alumno.matricula} · Prioridad #${rankG} global</div>
+              </div>
+              <div class="alu-badges">
+                <span class="prom-chip ${badge.class.replace('badge-','badge-')}">${alumno.promedio.toFixed(2)}</span>
+                <span class="chip ${sol?(sol.estado==='confirmada'?'chip-confirmada':'chip-pendiente'):'chip-sin'}">${sol?(sol.estado==='confirmada'?'Confirmada':'Pendiente'):'Sin solicitud'}</span>
+              </div>
+            </div>
+            ${schoolBlock}
+          </div>`;
+      });
+    }
+
+    html += `</div>`;
+    el.innerHTML = html;
+
+    // Restore search focus
+    const inp = document.getElementById('sol-search');
+    if (inp) { const v = q; inp.value = v; }
+  }
+
+  function setNrcFiltro(nrc) {
+    nrcFiltro = nrc;
+    renderSolicitudesTab();
+  }
+
+  // ─── TAB LISTA ─────────────────────────────────────────
+  function renderListaTab() {
+    const el = document.getElementById('tab-content');
+    const misAlumnos = getMisAlumnos();
+    const sorted = [...misAlumnos].sort((a,b) => b.promedio - a.promedio);
+
+    const filterBtns = `<button class="filter-btn ${nrcFiltro==='todos'?'active':''}" onclick="setNrcFiltroLista('todos')">Todos (${misAlumnos.length})</button>` +
+      docenteData.secciones.map(s => {
+        const cnt = misAlumnos.filter(a=>a.nrc===s.nrc).length;
+        return `<button class="filter-btn ${nrcFiltro===String(s.nrc)?'active':''}" onclick="setNrcFiltroLista('${s.nrc}')">Secc. ${s.seccion} (${cnt})</button>`;
+      }).join('');
+
+    const q = document.getElementById('lista-search')?.value?.toLowerCase() || '';
+    const filtered = sorted.filter(a => {
+      if (nrcFiltro !== 'todos' && a.nrc !== parseInt(nrcFiltro)) return false;
+      if (q && !a.nombre.toLowerCase().includes(q) && !a.matricula.includes(q)) return false;
+      return true;
+    });
+
+    let html = `
+      <div class="section-card">
+        <div class="section-header">
+          <div class="sh-icon">🎓</div>
           <h3>Lista de Alumnos</h3>
           <span class="counter">Ordenados por promedio</span>
         </div>
-        <div class="filter-tabs" id="filter-tabs">${filterBtns}</div>
-        <input type="text" id="search-input" class="search-input" placeholder="🔍 Buscar por nombre o matrícula..."
-               oninput="renderTabla()">
+        <div class="filter-tabs">${filterBtns}</div>
+        <input type="text" class="search-inp" id="lista-search" placeholder="🔍 Buscar..." oninput="renderListaTab()">
         <div class="table-wrap">
           <table>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Nombre</th>
-                <th>Matrícula</th>
-                <th>Promedio</th>
-                <th>Nivel</th>
-              </tr>
-            </thead>
-            <tbody id="tabla-alumnos">
-            </tbody>
-          </table>
-        </div>
-      </div>
-    `;
+            <thead><tr><th>#</th><th>Nombre</th><th>Matrícula</th><th>Promedio</th><th>Nivel</th><th>Escuela asignada</th></tr></thead>
+            <tbody>`;
 
-    renderTabla();
+    if (filtered.length === 0) {
+      html += `<tr><td colspan="6"><div class="empty-state">No se encontraron alumnos</div></td></tr>`;
+    } else {
+      filtered.forEach((a,i) => {
+        const badge = getPromedioBadge(a.promedio);
+        const sol = todasSolicitudes.find(s => s.matricula === a.matricula);
+        const escNombre = sol ? toTitleCase((ESCUELAS.find(e=>e.id===sol.escuelaId)||{nombre:sol.escuelaNombre}).nombre) : '—';
+        const escStatus = sol ? `<span class="chip ${sol.estado==='confirmada'?'chip-confirmada':'chip-pendiente'}">${sol.estado==='confirmada'?'✅':' ⏳'} ${escNombre}</span>` : `<span style="font-size:.75em;color:var(--text-muted)">Sin solicitud</span>`;
+        html += `<tr>
+          <td style="color:var(--text-muted);font-size:.8em;font-weight:600">#${i+1}</td>
+          <td style="font-weight:600;font-size:.85em">${toTitleCase(a.nombre)}</td>
+          <td style="font-size:.8em;color:var(--text-muted);font-family:monospace">${a.matricula}</td>
+          <td style="font-weight:700">${a.promedio.toFixed(2)}</td>
+          <td><span class="${badge.class}">${badge.label}</span></td>
+          <td>${escStatus}</td>
+        </tr>`;
+      });
+    }
+
+    html += `</tbody></table></div></div>`;
+    el.innerHTML = html;
+    const inp = document.getElementById('lista-search');
+    if (inp) inp.value = q;
   }
+
+  function setNrcFiltroLista(nrc) {
+    nrcFiltro = nrc;
+    renderListaTab();
+  }
+
+  // ─── CONFIRMAR ESCUELA ──────────────────────────────────
+  async function confirmarEscuela(matricula) {
+    try {
+      await window._updateSolicitud(matricula, { estado: 'confirmada', fechaConfirmacion: new Date().toISOString(), confirmadoPor: docenteData.id });
+      todasSolicitudes = await window._getSolicitudes();
+      renderTab();
+    } catch(e) { alert('Error al confirmar. Intenta de nuevo.'); }
+  }
+
+  // ─── MODAL REASIGNACIÓN ──────────────────────────────────
+  function openModal(matricula, nombreAlumno) {
+    modalMatricula = matricula;
+    modalEscuelaId = null;
+    document.getElementById('modal-title').textContent = 'Reasignar escuela';
+    document.getElementById('modal-sub').textContent = toTitleCase(nombreAlumno);
+    document.getElementById('modal-search').value = '';
+    document.getElementById('modal-btn-ok').disabled = true;
+    buildModalList('');
+    document.getElementById('modal-overlay').classList.add('show');
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('show');
+    modalMatricula = null; modalEscuelaId = null;
+  }
+
+  function buildModalList(q) {
+    const tomadas = new Set(todasSolicitudes.filter(s=>s.matricula!==modalMatricula).map(s=>s.escuelaId));
+    const el = document.getElementById('modal-school-list');
+    const filtered = ESCUELAS.filter(e => !q || e.nombre.toLowerCase().includes(q) || e.municipio.toLowerCase().includes(q));
+    el.innerHTML = filtered.map(e => {
+      const taken = tomadas.has(e.id);
+      return `<div class="msl-item${modalEscuelaId===e.id?' selected':''}" onclick="selectModalSchool(${e.id})">
+        <strong>${toTitleCase(e.nombre)}</strong>${taken?' <span style="color:var(--orange);font-size:.75em">⚠ Ya asignada</span>':''}
+        <div style="font-size:.75em;color:var(--text-muted)">${e.municipio} · ${e.cct}</div>
+      </div>`;
+    }).join('') || '<div class="empty-state">Sin resultados</div>';
+  }
+
+  function filterModalSchools() {
+    buildModalList(document.getElementById('modal-search').value.toLowerCase());
+  }
+
+  function selectModalSchool(id) {
+    modalEscuelaId = id;
+    document.getElementById('modal-btn-ok').disabled = false;
+    buildModalList(document.getElementById('modal-search').value.toLowerCase());
+  }
+
+  async function confirmarReasignacion() {
+    if (!modalMatricula || !modalEscuelaId) return;
+    const esc = ESCUELAS.find(e => e.id === modalEscuelaId);
+    try {
+      await window._updateSolicitud(modalMatricula, {
+        escuelaId: esc.id, escuelaNombre: esc.nombre, escuelaCCT: esc.cct, escuelaMunicipio: esc.municipio,
+        estado: 'confirmada', reasignadoPor: docenteData.id, fechaConfirmacion: new Date().toISOString()
+      });
+      todasSolicitudes = await window._getSolicitudes();
+      closeModal();
+      renderTab();
+    } catch(e) { alert('Error al reasignar. Intenta de nuevo.'); }
+  }
+
+  // Expose
+  window.switchTab = switchTab;
+  window.setNrcFiltro = setNrcFiltro;
+  window.setNrcFiltroLista = setNrcFiltroLista;
+  window.confirmarEscuela = confirmarEscuela;
+  window.openModal = openModal;
+  window.closeModal = closeModal;
+  window.filterModalSchools = filterModalSchools;
+  window.selectModalSchool = selectModalSchool;
+  window.confirmarReasignacion = confirmarReasignacion;
+  window.renderSolicitudesTab = renderSolicitudesTab;
+  window.renderListaTab = renderListaTab;
 
   init();
 </script>
