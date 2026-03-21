@@ -327,9 +327,10 @@
         </div>
         <div style="background:var(--surface2);border-radius:var(--radius-sm);padding:16px;margin-bottom:12px">
           <div style="font-size:.68em;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);font-weight:700;margin-bottom:8px">Escuela solicitada</div>
-          <div style="font-weight:700;font-size:.95em;margin-bottom:4px">${esc?toTitleCase(esc.nombre):'—'}</div>
-          <div style="font-size:.78em;color:var(--text-muted)">${esc?esc.municipio+' · CCT: '+esc.cct:'—'}</div>
-          <div style="font-size:.75em;color:var(--text-muted);margin-top:4px">📍 ${esc?esc.direccion:'—'}</div>
+          <div style="font-weight:700;font-size:.95em;margin-bottom:4px">${esc?toTitleCase(esc.nombre):miSolicitud.escuelaNombre} <span style="font-size:.7em;color:var(--gold);border:1px solid var(--gold);padding:2px 6px;border-radius:10px;margin-left:4px;display:${!esc?'inline-block':'none'}">EXTEMPORÁNEO</span></div>
+          <div style="font-size:.78em;color:var(--text-muted)">${esc?esc.municipio+' ('+esc.localidad+') · CCT: '+esc.cct:miSolicitud.escuelaMunicipio}</div>
+          <div style="font-size:.75em;color:var(--text-muted);margin-top:4px">📍 ${esc?esc.direccion:'Registro no oficial'}</div>
+          ${esc ? `<div style="font-size:.72em;color:var(--gold);margin-top:4px"><strong>Zona:</strong> ${esc.zona} | <strong>Tipo:</strong> ${esc.tipo} | <strong>Turno:</strong> ${esc.turno}</div>` : ''}
         </div>
         ${!isConfirmada ? `<button class="btn-danger" onclick="cancelarMiSolicitud()">✕ Cancelar solicitud y elegir otra</button>` : ''}
         <div id="school-alert" class="alert"></div>
@@ -337,6 +338,7 @@
       return;
     }
 
+    
     // Sin solicitud – mostrar selector
     const tomadas = new Set(Object.values(solicitudesGlobales).map(s => s.escuelaId));
     let html = `
@@ -346,8 +348,14 @@
         <div style="font-size:.85em;margin-top:2px;opacity:.8">Tu prioridad es <strong>#${rankGlobal}</strong> de ${ALUMNOS.length} alumnos. Las escuelas se asignan por orden de promedio.</div></div>
       </div>
       <div class="priority-badge">🏆 Tu turno de elección: #${rankGlobal}</div>
-      <input type="text" class="school-search" placeholder="🔍 Buscar escuela por nombre o municipio..." id="school-search-inp" oninput="filterSchools()">
-      <div class="school-list" id="school-list-el">
+      
+      <button onclick="toggleExtemporanea()" id="btn-toggle-ext" class="btn-sm" style="margin-bottom:14px;display:flex;width:100%;justify-content:center;padding:10px;border-color:var(--gold);color:var(--gold);font-size:.82em">
+        ⚡ Ya tengo lugar de prácticas asignado
+      </button>
+
+      <div id="selector-normal">
+        <input type="text" class="school-search" placeholder="🔍 Buscar escuela por nombre o municipio..." id="school-search-inp" oninput="filterSchools()">
+        <div class="school-list" id="school-list-el">
     `;
     ESCUELAS.forEach(esc => {
       const isTaken = tomadas.has(esc.id);
@@ -598,7 +606,65 @@
   // Expose globals
   window.selectSchool = selectSchool;
   window.filterSchools = filterSchools;
+
+  let modoExtemporaneo = false;
+  function toggleExtemporanea() {
+    modoExtemporaneo = !modoExtemporaneo;
+    const n = document.getElementById('selector-normal');
+    const e = document.getElementById('selector-extemporaneo');
+    const b = document.getElementById('btn-toggle-ext');
+    if (n && e && b) {
+      if (modoExtemporaneo) {
+        n.style.display = 'none';
+        e.style.display = 'block';
+        b.textContent = '◀ Volver a buscar escuela oficial';
+      } else {
+        n.style.display = 'block';
+        e.style.display = 'none';
+        b.textContent = '⚡ Ya tengo lugar de prácticas asignado';
+      }
+    }
+  }
+
+  async function enviarSolicitudExtemporanea() {
+    const nombreE = document.getElementById('ext-nombre').value.trim();
+    const muniE = document.getElementById('ext-muni').value.trim();
+    if (!nombreE) {
+      showAlert('school-alert', 'error', '⚠️ Escribe el nombre de la escuela.');
+      return;
+    }
+    
+    const btn = document.getElementById('btn-solicitar-ext');
+    btn.textContent = 'Enviando...'; btn.disabled = true;
+    try {
+      await window._guardarSolicitud(alumnoData.matricula, {
+        matricula: alumnoData.matricula,
+        nombre: alumnoData.nombre,
+        promedio: alumnoData.promedio,
+        nrc: alumnoData.nrc,
+        rankGlobal,
+        escuelaId: 'EXTEMPORANEA',
+        escuelaNombre: nombreE.toUpperCase(),
+        escuelaCCT: 'EXTEMPORANEO',
+        escuelaMunicipio: muniE.toUpperCase() || 'NO ESPECIFICADO',
+        estado: 'pendiente',
+        pdfUrl: null,
+        fechaSolicitud: new Date().toISOString(),
+        esExtemporanea: true
+      });
+      miSolicitud = await window._getMiSolicitud(alumnoData.matricula);
+      solicitudesGlobales = await window._getSolicitudes();
+      renderEscuelaSection();
+      showAlert('school-alert','success','✅ ¡Lugar extemporáneo registrado! Espera la confirmación del docente.');
+    } catch(e) {
+      btn.textContent='Registrar mi lugar extemporáneo'; btn.disabled=false;
+      showAlert('school-alert','error','Error al registrar. Intenta de nuevo.');
+    }
+  }
+
   window.enviarSolicitud = enviarSolicitud;
+  window.toggleExtemporanea = toggleExtemporanea;
+  window.enviarSolicitudExtemporanea = enviarSolicitudExtemporanea;
   window.cancelarMiSolicitud = cancelarMiSolicitud;
   window.handleDrop = handleDrop;
   window.handleFileSelect = handleFileSelect;

@@ -321,8 +321,8 @@
           schoolBlock = `
             <div class="alu-school-info">
               <div class="asi-label">Escuela solicitada</div>
-              <div class="asi-name">${esc ? toTitleCase(esc.nombre) : sol.escuelaNombre}</div>
-              <div class="asi-sub">${esc ? '📍 ' + esc.direccion + '<br>🌎 ' + esc.municipio + ' (' + esc.localidad + ')<br>🏷️ CCT: ' + esc.cct + ' | Zona: ' + esc.zona + ' | Tipo: ' + esc.tipo + '<br>🕒 Turno: ' + esc.turno : ''}</div>
+              <div class="asi-name">${esc ? toTitleCase(esc.nombre) : sol.escuelaNombre} <span style="font-size:.7em;color:var(--gold);border:1px solid var(--gold);padding:2px 6px;border-radius:10px;margin-left:4px;display:${!esc?'inline-block':'none'}">EXTEMPORÁNEO</span></div>
+              <div class="asi-sub">${esc ? '📍 ' + esc.direccion + '<br>🌎 ' + esc.municipio + ' (' + esc.localidad + ')<br>🏷️ CCT: ' + esc.cct + ' | Zona: ' + esc.zona + ' | Tipo: ' + esc.tipo + '<br>🕒 Turno: ' + esc.turno : '🌎 ' + (sol.escuelaMunicipio || 'No especificado')}</div>
             </div>
             <div class="alu-actions">
               <button class="btn-confirm" onclick="confirmarEscuela('${alumno.matricula}')" ${isConf?'disabled':''}>
@@ -405,7 +405,9 @@
       filtered.forEach((a,i) => {
         const badge = getPromedioBadge(a.promedio);
         const sol = todasSolicitudes.find(s => s.matricula === a.matricula);
-        const escNombre = sol ? toTitleCase((ESCUELAS.find(e=>e.id===sol.escuelaId)||{nombre:sol.escuelaNombre}).nombre) : '—';
+        const esc = sol ? ESCUELAS.find(e=>e.id===sol.escuelaId) : null;
+        const isExt = sol && !esc;
+        const escNombre = sol ? toTitleCase(esc ? esc.nombre : sol.escuelaNombre) + (isExt ? ' [EXT]' : '') : '—';
         const escStatus = sol ? `<span class="chip ${sol.estado==='confirmada'?'chip-confirmada':'chip-pendiente'}">${sol.estado==='confirmada'?'✅':' ⏳'} ${escNombre}</span>` : `<span style="font-size:.75em;color:var(--text-muted)">Sin solicitud</span>`;
         html += `<tr>
           <td style="color:var(--text-muted);font-size:.8em;font-weight:600">#${i+1}</td>
