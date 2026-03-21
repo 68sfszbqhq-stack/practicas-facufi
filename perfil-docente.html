@@ -322,7 +322,7 @@
             <div class="alu-school-info">
               <div class="asi-label">Escuela solicitada</div>
               <div class="asi-name">${esc ? toTitleCase(esc.nombre) : sol.escuelaNombre}</div>
-              <div class="asi-sub">${esc ? esc.municipio + ' · CCT: ' + esc.cct : ''}</div>
+              <div class="asi-sub">${esc ? '📍 ' + esc.direccion + '<br>🌎 ' + esc.municipio + ' (' + esc.localidad + ')<br>🏷️ CCT: ' + esc.cct + ' | Zona: ' + esc.zona + ' | Tipo: ' + esc.tipo + '<br>🕒 Turno: ' + esc.turno : ''}</div>
             </div>
             <div class="alu-actions">
               <button class="btn-confirm" onclick="confirmarEscuela('${alumno.matricula}')" ${isConf?'disabled':''}>
@@ -463,7 +463,7 @@
       const taken = tomadas.has(e.id);
       return `<div class="msl-item${modalEscuelaId===e.id?' selected':''}" onclick="selectModalSchool(${e.id})">
         <strong>${toTitleCase(e.nombre)}</strong>${taken?' <span style="color:var(--orange);font-size:.75em">⚠ Ya asignada</span>':''}
-        <div style="font-size:.75em;color:var(--text-muted)">${e.municipio} · ${e.cct}</div>
+        <div style="font-size:.75em;color:var(--text-muted)">${e.municipio} (${e.localidad}) · CCT: ${e.cct}<br>Zona: ${e.zona} | Turno: ${e.turno}</div>
       </div>`;
     }).join('') || '<div class="empty-state">Sin resultados</div>';
   }

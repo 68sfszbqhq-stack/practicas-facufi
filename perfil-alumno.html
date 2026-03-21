@@ -356,7 +356,7 @@
           <div class="si-num">${esc.id}</div>
           <div class="si-info">
             <div class="si-name">${toTitleCase(esc.nombre)}</div>
-            <div class="si-sub">${esc.municipio} · ${esc.cct}</div>
+            <div class="si-sub">${esc.municipio} (${esc.localidad}) · CCT: ${esc.cct}</div>
           </div>
           <div class="si-tag"><span class="${isTaken?'tag-taken':'tag-free'}">${isTaken?'Ocupada':'Disponible'}</span></div>
         </div>`;
@@ -395,7 +395,12 @@
     if (preview) {
       preview.style.display = '';
       document.getElementById('preview-nombre').textContent = toTitleCase(esc.nombre);
-      document.getElementById('preview-sub').textContent = esc.municipio + ' · ' + esc.cct + ' · ' + esc.direccion;
+      document.getElementById('preview-sub').innerHTML = `
+        📍 ${esc.direccion} <br>
+        🌎 ${esc.municipio} (${esc.localidad}) <br>
+        🏷️ CCT: ${esc.cct} | <strong>Zona:</strong> ${esc.zona} | <strong>Tipo:</strong> ${esc.tipo} <br>
+        🕒 <strong>Turno:</strong> ${esc.turno}
+      `;
     }
     const btn = document.getElementById('btn-solicitar');
     if (btn) btn.disabled = false;
