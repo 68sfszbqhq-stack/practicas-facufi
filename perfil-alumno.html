@@ -568,7 +568,7 @@
       // Enviar a Google Apps Script
       const resp = await fetch(window._APPS_SCRIPT_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({
           matricula: alumnoData.matricula,
           nombre: alumnoData.nombre,
