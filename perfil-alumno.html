@@ -7,26 +7,26 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <style>
-        :root {
-      --gold: #00B5E2; --gold-dark: #008cb0; --bg: #03141f;
-      --surface: #062131; --surface2: #0b3046; --surface3: #12405a;
-      --text: rgba(255,255,255,0.95); --text-muted: rgba(255,255,255,0.65);
+            :root {
+      --gold: #00B5E2; --gold-dark: #008cb0; --bg: #F4F7F9;
+      --surface: #FFFFFF; --surface2: #Eef2f6; --surface3: #DDE4EB;
+      --text: #1a252f; --text-muted: #5e6d7d;
       --radius: 16px; --radius-sm: 10px;
-      --green: #4CAF7D; --orange: #FFB74D; --red: #EF5350; --blue: #64B5F6;
+      --green: #2E7D32; --orange: #E65100; --red: #C62828; --blue: #1565C0;
       --buap-navy: #003B5C;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
     .bg-canvas { position: fixed; inset: 0; z-index: 0;
       background: radial-gradient(ellipse at 15% 20%, rgba(0,181,226,0.07) 0%, transparent 50%),
-                  linear-gradient(135deg, #0a0a0a 0%, #111 100%); }
+                  linear-gradient(135deg, #F4F7F9 0%, #FFFFFF 100%); }
     .topbar { position: sticky; top: 0; z-index: 100;
-      background: rgba(13,13,13,0.85); backdrop-filter: blur(20px);
+      background: var(--buap-navy); backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(0,181,226,0.1);
-      padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+      padding: 14px 24px; display: flex; align-items: center; justify-content: space-between;  color: white; }
     .topbar-brand { display: flex; align-items: center; gap:10px; font-weight:700; font-size:.88em; color:var(--gold); }
     .btn-sm { padding:7px 16px; border:1px solid rgba(0,181,226,0.3); border-radius:20px;
-      background:transparent; color:var(--text-muted); font-family:'Montserrat',sans-serif;
+      background:transparent; color: #00B5E2; font-family:'Montserrat',sans-serif;
       font-size:.75em; font-weight:600; cursor:pointer; transition:all .2s; text-decoration:none;
       display:inline-flex; align-items:center; gap:5px; }
     .btn-sm:hover { border-color:var(--gold); color:var(--gold); background:rgba(0,181,226,.05); }
@@ -39,23 +39,23 @@
       margin-bottom:20px; animation:fadeInUp .5s ease both; }
     .avatar { width:76px; height:76px; background:linear-gradient(135deg,var(--gold),var(--gold-dark));
       border-radius:50%; display:flex; align-items:center; justify-content:center;
-      font-size:1.8em; font-weight:800; color:#000; flex-shrink:0;
+      font-size:1.8em; font-weight:800; color:#fff; flex-shrink:0;
       box-shadow:0 8px 32px rgba(0,181,226,.3); }
     .hero-info .small-label { font-size:.65em; text-transform:uppercase; letter-spacing:2px; color:var(--gold); font-weight:700; margin-bottom:4px; }
     .hero-info h2 { font-family:'Playfair Display',serif; font-size:1.4em; margin-bottom:8px; }
     .pills { display:flex; flex-wrap:wrap; gap:6px; }
     .pill { padding:4px 12px; border-radius:20px; font-size:.7em; font-weight:600; }
     .pill-gold { background:rgba(0,181,226,.15); color:var(--gold); border:1px solid rgba(0,181,226,.25); }
-    .pill-grey { background:var(--surface3); color:var(--text-muted); }
+    .pill-grey { background:var(--surface3); color:var(--buap-navy); }
     /* Promedio + ranking */
     .top-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; animation:fadeInUp .5s ease .1s both; }
-    .stat-box { background:var(--surface); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius-sm); padding:18px; text-align:center; }
+    .stat-box { background:var(--surface); border:1px solid rgba(0,59,92,.1); border-radius:var(--radius-sm); padding:18px; text-align:center; }
     .stat-box .snum { font-size:2em; font-weight:800; color:var(--gold); }
-    .stat-box .slabel { font-size:.65em; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); font-weight:600; margin-top:4px; }
-    .stat-box .ssub { font-size:.72em; color:var(--text-muted); margin-top:2px; }
+    .stat-box .slabel { font-size:.65em; text-transform:uppercase; letter-spacing:1.5px; color:var(--buap-navy); font-weight:600; margin-top:4px; }
+    .stat-box .ssub { font-size:.72em; color:var(--buap-navy); margin-top:2px; }
     /* Section cards */
-    .section-card { background:var(--surface); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); padding:22px; margin-bottom:18px; }
-    .section-header { display:flex; align-items:center; gap:10px; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid rgba(255,255,255,.05); }
+    .section-card { background:var(--surface); border:1px solid rgba(0,59,92,.1); border-radius:var(--radius); padding:22px; margin-bottom:18px; }
+    .section-header { display:flex; align-items:center; gap:10px; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid rgba(0,59,92,.1); }
     .sh-icon { width:34px; height:34px; background:rgba(0,181,226,.1); border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:16px; }
     .section-header h3 { font-size:.92em; font-weight:700; }
     /* Status banner */
@@ -66,27 +66,27 @@
     .status-banner .sb-icon { font-size:1.5em; flex-shrink:0; }
     /* School selector */
     .school-search { width:100%; padding:11px 14px; background:var(--surface2);
-      border:1px solid rgba(255,255,255,.08); border-radius:var(--radius-sm);
+      border:1px solid rgba(0,59,92,.1); border-radius:var(--radius-sm);
       color:var(--text); font-family:'Montserrat',sans-serif; font-size:.88em;
       margin-bottom:12px; transition:all .2s; }
     .school-search:focus { outline:none; border-color:var(--gold); background:var(--surface3); }
-    .school-search::placeholder { color:var(--text-muted); }
-    .school-list { max-height:280px; overflow-y:auto; border-radius:var(--radius-sm); border:1px solid rgba(255,255,255,.06); }
+    .school-search::placeholder { color:var(--buap-navy); }
+    .school-list { max-height:280px; overflow-y:auto; border-radius:var(--radius-sm); border:1px solid rgba(0,59,92,.1); }
     .school-list::-webkit-scrollbar { width:4px; }
     .school-list::-webkit-scrollbar-track { background:var(--surface2); }
     .school-list::-webkit-scrollbar-thumb { background:var(--gold-dark); border-radius:2px; }
-    .school-item { padding:12px 16px; border-bottom:1px solid rgba(255,255,255,.04);
+    .school-item { padding:12px 16px; border-bottom:1px solid rgba(0,59,92,.1);
       cursor:pointer; transition:all .15s; display:flex; align-items:center; gap:12px; }
     .school-item:last-child { border-bottom:none; }
     .school-item:hover { background:rgba(0,181,226,.06); }
     .school-item.selected { background:rgba(0,181,226,.12); border-left:3px solid var(--gold); }
     .school-item.taken { opacity:.45; cursor:not-allowed; }
     .si-num { width:28px; height:28px; background:var(--surface3); border-radius:7px;
-      display:flex; align-items:center; justify-content:center; font-size:.72em; font-weight:700; color:var(--text-muted); flex-shrink:0; }
-    .school-item.selected .si-num { background:var(--gold); color:#000; }
+      display:flex; align-items:center; justify-content:center; font-size:.72em; font-weight:700; color:var(--buap-navy); flex-shrink:0; }
+    .school-item.selected .si-num { background:var(--gold); color:#fff; }
     .si-info {}
     .si-name { font-size:.85em; font-weight:600; }
-    .si-sub { font-size:.72em; color:var(--text-muted); margin-top:2px; }
+    .si-sub { font-size:.72em; color:var(--buap-navy); margin-top:2px; }
     .si-tag { margin-left:auto; flex-shrink:0; }
     .tag-taken { background:rgba(239,83,80,.1); color:var(--red); border:1px solid rgba(239,83,80,.2); padding:3px 9px; border-radius:10px; font-size:.65em; font-weight:700; }
     .tag-free { background:rgba(76,175,125,.1); color:var(--green); border:1px solid rgba(76,175,125,.2); padding:3px 9px; border-radius:10px; font-size:.65em; font-weight:700; }
@@ -96,7 +96,7 @@
       border-radius:20px; font-size:.78em; font-weight:700; color:var(--gold); margin-bottom:12px; }
     /* Buttons */
     .btn-primary { width:100%; padding:13px; background:linear-gradient(135deg,var(--gold),var(--gold-dark));
-      border:none; border-radius:50px; color:#000; font-family:'Montserrat',sans-serif;
+      border:none; border-radius:50px; color:#fff; font-family:'Montserrat',sans-serif;
       font-size:.92em; font-weight:700; cursor:pointer; transition:all .3s; margin-top:6px; }
     .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,181,226,.3); }
     .btn-primary:disabled { opacity:.5; cursor:not-allowed; transform:none; }
@@ -111,21 +111,21 @@
     .upload-zone:hover, .upload-zone.dragover { border-color:var(--gold); background:rgba(0,181,226,.08); }
     .upload-zone .uz-icon { font-size:2em; margin-bottom:8px; }
     .upload-zone .uz-title { font-size:.88em; font-weight:600; margin-bottom:4px; }
-    .upload-zone .uz-sub { font-size:.72em; color:var(--text-muted); }
+    .upload-zone .uz-sub { font-size:.72em; color:var(--buap-navy); }
     .file-preview { background:var(--surface2); border:1px solid rgba(0,181,226,.2);
       border-radius:var(--radius-sm); padding:14px 16px; display:flex; align-items:center; gap:12px; margin-bottom:12px; }
     .fp-icon { font-size:1.8em; flex-shrink:0; }
     .fp-name { font-size:.85em; font-weight:600; flex:1; word-break:break-all; }
-    .fp-size { font-size:.72em; color:var(--text-muted); margin-top:2px; }
+    .fp-size { font-size:.72em; color:var(--buap-navy); margin-top:2px; }
     .fp-remove { background:none; border:none; color:var(--red); font-size:1.1em; cursor:pointer; padding:4px; flex-shrink:0; }
     /* Upload progress */
     .progress-bar { height:4px; background:var(--surface3); border-radius:2px; margin-bottom:8px; overflow:hidden; }
     .progress-fill { height:100%; background:linear-gradient(90deg,var(--gold),var(--gold-dark)); border-radius:2px; transition:width .4s; }
     /* Info rows */
     .detail-row { display:flex; justify-content:space-between; align-items:center;
-      padding:10px 0; border-bottom:1px solid rgba(255,255,255,.04); font-size:.85em; }
+      padding:10px 0; border-bottom:1px solid rgba(0,59,92,.1); font-size:.85em; }
     .detail-row:last-child { border-bottom:none; }
-    .dr-label { color:var(--text-muted); font-weight:500; }
+    .dr-label { color:var(--buap-navy); font-weight:500; }
     .dr-value { font-weight:600; text-align:right; }
     /* Alert */
     .alert { border-radius:var(--radius-sm); padding:12px 16px; font-size:.8em; margin-top:10px; display:none; }
@@ -143,7 +143,7 @@
   <a href="login.html" class="btn-sm" onclick="sessionStorage.clear()">🚪 Cerrar sesión</a>
 </nav>
 <main id="main-content">
-  <p style="color:var(--text-muted);text-align:center;padding:40px">Cargando...</p>
+  <p style="color:var(--buap-navy);text-align:center;padding:40px">Cargando...</p>
 </main>
 
 <!-- Firebase -->
@@ -330,7 +330,7 @@
           <div style="font-size:.68em;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);font-weight:700;margin-bottom:8px">Escuela solicitada</div>
           <div style="font-weight:700;font-size:.95em;margin-bottom:4px">${esc?toTitleCase(esc.nombre):miSolicitud.escuelaNombre} <span style="font-size:.7em;color:var(--gold);border:1px solid var(--gold);padding:2px 6px;border-radius:10px;margin-left:4px;display:${!esc?'inline-block':'none'}">EXTEMPORÁNEO</span></div>
           <div style="font-size:.78em;color:var(--text-muted)">${esc?esc.municipio+' ('+esc.localidad+') · CCT: '+esc.cct:miSolicitud.escuelaMunicipio}</div>
-          <div style="font-size:.75em;color:var(--text-muted);margin-top:4px">📍 ${esc?esc.direccion:'Registro no oficial'}</div>
+          <div style="font-size:.75em;color:var(--buap-navy);margin-top:4px">📍 ${esc?esc.direccion:'Registro no oficial'}</div>
           ${esc ? `<div style="font-size:.72em;color:var(--gold);margin-top:4px"><strong>Zona:</strong> ${esc.zona} | <strong>Tipo:</strong> ${esc.tipo} | <strong>Turno:</strong> ${esc.turno}</div>` : ''}
         </div>
         ${!isConfirmada ? `<button class="btn-danger" onclick="cancelarMiSolicitud()">✕ Cancelar solicitud y elegir otra</button>` : ''}
@@ -381,7 +381,7 @@
 
       <div id="selector-extemporaneo" style="display:none;background:rgba(0,181,226,.05);padding:18px;border-radius:var(--radius-sm);border:1px dashed rgba(0,181,226,.4)">
         <h4 style="margin-bottom:6px;color:var(--gold);font-size:.95em">Registro de lugar extemporáneo</h4>
-        <p style="font-size:.78em;color:var(--text-muted);margin-bottom:14px;line-height:1.4">Si ya contabas con un lugar asignado desde el inicio del semestre y no necesitas elegir del listado oficial, indícalo aquí.</p>
+        <p style="font-size:.78em;color:var(--buap-navy);margin-bottom:14px;line-height:1.4">Si ya contabas con un lugar asignado desde el inicio del semestre y no necesitas elegir del listado oficial, indícalo aquí.</p>
         <input type="text" id="ext-nombre" class="school-search" placeholder="Nombre completo de la escuela" style="margin-bottom:10px">
         <input type="text" id="ext-muni" class="school-search" placeholder="Municipio o Localidad" style="margin-bottom:14px">
         <button class="btn-primary" onclick="enviarSolicitudExtemporanea()" id="btn-solicitar-ext">Registrar mi lugar de prácticas</button>
@@ -471,7 +471,7 @@
     if (!el) return;
     const tienePDF = miSolicitud && miSolicitud.pdfUrl;
     el.innerHTML = `
-      <p style="font-size:.82em;color:var(--text-muted);margin-bottom:14px;line-height:1.6">
+      <p style="font-size:.82em;color:var(--buap-navy);margin-bottom:14px;line-height:1.6">
         Sube un <strong style="color:var(--text)">PDF único (máx. 1 MB)</strong> con todos los documentos firmados requeridos para realizar tus prácticas curriculares.
       </p>
       ${tienePDF ? `

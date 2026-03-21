@@ -7,26 +7,26 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <style>
-        :root {
-      --gold: #00B5E2; --gold-dark: #008cb0; --bg: #03141f;
-      --surface: #062131; --surface2: #0b3046; --surface3: #12405a;
-      --text: rgba(255,255,255,0.95); --text-muted: rgba(255,255,255,0.65);
+            :root {
+      --gold: #00B5E2; --gold-dark: #008cb0; --bg: #F4F7F9;
+      --surface: #FFFFFF; --surface2: #Eef2f6; --surface3: #DDE4EB;
+      --text: #1a252f; --text-muted: #5e6d7d;
       --radius: 16px; --radius-sm: 10px;
-      --green: #4CAF7D; --orange: #FFB74D; --red: #EF5350; --blue: #64B5F6;
+      --green: #2E7D32; --orange: #E65100; --red: #C62828; --blue: #1565C0;
       --buap-navy: #003B5C;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-    .bg-canvas{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse at 85% 15%,rgba(0,181,226,.07) 0%,transparent 50%),linear-gradient(135deg,#0a0a0a 0%,#111 100%)}
-    .topbar{position:sticky;top:0;z-index:100;background:rgba(13,13,13,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,181,226,.1);padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+    .bg-canvas{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse at 85% 15%,rgba(0,181,226,.07) 0%,transparent 50%),linear-gradient(135deg, #F4F7F9 0%, #FFFFFF 100%)}
+    .topbar {position:sticky;top:0;z-index:100;background:rgba(13,13,13,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,181,226,.1);padding:14px 24px;display:flex;align-items:center;justify-content:space-between color: white; }
     .topbar-brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:.88em;color:var(--gold)}
-    .btn-sm{padding:7px 16px;border:1px solid rgba(0,181,226,.3);border-radius:20px;background:transparent;color:var(--text-muted);font-family:'Montserrat',sans-serif;font-size:.75em;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
+    .btn-sm{padding:7px 16px;border:1px solid rgba(0,181,226,.3);border-radius:20px;background:transparent;color:var(--buap-navy);font-family:'Montserrat',sans-serif;font-size:.75em;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
     .btn-sm:hover{border-color:var(--gold);color:var(--gold);background:rgba(0,181,226,.05)}
     main{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:32px 20px 60px}
     @keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
     /* Hero */
     .hero-card{background:linear-gradient(135deg,rgba(0,181,226,.12),rgba(0,181,226,.04));border:1px solid rgba(0,181,226,.2);border-radius:var(--radius);padding:28px;display:flex;align-items:center;gap:24px;margin-bottom:20px;animation:fadeInUp .5s ease both}
-    .avatar{width:84px;height:84px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2em;font-weight:800;color:#000;flex-shrink:0;box-shadow:0 8px 32px rgba(0,181,226,.3)}
+    .avatar{width:84px;height:84px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2em;font-weight:800;color:#fff;flex-shrink:0;box-shadow:0 8px 32px rgba(0,181,226,.3)}
     .hero-info .small-label{font-size:.65em;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:4px}
     .hero-info h2{font-family:'Playfair Display',serif;font-size:1.4em;margin-bottom:8px}
     .pills{display:flex;flex-wrap:wrap;gap:6px}
@@ -36,40 +36,40 @@
     .pill-blue{background:rgba(100,181,246,.1);color:var(--blue);border:1px solid rgba(100,181,246,.2)}
     /* Stats */
     .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px;animation:fadeInUp .5s ease .1s both}
-    .stat-card{background:var(--surface);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-sm);padding:16px;text-align:center;transition:all .2s}
+    .stat-card{background:var(--surface);border:1px solid rgba(0,59,92,.1);border-radius:var(--radius-sm);padding:16px;text-align:center;transition:all .2s}
     .stat-card:hover{border-color:rgba(0,181,226,.2);transform:translateY(-2px)}
     .stat-num{font-size:1.8em;font-weight:800;color:var(--gold);line-height:1}
-    .stat-label{font-size:.65em;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);font-weight:600;margin-top:5px}
+    .stat-label{font-size:.65em;text-transform:uppercase;letter-spacing:1.5px;color:var(--buap-navy);font-weight:600;margin-top:5px}
     /* Tabs */
     .tab-bar{display:flex;gap:3px;background:var(--surface2);border-radius:var(--radius-sm);padding:5px;margin-bottom:20px;animation:fadeInUp .5s ease .15s both}
-    .tab-btn{flex:1;padding:9px;border-radius:8px;border:none;background:transparent;color:var(--text-muted);font-family:'Montserrat',sans-serif;font-size:.78em;font-weight:600;cursor:pointer;transition:all .2s}
+    .tab-btn{flex:1;padding:9px;border-radius:8px;border:none;background:transparent;color:var(--buap-navy);font-family:'Montserrat',sans-serif;font-size:.78em;font-weight:600;cursor:pointer;transition:all .2s}
     .tab-btn.active{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#000}
     /* Section card */
-    .section-card{background:var(--surface);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:22px;margin-bottom:18px}
-    .section-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.05)}
+    .section-card{background:var(--surface);border:1px solid rgba(0,59,92,.1);border-radius:var(--radius);padding:22px;margin-bottom:18px}
+    .section-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(0,59,92,.1)}
     .sh-icon{width:34px;height:34px;background:rgba(0,181,226,.1);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px}
     .section-header h3{font-size:.92em;font-weight:700}
     .section-header .counter{margin-left:auto;font-size:.72em;color:var(--text-muted)}
     /* Search */
-    .search-inp{width:100%;padding:11px 14px;background:var(--surface2);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius-sm);color:var(--text);font-family:'Montserrat',sans-serif;font-size:.88em;margin-bottom:14px;transition:all .2s}
+    .search-inp{width:100%;padding:11px 14px;background:var(--surface2);border:1px solid rgba(0,59,92,.1);border-radius:var(--radius-sm);color:var(--text);font-family:'Montserrat',sans-serif;font-size:.88em;margin-bottom:14px;transition:all .2s}
     .search-inp:focus{outline:none;border-color:var(--gold);background:var(--surface3)}
     .search-inp::placeholder{color:var(--text-muted)}
     /* Filter tabs */
     .filter-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-    .filter-btn{padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.1);background:transparent;color:var(--text-muted);font-family:'Montserrat',sans-serif;font-size:.72em;font-weight:600;cursor:pointer;transition:all .2s}
+    .filter-btn{padding:6px 14px;border-radius:20px;border:1px solid rgba(0,59,92,.1);background:transparent;color:var(--buap-navy);font-family:'Montserrat',sans-serif;font-size:.72em;font-weight:600;cursor:pointer;transition:all .2s}
     .filter-btn.active,.filter-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(0,181,226,.08)}
     /* Alumno card in docente view */
     .alumno-row{background:var(--surface2);border-radius:var(--radius-sm);padding:16px;margin-bottom:10px;transition:all .2s;border:1px solid transparent}
     .alumno-row:hover{border-color:rgba(0,181,226,.15);background:var(--surface3)}
     .alumno-row-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
-    .alu-avatar{width:38px;height:38px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.82em;font-weight:800;color:#000;flex-shrink:0}
+    .alu-avatar{width:38px;height:38px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.82em;font-weight:800;color:#fff;flex-shrink:0}
     .alu-meta{}
     .alu-nombre{font-weight:700;font-size:.88em}
     .alu-sub{font-size:.72em;color:var(--text-muted)}
     .alu-badges{margin-left:auto;display:flex;gap:6px;align-items:center}
     .prom-chip{padding:4px 10px;border-radius:10px;font-size:.72em;font-weight:700}
     .alu-school-info{background:var(--surface);border-radius:8px;padding:12px;margin-bottom:10px}
-    .asi-label{font-size:.62em;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);font-weight:700;margin-bottom:4px}
+    .asi-label{font-size:.62em;text-transform:uppercase;letter-spacing:1.5px;color:var(--buap-navy);font-weight:700;margin-bottom:4px}
     .asi-name{font-size:.85em;font-weight:700;margin-bottom:2px}
     .asi-sub{font-size:.72em;color:var(--text-muted)}
     .alu-actions{display:flex;gap:8px;flex-wrap:wrap}
@@ -90,26 +90,26 @@
     .modal-overlay.show{display:flex}
     .modal-box{background:var(--surface);border:1px solid rgba(0,181,226,.2);border-radius:var(--radius);padding:28px;max-width:500px;width:90%;animation:fadeInUp .3s ease}
     .modal-title{font-family:'Playfair Display',serif;font-size:1.2em;color:var(--gold);margin-bottom:4px}
-    .modal-sub{font-size:.8em;color:var(--text-muted);margin-bottom:18px}
-    .modal-search{width:100%;padding:11px 14px;background:var(--surface2);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius-sm);color:var(--text);font-family:'Montserrat',sans-serif;font-size:.88em;margin-bottom:10px;transition:all .2s}
+    .modal-sub{font-size:.8em;color:var(--buap-navy);margin-bottom:18px}
+    .modal-search{width:100%;padding:11px 14px;background:var(--surface2);border:1px solid rgba(0,59,92,.1);border-radius:var(--radius-sm);color:var(--text);font-family:'Montserrat',sans-serif;font-size:.88em;margin-bottom:10px;transition:all .2s}
     .modal-search:focus{outline:none;border-color:var(--gold)}
-    .modal-school-list{max-height:240px;overflow-y:auto;border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-sm)}
-    .msl-item{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:background .15s;font-size:.83em}
+    .modal-school-list{max-height:240px;overflow-y:auto;border:1px solid rgba(0,59,92,.1);border-radius:var(--radius-sm)}
+    .msl-item{padding:10px 14px;border-bottom:1px solid rgba(0,59,92,.1);cursor:pointer;transition:background .15s;font-size:.83em}
     .msl-item:hover{background:rgba(0,181,226,.08)}
     .msl-item:last-child{border-bottom:none}
     .msl-item.selected{background:rgba(0,181,226,.12);font-weight:700}
     .modal-actions{display:flex;gap:10px;margin-top:16px}
-    .modal-btn-ok{flex:1;padding:11px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border:none;border-radius:50px;color:#000;font-family:'Montserrat',sans-serif;font-size:.88em;font-weight:700;cursor:pointer}
-    .modal-btn-cancel{padding:11px 20px;background:transparent;border:1px solid rgba(255,255,255,.15);border-radius:50px;color:var(--text-muted);font-family:'Montserrat',sans-serif;font-size:.88em;cursor:pointer}
+    .modal-btn-ok{flex:1;padding:11px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border:none;border-radius:50px;color:#fff;font-family:'Montserrat',sans-serif;font-size:.88em;font-weight:700;cursor:pointer}
+    .modal-btn-cancel{padding:11px 20px;background:transparent;border:1px solid rgba(0,59,92,.1);border-radius:50px;color:var(--buap-navy);font-family:'Montserrat',sans-serif;font-size:.88em;cursor:pointer}
     /* Empty state */
-    .empty-state{text-align:center;padding:30px;color:var(--text-muted);font-size:.85em}
+    .empty-state{text-align:center;padding:30px;color:var(--buap-navy);font-size:.85em}
     /* Table */
     .table-wrap{overflow-x:auto}
     table{width:100%;border-collapse:collapse;font-size:.82em}
     thead tr{border-bottom:1px solid rgba(0,181,226,.2)}
     thead th{text-align:left;padding:10px 12px;font-size:.68em;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);font-weight:700}
-    tbody tr{border-bottom:1px solid rgba(255,255,255,.04);transition:background .15s}
-    tbody tr:hover{background:rgba(255,255,255,.02)}
+    tbody tr{border-bottom:1px solid rgba(0,59,92,.1);transition:background .15s}
+    tbody tr:hover{background:rgba(0,59,92,.1)}
     tbody td{padding:10px 12px;vertical-align:middle}
     .badge-excelente{background:rgba(76,175,125,.15);color:var(--green);padding:3px 9px;border-radius:10px;font-size:.72em;font-weight:700}
     .badge-muy-bueno{background:rgba(100,181,246,.15);color:var(--blue);padding:3px 9px;border-radius:10px;font-size:.72em;font-weight:700}
@@ -127,7 +127,7 @@
 </nav>
 
 <main id="main-content">
-  <p style="color:var(--text-muted);text-align:center;padding:40px">Cargando...</p>
+  <p style="color:var(--buap-navy);text-align:center;padding:40px">Cargando...</p>
 </main>
 
 <!-- Modal reasignación -->
@@ -330,10 +330,10 @@
                 ${isConf ? '✅ Confirmada' : '✅ Confirmar escuela'}
               </button>
               <button class="btn-change" onclick="openModal('${alumno.matricula}','${alumno.nombre}')">🔄 Cambiar escuela</button>
-              ${sol.pdfUrl ? `<a href="${sol.pdfUrl}" target="_blank" class="btn-pdf">📎 Ver PDF</a>` : '<span style="font-size:.72em;color:var(--text-muted);padding:8px 0">Sin documento aún</span>'}
+              ${sol.pdfUrl ? `<a href="${sol.pdfUrl}" target="_blank" class="btn-pdf">📎 Ver PDF</a>` : '<span style="font-size:.72em;color:var(--buap-navy);padding:8px 0">Sin documento aún</span>'}
             </div>`;
         } else {
-          schoolBlock = `<div style="font-size:.8em;color:var(--text-muted);padding:8px 0;font-style:italic">Este alumno aún no ha solicitado escuela.</div>`;
+          schoolBlock = `<div style="font-size:.8em;color:var(--buap-navy);padding:8px 0;font-style:italic">Este alumno aún no ha solicitado escuela.</div>`;
         }
 
         html += `
@@ -411,9 +411,9 @@
         const escNombre = sol ? toTitleCase(esc ? esc.nombre : sol.escuelaNombre) + (isExt ? ' [EXT]' : '') : '—';
         const escStatus = sol ? `<span class="chip ${sol.estado==='confirmada'?'chip-confirmada':'chip-pendiente'}">${sol.estado==='confirmada'?'✅':' ⏳'} ${escNombre}</span>` : `<span style="font-size:.75em;color:var(--text-muted)">Sin solicitud</span>`;
         html += `<tr>
-          <td style="color:var(--text-muted);font-size:.8em;font-weight:600">#${i+1}</td>
+          <td style="color:var(--buap-navy);font-size:.8em;font-weight:600">#${i+1}</td>
           <td style="font-weight:600;font-size:.85em">${toTitleCase(a.nombre)}</td>
-          <td style="font-size:.8em;color:var(--text-muted);font-family:monospace">${a.matricula}</td>
+          <td style="font-size:.8em;color:var(--buap-navy);font-family:monospace">${a.matricula}</td>
           <td style="font-weight:700">${a.promedio.toFixed(2)}</td>
           <td><span class="${badge.class}">${badge.label}</span></td>
           <td>${escStatus}</td>
