@@ -8,13 +8,14 @@
         /* --- ESTILOS AVANZADOS PARA LA PÁGINA DE INICIO --- */
 
         /* --- 1. Variables de Tema y Diseño Global --- */
-        :root {
-            --color-fondo: #121212;
-            --color-dorado-principal: #D4AF37;
-            --color-dorado-secundario: #B8860B;
-            --color-texto-base: rgba(255, 255, 255, 0.87);
-            --fondo-tarjeta: #1E1E1E;
+                :root {
+            --color-fondo: #F5F7FA;
+            --color-dorado-principal: #00B5E2;
+            --color-dorado-secundario: #008cb0;
+            --color-texto-base: #1a252f;
+            --fondo-tarjeta: #ffffff;
             --radio-borde: 12px;
+            --buap-navy: #003B5C;
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap');
@@ -39,8 +40,8 @@
             background-color: var(--fondo-tarjeta);
             padding: 50px 40px;
             border-radius: var(--radio-borde);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 59, 92, 0.1);
+            border: 1px solid rgba(0, 59, 92, 0.1);
             max-width: 700px;
             width: 90%;
         }
@@ -52,15 +53,7 @@
             width: 100%;
             height: 100%;
             z-index: 1;
-            background: linear-gradient(-45deg, #1a1a1a, #2c2c2c, #121212, #000000);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-        }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            background: linear-gradient(rgba(245, 247, 250, 0.88), rgba(245, 247, 250, 0.95)), url('bg-fcf.jpg') center/cover no-repeat fixed;
         }
 
         /* --- 3. Títulos y Textos --- */
@@ -69,7 +62,7 @@
             color: var(--color-dorado-principal);
             font-size: 2.8em;
             margin: 0 0 10px 0;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            text-shadow: 1px 1px 3px rgba(0,59,92,0.1);
         }
 
         p {
@@ -109,9 +102,9 @@
         }
 
         .navigation-links a:hover {
-            color: var(--color-fondo);
+            color: #ffffff;
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 59, 92, 0.1);
         }
         
         .navigation-links a:hover::before {

@@ -17,7 +17,9 @@
     }
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-    .bg-canvas{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse at 85% 15%,rgba(0,181,226,.07) 0%,transparent 50%),linear-gradient(135deg, #F4F7F9 0%, #FFFFFF 100%)}
+        .bg-canvas { position: fixed; inset: 0; z-index: 0;
+      background: linear-gradient(rgba(244, 247, 249, 0.85), rgba(244, 247, 249, 0.95)), url('bg-fcf.jpg') center/cover no-repeat fixed;
+    }
     .topbar {position:sticky;top:0;z-index:100;background:rgba(13,13,13,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,181,226,.1);padding:14px 24px;display:flex;align-items:center;justify-content:space-between color: white; }
     .topbar-brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:.88em;color:var(--gold)}
     .btn-sm{padding:7px 16px;border:1px solid rgba(0,181,226,.3);border-radius:20px;background:transparent;color:var(--buap-navy);font-family:'Montserrat',sans-serif;font-size:.75em;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
