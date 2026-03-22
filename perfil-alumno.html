@@ -309,6 +309,17 @@
     renderDocsSection();
   }
 
+
+  // ─── CONFIGURACIÓN DE FECHAS DE APERTURA POR CATEGORÍA ───
+  // Modifica estas fechas y horas con el día exacto en el que deseas que cada grupo pueda empezar a elegir.
+  const SCHEDULE = {
+    'Excelente': new Date('2026-03-24T08:00:00-06:00'), // Martes 24 de Marzo a las 8:00 AM
+    'Muy Bueno': new Date('2026-03-25T08:00:00-06:00'), // Miércoles 25 a las 8:00 AM
+    'Bueno':     new Date('2026-03-26T08:00:00-06:00'), // Jueves 26 a las 8:00 AM
+    'Regular':   new Date('2026-03-27T08:00:00-06:00'), // Viernes 27 a las 8:00 AM
+    'Suficiente':new Date('2026-03-28T08:00:00-06:00')  // Sábado 28 a las 8:00 AM
+  };
+
   function renderEscuelaSection() {
     const el = document.getElementById('school-content');
     if (!el) return;
@@ -339,6 +350,32 @@
       return;
     }
 
+    
+
+    // Comprobar si ya es su turno de acuerdo al promedio
+    const badge = getPromedioBadge(alumnoData.promedio);
+    const openDate = SCHEDULE[badge.label] || new Date('2099-01-01');
+    const now = new Date();
+    
+    if (now < openDate) {
+      const dateStr = openDate.toLocaleDateString('es-MX', { weekday:'long', day:'numeric', month:'long', hour:'2-digit', minute:'2-digit' });
+      el.innerHTML = `
+        <div class="status-banner pendiente" style="background:var(--surface2); border: 1px dashed var(--buap-navy); color: var(--buap-navy);">
+          <span class="sb-icon" style="font-size:2em">🔒</span>
+          <div>
+            <strong style="font-size:1.1em">Aún no es el turno de tu bloque</strong>
+            <div style="font-size:.9em;margin-top:6px;line-height:1.4">
+              Perteneces al bloque de promedio <strong>"${badge.label}"</strong>.<br>
+              El sistema de selección de escuelas se abrirá para ti el <strong>${dateStr}</strong>.
+            </div>
+            <div style="font-size:.8em;margin-top:6px;opacity:0.8">
+              Por favor, regresa a esta página en esa fecha y hora para poder elegir o registrar tu lugar.
+            </div>
+          </div>
+        </div>
+      `;
+      return;
+    }
     
     // Sin solicitud – mostrar selector
     const tomadas = new Set(Object.values(solicitudesGlobales).map(s => s.escuelaId));
