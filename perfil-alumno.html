@@ -934,14 +934,14 @@
           doc.text(`Nombre Completo: ${toTitleCase(alumnoData.nombre)}`, 20, 90);
           doc.text(`Matrícula: ${alumnoData.matricula}`, 20, 100);
           
-          const aluEmail = miSolicitud && miSolicitud.email ? miSolicitud.email : '_________________';
-          const aluTel = miSolicitud && miSolicitud.telefono ? miSolicitud.telefono : '_________________';
+          const aluEmail = miSolicitud && miSolicitud.email ? miSolicitud.email : 'Sin registrar';
+          const aluTel = miSolicitud && miSolicitud.telefono ? miSolicitud.telefono : 'Sin registrar';
           doc.text(`Correo Electrónico: ${aluEmail}`, 20, 110);
           doc.text(`Teléfono: ${aluTel}`, 120, 110);
           
-          const escNombre = miSolicitud ? miSolicitud.escuelaNombre : '______________________________';
-          const escCCT = miSolicitud && miSolicitud.escuelaCCT ? miSolicitud.escuelaCCT : '____________________';
-          const escDir = miSolicitud && miSolicitud.escuelaUbicacion ? miSolicitud.escuelaUbicacion : '____________________';
+          const escNombre = miSolicitud ? miSolicitud.escuelaNombre : '';
+          const escCCT = miSolicitud && miSolicitud.escuelaCCT ? miSolicitud.escuelaCCT : 'Sin CCT';
+          const escDir = miSolicitud && miSolicitud.escuelaUbicacion ? miSolicitud.escuelaUbicacion : 'Sin dirección';
           
           doc.setFont('helvetica', 'bold');
           doc.text("DATOS DEL CENTRO DE PRÁCTICAS ELEGIDO:", 20, 130);
