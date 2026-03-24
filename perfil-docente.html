@@ -157,7 +157,7 @@
 <!-- Firebase -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-  import { getFirestore, collection, getDocs, doc, setDoc, updateDoc }
+  import { getFirestore, collection, getDocs, doc, setDoc, updateDoc, deleteDoc }
     from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -194,9 +194,14 @@
     await setDoc(doc(db, 'acceso_alumnos', matricula), { activo }, { merge: true });
   }
 
+  async function deleteSolicitud(matricula) {
+    await deleteDoc(doc(db, 'solicitudes_practicas', matricula));
+  }
+
   window._db = db;
   window._getSolicitudes = getSolicitudes;
   window._updateSolicitud = updateSolicitud;
+  window._deleteSolicitud = deleteSolicitud;
   window._getAccesos = getAccesos;
   window._updateAcceso = updateAcceso;
   window._firebaseReady = true;
@@ -379,6 +384,7 @@
                   ${isConf ? '✅ Confirmada' : '✅ Confirmar escuela'}
                 </button>
                 <button class="btn-change" onclick="openModal('${alumno.matricula}','${alumno.nombre}')">🔄 Cambiar escuela</button>
+                ${docenteData.esSuperUsuario ? `<button class="btn-change" style="background:#fff0f0; color:#e53935; border-color:#ffcdd2;" onclick="resetAlumno('${alumno.matricula}')">🗑️ Resetear</button>` : ''}
               </div>
             </div>`;
         } else {
@@ -491,7 +497,10 @@
                   </label>
                </td>` 
             : `<td><span class="${badge.class}">${badge.label}</span></td>`}
-          <td>${escStatus}</td>
+          <td>
+            ${escStatus}
+            ${docenteData.esSuperUsuario && sol ? `<br><button onclick="resetAlumno('${a.matricula}')" style="margin-top:6px; background:none; border:none; color:#e53935; text-decoration:underline; font-size:0.75em; cursor:pointer;" title="Borrar toda la información del alumno">🗑️ Resetear Alumno</button>` : ''}
+          </td>
           ${docenteData.esSuperUsuario ? `<td>${docsStr}</td>` : ''}
         </tr>`;
       });
@@ -515,6 +524,18 @@
       todasSolicitudes = await window._getSolicitudes();
       renderTab();
     } catch(e) { alert('Error al confirmar. Intenta de nuevo.'); }
+  }
+
+  async function resetAlumno(matricula) {
+    if (!confirm('¿Estás SEGURO de querer resetear a este alumno? Se borrarán todos sus datos y documentos de la base de datos y tendrá que volver a empezar.')) return;
+    try {
+      await window._deleteSolicitud(matricula);
+      todasSolicitudes = await window._getSolicitudes();
+      renderTab();
+      alert('Alumno reseteado correctamente.');
+    } catch(e) {
+      alert('Error al resetear: ' + e.message);
+    }
   }
 
   // ─── MODAL REASIGNACIÓN ──────────────────────────────────
