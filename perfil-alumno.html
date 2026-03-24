@@ -304,7 +304,7 @@
       <div class="section-card" id="datos-section" style="animation:fadeInUp .5s ease .2s both">
         <div class="section-header">
           <div class="sh-icon">👤</div>
-          <h3>Datos de Contacto e Identificación</h3>
+          <h3>Datos de Contacto</h3>
         </div>
         <div id="datos-content"></div>
       </div>
@@ -394,6 +394,7 @@
     const ineInfoLabel = miSolicitud && miSolicitud.ineUrl ? '✅ INE Subido' : 'Subir INE/Credencial (PDF)';
 
     el.innerHTML = `
+      <p style="font-size:0.85em; color:var(--text-muted); margin-bottom:12px">Estos datos son importantes para que tu docente pueda contactarte. Guárdalos antes de continuar.</p>
       <div style="margin-bottom:12px">
          <label style="font-size:0.8em; font-weight:600; color:var(--text-muted);">Correo Electrónico</label>
          <input type="email" id="input-email" class="school-search" placeholder="ejemplo@correo.buap.mx" value="${savedEmail}" style="margin-top:4px;">
@@ -402,19 +403,7 @@
          <label style="font-size:0.8em; font-weight:600; color:var(--text-muted);">Teléfono</label>
          <input type="tel" id="input-phone" class="school-search" placeholder="(xxx) xxx xxxx" value="${savedPhone}" style="margin-top:4px;">
       </div>
-      <div style="margin-bottom:12px">
-         <label style="font-size:0.8em; font-weight:600; color:var(--text-muted);">Identificación Oficial o Escolar</label>
-         <div class="upload-zone" id="ine-upload-zone" onclick="document.getElementById('ine-input').click()"
-             ondragover="event.preventDefault();this.classList.add('dragover')"
-             ondragleave="this.classList.remove('dragover')"
-             ondrop="handleIneDrop(event)" style="padding: 16px; margin-top:4px">
-          <div class="uz-icon" style="font-size:1.5em; margin-bottom:4px;">🪪</div>
-          <div class="uz-title" id="ine-upload-title">${ineInfoLabel}</div>
-        </div>
-        <input type="file" id="ine-input" accept=".pdf" style="display:none" onchange="handleIneSelect(event)">
-        <div class="progress-bar" id="ine-progress-bar" style="display:none"><div class="progress-fill" id="ine-fill" style="width:0%"></div></div>
-      </div>
-      <button class="btn-primary" onclick="guardarDatosPersonales()" id="btn-guardar-datos" style="width:auth; padding:8px 20px;">Guardar Datos</button>
+      <button class="btn-primary" onclick="guardarDatosPersonales()" id="btn-guardar-datos" style="width:auto; padding:8px 20px;">Guardar Datos</button>
       <div id="datos-alert" class="alert"></div>
     `;
   }
@@ -602,24 +591,48 @@
   }
 
   // ─── DOCS SECTION ─────────────────────────────────────
-  let filesToUpload = { 'carta': null, 'acuerdos': null };
+  let filesToUpload = { 'ine': null, 'carta': null, 'acuerdos': null };
 
   function renderDocsSection() {
     const el = document.getElementById('docs-content');
     if (!el) return;
     
     // Check if URLs exist
+    const tieneIne = miSolicitud && miSolicitud.ineUrl;
     const tieneCarta = miSolicitud && miSolicitud.cartaUrl;
     const tieneAcuerdos = miSolicitud && miSolicitud.acuerdosUrl;
 
     el.innerHTML = `
       <p style="font-size:.82em;color:var(--buap-navy);margin-bottom:14px;line-height:1.6">
-        Sube tus documentos debidamente llenados y firmados. <strong style="color:var(--text)">Solo formato PDF (máx. 1 MB c/u)</strong>.
+        Sube tus documentos <strong style="color:var(--text)">en formato PDF (máx. 1 MB c/u)</strong>. Deben guardarse uno por uno.
       </p>
+
+      <!-- Caja 0: INE / Credencial -->
+      <div style="margin-bottom:20px; padding:16px; background:var(--surface2); border-radius:var(--radius-sm); border:1px solid rgba(0,59,92,.1);">
+        <h4 style="font-size:.85em; font-weight:700; color:var(--gold); margin-bottom:10px;">1. Identificación Oficial o Escolar</h4>
+        ${tieneIne ? `
+          <div class="status-banner confirmada" style="margin-bottom:10px">
+            <span class="sb-icon">📎</span>
+            <div><strong>Documento subido correctamente</strong>
+            <div style="font-size:.8em;margin-top:3px"><a href="${miSolicitud.ineUrl}" target="_blank" style="color:var(--green)">Ver PDF →</a></div></div>
+          </div>
+          <button class="btn-danger" onclick="resetFileDoc('ine')" style="width:auto;padding:6px 14px;font-size:.75em;margin-top:0;">Reemplazar documento</button>
+        ` : `
+          <div class="upload-zone" id="upload-zone-ine" onclick="document.getElementById('input-ine').click()"
+               ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')"
+               ondrop="handleDocDrop(event, 'ine')" style="padding:16px;">
+            <div class="uz-icon" style="font-size:1.5em;margin-bottom:4px;">🪪</div>
+            <div class="uz-title" id="title-ine">Clic o arrastra el INE/Credencial (PDF)</div>
+          </div>
+          <input type="file" id="input-ine" accept=".pdf" style="display:none" onchange="handleDocSelect(event, 'ine')">
+          <div class="progress-bar" id="bar-ine" style="display:none"><div class="progress-fill" id="fill-ine" style="width:0%"></div></div>
+          <button class="btn-primary" id="btn-up-ine" onclick="subirDoc('ine')" disabled style="padding:10px;font-size:.8em;">Subir INE a Drive</button>
+        `}
+      </div>
 
       <!-- Caja 1: Carta de Aceptación -->
       <div style="margin-bottom:20px; padding:16px; background:var(--surface2); border-radius:var(--radius-sm); border:1px solid rgba(0,59,92,.1);">
-        <h4 style="font-size:.85em; font-weight:700; color:var(--gold); margin-bottom:10px;">1. Carta de Aceptación / Conformidad</h4>
+        <h4 style="font-size:.85em; font-weight:700; color:var(--gold); margin-bottom:10px;">2. Carta de Aceptación / Conformidad</h4>
         ${tieneCarta ? `
           <div class="status-banner confirmada" style="margin-bottom:10px">
             <span class="sb-icon">📎</span>
@@ -642,7 +655,7 @@
 
       <!-- Caja 2: Oficio Asignación / Acuerdos -->
       <div style="padding:16px; background:var(--surface2); border-radius:var(--radius-sm); border:1px solid rgba(0,59,92,.1);">
-        <h4 style="font-size:.85em; font-weight:700; color:var(--gold); margin-bottom:10px;">2. Oficio de Asignación / Formato de Acuerdos</h4>
+        <h4 style="font-size:.85em; font-weight:700; color:var(--gold); margin-bottom:10px;">3. Oficio de Asignación / Formato de Acuerdos</h4>
         ${tieneAcuerdos ? `
           <div class="status-banner confirmada" style="margin-bottom:10px">
             <span class="sb-icon">📎</span>
@@ -692,6 +705,7 @@
     document.getElementById('btn-up-'+type).disabled = false;
   }
   function resetFileDoc(type) {
+    if (type === 'ine') { miSolicitud.ineUrl = null; }
     if (type === 'carta') { miSolicitud.cartaUrl = null; }
     if (type === 'acuerdos') { miSolicitud.acuerdosUrl = null; }
     renderDocsSection();
@@ -715,7 +729,8 @@
 
       const docente = DOCENTES.find(d=>d.secciones.some(s=>s.nrc===alumnoData.nrc));
       const docenteName = docente ? (docente.nombreFormato || docente.nombre) : 'SIN_DOCENTE';
-      const docName = type === 'carta' ? 'CARTA_ACEPTA' : 'OFICIO_ACUERDOS';
+      
+      const docName = type === 'ine' ? 'INE' : type === 'carta' ? 'CARTA_ACEPTA' : 'OFICIO_ACUERDOS';
       const fileName = `${docName}_${alumnoData.matricula}_${alumnoData.nombre}`.replace(/\s+/g,'_').toUpperCase() + '.pdf';
 
       const resp = await fetch(window._APPS_SCRIPT_URL, {
@@ -732,12 +747,14 @@
 
       if (result.url) {
         const updateData = {};
+        if (type === 'ine') updateData.ineUrl = result.url;
         if (type === 'carta') updateData.cartaUrl = result.url;
         if (type === 'acuerdos') updateData.acuerdosUrl = result.url;
         
         await window._guardarSolicitud(alumnoData.matricula, { ...miSolicitud, ...updateData, fechaPDF: new Date().toISOString() });
         miSolicitud = await window._getMiSolicitud(alumnoData.matricula);
         if (fill) fill.style.width = '100%';
+        filesToUpload[type] = null;
         setTimeout(() => { renderDocsSection(); showAlert('docs-alert','success','✅ Documento subido a la carpeta de tu docente en Drive.'); }, 400);
       } else {
         throw new Error(result.error || 'Error en Google Apps Script');
@@ -759,28 +776,6 @@
   }
 
   // ─── INE UPLOAD & DATOS ───────────────────────────────────
-  function handleIneDrop(e) {
-      e.preventDefault();
-      document.getElementById('ine-upload-zone').classList.remove('dragover');
-      const file = e.dataTransfer.files[0];
-      if (file) processIneFile(file);
-  }
-  function handleIneSelect(e) {
-      const file = e.target.files[0];
-      if (file) processIneFile(file);
-  }
-  function processIneFile(file) {
-      if (file.type !== 'application/pdf') {
-          showAlert('datos-alert','error','⚠️ Solo PDF para el INE/Credencial.');
-          return;
-      }
-      if (file.size > 1024 * 1024 * 2) {
-          showAlert('datos-alert','error','⚠️ El archivo excede 2 MB.');
-          return;
-      }
-      selectedIneFile = file;
-      document.getElementById('ine-upload-title').innerHTML = `📄 ${file.name} (Listo para guardar)`;
-  }
   async function guardarDatosPersonales() {
       const email = document.getElementById('input-email').value.trim();
       const phone = document.getElementById('input-phone').value.trim();
@@ -790,49 +785,18 @@
           return;
       }
 
+      if (!email || !phone) {
+          showAlert('datos-alert', 'error', 'Ingresa tu correo y teléfono antes de guardar.');
+          return;
+      }
+
       const btn = document.getElementById('btn-guardar-datos');
       btn.textContent = 'Guardando...'; btn.disabled = true;
 
       try {
-          let ineUrlToSave = miSolicitud.ineUrl || null;
-          
-          if (selectedIneFile) {
-              const bar = document.getElementById('ine-progress-bar');
-              const fill = document.getElementById('ine-fill');
-              if (bar) bar.style.display = '';
-              if (fill) fill.style.width = '30%';
-
-              const base64 = await fileToBase64(selectedIneFile);
-              if (fill) fill.style.width = '60%';
-              const docenteNameInfo = DOCENTES.find(d=>d.secciones.some(s=>s.nrc===alumnoData.nrc));
-              const dName = docenteNameInfo ? (docenteNameInfo.nombreFormato || docenteNameInfo.nombre) : 'SIN_DOCENTE';
-
-              const resp = await fetch(window._APPS_SCRIPT_URL, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                  body: JSON.stringify({
-                      matricula: alumnoData.matricula,
-                      nombre: alumnoData.nombre,
-                      nrc: alumnoData.nrc,
-                      docenteName: dName,
-                      fileName: `INE_${alumnoData.matricula}_${alumnoData.nombre}`.replace(/\s+/g,'_').toUpperCase() + '.pdf',
-                      fileData: base64
-                  })
-              });
-              if (fill) fill.style.width = '85%';
-              const result = await resp.json();
-              if (result.url) {
-                  ineUrlToSave = result.url;
-                  if (fill) fill.style.width = '100%';
-              } else throw new Error('Error al subir INE');
-              if (bar) setTimeout(()=>bar.style.display='none', 1000);
-          }
-
-          await window._guardarSolicitud(alumnoData.matricula, { ...miSolicitud, email, telefono: phone, ineUrl: ineUrlToSave });
+          await window._guardarSolicitud(alumnoData.matricula, { ...miSolicitud, email, telefono: phone });
           miSolicitud = await window._getMiSolicitud(alumnoData.matricula);
-          showAlert('datos-alert', 'success', '✅ Datos e identificación actualizados');
-          selectedIneFile = null;
-          document.getElementById('ine-upload-title').innerHTML = `✅ INE/Credencial guardado correctamente`;
+          showAlert('datos-alert', 'success', '✅ Datos de contacto actualizados');
       } catch (e) {
           showAlert('datos-alert', 'error', 'Error al guardar datos');
       } finally {
@@ -917,8 +881,6 @@
   window.subirDoc = subirDoc;
   window.renderDocsSection = renderDocsSection;
   window.guardarDatosPersonales = guardarDatosPersonales;
-  window.handleIneDrop = handleIneDrop;
-  window.handleIneSelect = handleIneSelect;
 
   // ─── JSPDF LOGIC ──────────────────────────────────────
   function loadJspdf(callback) {
