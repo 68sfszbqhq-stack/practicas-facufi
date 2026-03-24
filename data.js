@@ -78,16 +78,6 @@ const DOCENTES = [
 
 const ALUMNOS = [
   {
-    "promedio": null,
-    "matricula": "Matricula",
-    "nombre": "Nombre",
-    "plan": "Plan de estudios",
-    "periodo": "Periodo",
-    "nrc": null,
-    "docente": "Docente",
-    "horarioCita": "09:00"
-  },
-  {
     "promedio": 9.9,
     "matricula": "202326285",
     "nombre": "FERRERA GONZALEZ ANTONELLA",
@@ -95,7 +85,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:01"
+    "horarioCita": "09:00"
   },
   {
     "promedio": 9.87,
@@ -105,7 +95,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:02"
+    "horarioCita": "09:01"
   },
   {
     "promedio": 9.8,
@@ -115,7 +105,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:03"
+    "horarioCita": "09:02"
   },
   {
     "promedio": 9.8,
@@ -125,7 +115,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:04"
+    "horarioCita": "09:03"
   },
   {
     "promedio": 9.8,
@@ -135,7 +125,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:05"
+    "horarioCita": "09:04"
   },
   {
     "promedio": 9.77,
@@ -145,7 +135,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:06"
+    "horarioCita": "09:05"
   },
   {
     "promedio": 9.74,
@@ -155,7 +145,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:07"
+    "horarioCita": "09:06"
   },
   {
     "promedio": 9.74,
@@ -165,7 +155,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:08"
+    "horarioCita": "09:07"
   },
   {
     "promedio": 9.7,
@@ -175,7 +165,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60875,
     "docente": "Nayelli Salamanca M",
-    "horarioCita": "09:09"
+    "horarioCita": "09:08"
   },
   {
     "promedio": 9.7,
@@ -185,7 +175,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:10"
+    "horarioCita": "09:09"
   },
   {
     "promedio": 9.69,
@@ -195,7 +185,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "09:11"
+    "horarioCita": "09:10"
   },
   {
     "promedio": 9.67,
@@ -205,7 +195,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:12"
+    "horarioCita": "09:11"
   },
   {
     "promedio": 9.67,
@@ -215,7 +205,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:13"
+    "horarioCita": "09:12"
   },
   {
     "promedio": 9.66,
@@ -225,7 +215,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:14"
+    "horarioCita": "09:13"
   },
   {
     "promedio": 9.64,
@@ -235,7 +225,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:15"
+    "horarioCita": "09:14"
   },
   {
     "promedio": 9.64,
@@ -245,7 +235,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:16"
+    "horarioCita": "09:15"
   },
   {
     "promedio": 9.64,
@@ -255,7 +245,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:17"
+    "horarioCita": "09:16"
   },
   {
     "promedio": 9.64,
@@ -265,7 +255,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:18"
+    "horarioCita": "09:17"
   },
   {
     "promedio": 9.64,
@@ -275,7 +265,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:19"
+    "horarioCita": "09:18"
   },
   {
     "promedio": 9.64,
@@ -285,7 +275,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "09:20"
+    "horarioCita": "09:19"
   },
   {
     "promedio": 9.63,
@@ -295,7 +285,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:21"
+    "horarioCita": "09:20"
   },
   {
     "promedio": 9.61,
@@ -305,7 +295,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:22"
+    "horarioCita": "09:21"
   },
   {
     "promedio": 9.61,
@@ -315,7 +305,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:23"
+    "horarioCita": "09:22"
   },
   {
     "promedio": 9.61,
@@ -325,7 +315,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "09:24"
+    "horarioCita": "09:23"
   },
   {
     "promedio": 9.58,
@@ -335,7 +325,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60875,
     "docente": "Nayelli Salamanca M",
-    "horarioCita": "09:25"
+    "horarioCita": "09:24"
   },
   {
     "promedio": 9.58,
@@ -345,7 +335,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "09:26"
+    "horarioCita": "09:25"
   },
   {
     "promedio": 9.58,
@@ -355,7 +345,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "09:27"
+    "horarioCita": "09:26"
   },
   {
     "promedio": 9.54,
@@ -365,7 +355,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60875,
     "docente": "Nayelli Salamanca M",
-    "horarioCita": "09:28"
+    "horarioCita": "09:27"
   },
   {
     "promedio": 9.54,
@@ -375,7 +365,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60866,
     "docente": "Alejandra Marciano Mendoza",
-    "horarioCita": "09:29"
+    "horarioCita": "09:28"
   },
   {
     "promedio": 9.54,
@@ -385,7 +375,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60866,
     "docente": "Alejandra Marciano Mendoza",
-    "horarioCita": "09:30"
+    "horarioCita": "09:29"
   },
   {
     "promedio": 9.54,
@@ -395,7 +385,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:31"
+    "horarioCita": "09:30"
   },
   {
     "promedio": 9.54,
@@ -405,7 +395,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:32"
+    "horarioCita": "09:31"
   },
   {
     "promedio": 9.54,
@@ -415,7 +405,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "09:33"
+    "horarioCita": "09:32"
   },
   {
     "promedio": 9.54,
@@ -425,7 +415,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60853,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "09:34"
+    "horarioCita": "09:33"
   },
   {
     "promedio": 9.51,
@@ -435,7 +425,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60866,
     "docente": "Alejandra Marciano Mendoza",
-    "horarioCita": "09:35"
+    "horarioCita": "09:34"
   },
   {
     "promedio": 9.51,
@@ -445,7 +435,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "09:36"
+    "horarioCita": "09:35"
   },
   {
     "promedio": 9.48,
@@ -455,7 +445,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60866,
     "docente": "Alejandra Marciano Mendoza",
-    "horarioCita": "09:37"
+    "horarioCita": "09:36"
   },
   {
     "promedio": 9.48,
@@ -465,7 +455,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:38"
+    "horarioCita": "09:37"
   },
   {
     "promedio": 9.48,
@@ -475,7 +465,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:39"
+    "horarioCita": "09:38"
   },
   {
     "promedio": 9.48,
@@ -485,7 +475,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "09:40"
+    "horarioCita": "09:39"
   },
   {
     "promedio": 9.45,
@@ -495,7 +485,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:41"
+    "horarioCita": "09:40"
   },
   {
     "promedio": 9.45,
@@ -505,7 +495,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:42"
+    "horarioCita": "09:41"
   },
   {
     "promedio": 9.41,
@@ -515,7 +505,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:43"
+    "horarioCita": "09:42"
   },
   {
     "promedio": 9.41,
@@ -525,7 +515,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:44"
+    "horarioCita": "09:43"
   },
   {
     "promedio": 9.41,
@@ -535,7 +525,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:45"
+    "horarioCita": "09:44"
   },
   {
     "promedio": 9.38,
@@ -545,7 +535,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:46"
+    "horarioCita": "09:45"
   },
   {
     "promedio": 9.38,
@@ -555,7 +545,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "09:47"
+    "horarioCita": "09:46"
   },
   {
     "promedio": 9.38,
@@ -565,7 +555,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "09:48"
+    "horarioCita": "09:47"
   },
   {
     "promedio": 9.35,
@@ -575,7 +565,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60866,
     "docente": "Alejandra Marciano Mendoza",
-    "horarioCita": "09:49"
+    "horarioCita": "09:48"
   },
   {
     "promedio": 9.35,
@@ -585,7 +575,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:50"
+    "horarioCita": "09:49"
   },
   {
     "promedio": 9.35,
@@ -595,7 +585,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "09:51"
+    "horarioCita": "09:50"
   },
   {
     "promedio": 9.32,
@@ -605,7 +595,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60875,
     "docente": "Nayelli Salamanca M",
-    "horarioCita": "09:52"
+    "horarioCita": "09:51"
   },
   {
     "promedio": 9.32,
@@ -615,7 +605,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "09:53"
+    "horarioCita": "09:52"
   },
   {
     "promedio": 9.32,
@@ -625,7 +615,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "09:54"
+    "horarioCita": "09:53"
   },
   {
     "promedio": 9.32,
@@ -635,7 +625,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "09:55"
+    "horarioCita": "09:54"
   },
   {
     "promedio": 9.31,
@@ -645,7 +635,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "09:56"
+    "horarioCita": "09:55"
   },
   {
     "promedio": 9.3,
@@ -655,7 +645,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "09:57"
+    "horarioCita": "09:56"
   },
   {
     "promedio": 9.29,
@@ -665,7 +655,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "09:58"
+    "horarioCita": "09:57"
   },
   {
     "promedio": 9.29,
@@ -675,7 +665,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "09:59"
+    "horarioCita": "09:58"
   },
   {
     "promedio": 9.29,
@@ -685,7 +675,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "10:00"
+    "horarioCita": "09:59"
   },
   {
     "promedio": 9.29,
@@ -695,7 +685,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "10:01"
+    "horarioCita": "10:00"
   },
   {
     "promedio": 9.25,
@@ -705,7 +695,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "10:02"
+    "horarioCita": "10:01"
   },
   {
     "promedio": 9.25,
@@ -715,7 +705,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "10:03"
+    "horarioCita": "10:02"
   },
   {
     "promedio": 9.25,
@@ -725,7 +715,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "10:04"
+    "horarioCita": "10:03"
   },
   {
     "promedio": 9.25,
@@ -735,7 +725,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "10:05"
+    "horarioCita": "10:04"
   },
   {
     "promedio": 9.24,
@@ -745,7 +735,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "10:06"
+    "horarioCita": "10:05"
   },
   {
     "promedio": 9.22,
@@ -755,7 +745,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "10:07"
+    "horarioCita": "10:06"
   },
   {
     "promedio": 9.19,
@@ -765,7 +755,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "10:08"
+    "horarioCita": "10:07"
   },
   {
     "promedio": 9.19,
@@ -775,7 +765,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "10:09"
+    "horarioCita": "10:08"
   },
   {
     "promedio": 9.19,
@@ -785,7 +775,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "10:10"
+    "horarioCita": "10:09"
   },
   {
     "promedio": 9.19,
@@ -795,7 +785,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "10:11"
+    "horarioCita": "10:10"
   },
   {
     "promedio": 9.19,
@@ -805,7 +795,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "10:12"
+    "horarioCita": "10:11"
   },
   {
     "promedio": 9.19,
@@ -815,7 +805,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "10:13"
+    "horarioCita": "10:12"
   },
   {
     "promedio": 9.17,
@@ -825,7 +815,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "10:14"
+    "horarioCita": "10:13"
   },
   {
     "promedio": 9.16,
@@ -835,7 +825,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60866,
     "docente": "Alejandra Marciano Mendoza",
-    "horarioCita": "10:15"
+    "horarioCita": "10:14"
   },
   {
     "promedio": 9.16,
@@ -845,7 +835,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "10:16"
+    "horarioCita": "10:15"
   },
   {
     "promedio": 9.16,
@@ -855,7 +845,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "10:17"
+    "horarioCita": "10:16"
   },
   {
     "promedio": 9.15,
@@ -865,7 +855,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "10:18"
+    "horarioCita": "10:17"
   },
   {
     "promedio": 9.12,
@@ -875,7 +865,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60853,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "10:19"
+    "horarioCita": "10:18"
   },
   {
     "promedio": 9.12,
@@ -885,7 +875,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "10:20"
+    "horarioCita": "10:19"
   },
   {
     "promedio": 9.12,
@@ -895,7 +885,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60871,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "10:21"
+    "horarioCita": "10:20"
   },
   {
     "promedio": 9.1,
@@ -905,7 +895,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "10:22"
+    "horarioCita": "10:21"
   },
   {
     "promedio": 9.1,
@@ -915,7 +905,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "10:23"
+    "horarioCita": "10:22"
   },
   {
     "promedio": 9.09,
@@ -925,7 +915,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "10:24"
+    "horarioCita": "10:23"
   },
   {
     "promedio": 9.09,
@@ -935,7 +925,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "10:25"
+    "horarioCita": "10:24"
   },
   {
     "promedio": 9.09,
@@ -945,7 +935,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "10:26"
+    "horarioCita": "10:25"
   },
   {
     "promedio": 9.06,
@@ -955,7 +945,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60875,
     "docente": "Nayelli Salamanca M",
-    "horarioCita": "10:27"
+    "horarioCita": "10:26"
   },
   {
     "promedio": 9.06,
@@ -965,7 +955,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "10:28"
+    "horarioCita": "10:27"
   },
   {
     "promedio": 9.06,
@@ -975,7 +965,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "10:29"
+    "horarioCita": "10:28"
   },
   {
     "promedio": 9.06,
@@ -985,7 +975,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "10:30"
+    "horarioCita": "10:29"
   },
   {
     "promedio": 9.06,
@@ -995,7 +985,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "10:31"
+    "horarioCita": "10:30"
   },
   {
     "promedio": 9.03,
@@ -1005,7 +995,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "10:32"
+    "horarioCita": "10:31"
   },
   {
     "promedio": 8.96,
@@ -1015,7 +1005,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "10:33"
+    "horarioCita": "10:32"
   },
   {
     "promedio": 8.96,
@@ -1025,7 +1015,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60853,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "10:34"
+    "horarioCita": "10:33"
   },
   {
     "promedio": 8.96,
@@ -1035,7 +1025,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60853,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "10:35"
+    "horarioCita": "10:34"
   },
   {
     "promedio": 8.96,
@@ -1045,7 +1035,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60853,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "10:36"
+    "horarioCita": "10:35"
   },
   {
     "promedio": 8.96,
@@ -1055,7 +1045,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "10:37"
+    "horarioCita": "10:36"
   },
   {
     "promedio": 8.96,
@@ -1065,7 +1055,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60871,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "10:38"
+    "horarioCita": "10:37"
   },
   {
     "promedio": 8.93,
@@ -1075,7 +1065,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60866,
     "docente": "Alejandra Marciano Mendoza",
-    "horarioCita": "10:39"
+    "horarioCita": "10:38"
   },
   {
     "promedio": 8.93,
@@ -1085,7 +1075,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "10:40"
+    "horarioCita": "10:39"
   },
   {
     "promedio": 8.93,
@@ -1095,7 +1085,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60853,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "10:41"
+    "horarioCita": "10:40"
   },
   {
     "promedio": 8.93,
@@ -1105,7 +1095,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "10:42"
+    "horarioCita": "10:41"
   },
   {
     "promedio": 8.92,
@@ -1115,7 +1105,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60842,
     "docente": "Nayelli Salamanca M",
-    "horarioCita": "10:43"
+    "horarioCita": "10:42"
   },
   {
     "promedio": 8.9,
@@ -1125,7 +1115,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60866,
     "docente": "Alejandra Marciano Mendoza",
-    "horarioCita": "10:44"
+    "horarioCita": "10:43"
   },
   {
     "promedio": 8.9,
@@ -1135,7 +1125,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "10:45"
+    "horarioCita": "10:44"
   },
   {
     "promedio": 8.9,
@@ -1145,7 +1135,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "10:46"
+    "horarioCita": "10:45"
   },
   {
     "promedio": 8.89,
@@ -1155,7 +1145,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "10:47"
+    "horarioCita": "10:46"
   },
   {
     "promedio": 8.87,
@@ -1165,7 +1155,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "10:48"
+    "horarioCita": "10:47"
   },
   {
     "promedio": 8.87,
@@ -1175,7 +1165,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "10:49"
+    "horarioCita": "10:48"
   },
   {
     "promedio": 8.86,
@@ -1185,7 +1175,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "10:50"
+    "horarioCita": "10:49"
   },
   {
     "promedio": 8.85,
@@ -1195,7 +1185,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "10:51"
+    "horarioCita": "10:50"
   },
   {
     "promedio": 8.85,
@@ -1205,7 +1195,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "10:52"
+    "horarioCita": "10:51"
   },
   {
     "promedio": 8.82,
@@ -1215,7 +1205,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "10:53"
+    "horarioCita": "10:52"
   },
   {
     "promedio": 8.8,
@@ -1225,7 +1215,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "10:54"
+    "horarioCita": "10:53"
   },
   {
     "promedio": 8.8,
@@ -1235,7 +1225,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60871,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "10:55"
+    "horarioCita": "10:54"
   },
   {
     "promedio": 8.78,
@@ -1245,7 +1235,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "10:56"
+    "horarioCita": "10:55"
   },
   {
     "promedio": 8.77,
@@ -1255,7 +1245,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "10:57"
+    "horarioCita": "10:56"
   },
   {
     "promedio": 8.76,
@@ -1265,7 +1255,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "10:58"
+    "horarioCita": "10:57"
   },
   {
     "promedio": 8.75,
@@ -1275,7 +1265,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60866,
     "docente": "Alejandra Marciano Mendoza",
-    "horarioCita": "10:59"
+    "horarioCita": "10:58"
   },
   {
     "promedio": 8.74,
@@ -1285,7 +1275,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "11:00"
+    "horarioCita": "10:59"
   },
   {
     "promedio": 8.73,
@@ -1295,7 +1285,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:01"
+    "horarioCita": "11:00"
   },
   {
     "promedio": 8.7,
@@ -1305,7 +1295,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "11:02"
+    "horarioCita": "11:01"
   },
   {
     "promedio": 8.67,
@@ -1315,7 +1305,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "11:03"
+    "horarioCita": "11:02"
   },
   {
     "promedio": 8.67,
@@ -1325,7 +1315,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "11:04"
+    "horarioCita": "11:03"
   },
   {
     "promedio": 8.67,
@@ -1335,7 +1325,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "11:05"
+    "horarioCita": "11:04"
   },
   {
     "promedio": 8.65,
@@ -1345,7 +1335,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60871,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:06"
+    "horarioCita": "11:05"
   },
   {
     "promedio": 8.64,
@@ -1355,7 +1345,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "11:07"
+    "horarioCita": "11:06"
   },
   {
     "promedio": 8.62,
@@ -1365,7 +1355,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60866,
     "docente": "Alejandra Marciano Mendoza",
-    "horarioCita": "11:08"
+    "horarioCita": "11:07"
   },
   {
     "promedio": 8.58,
@@ -1375,7 +1365,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:09"
+    "horarioCita": "11:08"
   },
   {
     "promedio": 8.56,
@@ -1385,7 +1375,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "11:10"
+    "horarioCita": "11:09"
   },
   {
     "promedio": 8.56,
@@ -1395,7 +1385,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60871,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:11"
+    "horarioCita": "11:10"
   },
   {
     "promedio": 8.54,
@@ -1405,7 +1395,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:12"
+    "horarioCita": "11:11"
   },
   {
     "promedio": 8.54,
@@ -1415,7 +1405,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:13"
+    "horarioCita": "11:12"
   },
   {
     "promedio": 8.54,
@@ -1425,7 +1415,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:14"
+    "horarioCita": "11:13"
   },
   {
     "promedio": 8.54,
@@ -1435,7 +1425,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:15"
+    "horarioCita": "11:14"
   },
   {
     "promedio": 8.54,
@@ -1445,7 +1435,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60871,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:16"
+    "horarioCita": "11:15"
   },
   {
     "promedio": 8.53,
@@ -1455,7 +1445,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "11:17"
+    "horarioCita": "11:16"
   },
   {
     "promedio": 8.53,
@@ -1465,7 +1455,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:18"
+    "horarioCita": "11:17"
   },
   {
     "promedio": 8.52,
@@ -1475,7 +1465,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60875,
     "docente": "Nayelli Salamanca M",
-    "horarioCita": "11:19"
+    "horarioCita": "11:18"
   },
   {
     "promedio": 8.48,
@@ -1485,7 +1475,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "11:20"
+    "horarioCita": "11:19"
   },
   {
     "promedio": 8.48,
@@ -1495,7 +1485,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60871,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:21"
+    "horarioCita": "11:20"
   },
   {
     "promedio": 8.45,
@@ -1505,7 +1495,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60853,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "11:22"
+    "horarioCita": "11:21"
   },
   {
     "promedio": 8.45,
@@ -1515,7 +1505,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:23"
+    "horarioCita": "11:22"
   },
   {
     "promedio": 8.45,
@@ -1525,7 +1515,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:24"
+    "horarioCita": "11:23"
   },
   {
     "promedio": 8.45,
@@ -1535,7 +1525,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:25"
+    "horarioCita": "11:24"
   },
   {
     "promedio": 8.43,
@@ -1545,7 +1535,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "11:26"
+    "horarioCita": "11:25"
   },
   {
     "promedio": 8.41,
@@ -1555,7 +1545,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "11:27"
+    "horarioCita": "11:26"
   },
   {
     "promedio": 8.4,
@@ -1565,7 +1555,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "11:28"
+    "horarioCita": "11:27"
   },
   {
     "promedio": 8.38,
@@ -1575,7 +1565,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "11:29"
+    "horarioCita": "11:28"
   },
   {
     "promedio": 8.38,
@@ -1585,7 +1575,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60853,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "11:30"
+    "horarioCita": "11:29"
   },
   {
     "promedio": 8.38,
@@ -1595,7 +1585,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60853,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "11:31"
+    "horarioCita": "11:30"
   },
   {
     "promedio": 8.37,
@@ -1605,7 +1595,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60853,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "11:32"
+    "horarioCita": "11:31"
   },
   {
     "promedio": 8.34,
@@ -1615,7 +1605,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60875,
     "docente": "Nayelli Salamanca M",
-    "horarioCita": "11:33"
+    "horarioCita": "11:32"
   },
   {
     "promedio": 8.33,
@@ -1625,7 +1615,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60875,
     "docente": "Nayelli Salamanca M",
-    "horarioCita": "11:34"
+    "horarioCita": "11:33"
   },
   {
     "promedio": 8.31,
@@ -1635,7 +1625,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60875,
     "docente": "Nayelli Salamanca M",
-    "horarioCita": "11:35"
+    "horarioCita": "11:34"
   },
   {
     "promedio": 8.31,
@@ -1645,7 +1635,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60853,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "11:36"
+    "horarioCita": "11:35"
   },
   {
     "promedio": 8.29,
@@ -1655,7 +1645,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:37"
+    "horarioCita": "11:36"
   },
   {
     "promedio": 8.22,
@@ -1665,7 +1655,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:38"
+    "horarioCita": "11:37"
   },
   {
     "promedio": 8.21,
@@ -1675,7 +1665,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60842,
     "docente": "Nayelli Salamanca M",
-    "horarioCita": "11:39"
+    "horarioCita": "11:38"
   },
   {
     "promedio": 8.21,
@@ -1685,7 +1675,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "11:40"
+    "horarioCita": "11:39"
   },
   {
     "promedio": 8.19,
@@ -1695,7 +1685,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "11:41"
+    "horarioCita": "11:40"
   },
   {
     "promedio": 8.14,
@@ -1705,7 +1695,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60871,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:42"
+    "horarioCita": "11:41"
   },
   {
     "promedio": 8.11,
@@ -1715,7 +1705,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "11:43"
+    "horarioCita": "11:42"
   },
   {
     "promedio": 8.11,
@@ -1725,7 +1715,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:44"
+    "horarioCita": "11:43"
   },
   {
     "promedio": 8.1,
@@ -1735,7 +1725,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "11:45"
+    "horarioCita": "11:44"
   },
   {
     "promedio": 8.04,
@@ -1745,7 +1735,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60853,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "11:46"
+    "horarioCita": "11:45"
   },
   {
     "promedio": 8,
@@ -1755,7 +1745,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:47"
+    "horarioCita": "11:46"
   },
   {
     "promedio": 7.94,
@@ -1765,7 +1755,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "11:48"
+    "horarioCita": "11:47"
   },
   {
     "promedio": 7.94,
@@ -1775,7 +1765,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "11:49"
+    "horarioCita": "11:48"
   },
   {
     "promedio": 7.94,
@@ -1785,7 +1775,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:50"
+    "horarioCita": "11:49"
   },
   {
     "promedio": 7.93,
@@ -1795,7 +1785,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60875,
     "docente": "Nayelli Salamanca M",
-    "horarioCita": "11:51"
+    "horarioCita": "11:50"
   },
   {
     "promedio": 7.93,
@@ -1805,7 +1795,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "11:52"
+    "horarioCita": "11:51"
   },
   {
     "promedio": 7.91,
@@ -1815,7 +1805,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:53"
+    "horarioCita": "11:52"
   },
   {
     "promedio": 7.88,
@@ -1825,7 +1815,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60861,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "11:54"
+    "horarioCita": "11:53"
   },
   {
     "promedio": 7.85,
@@ -1835,7 +1825,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60866,
     "docente": "Alejandra Marciano Mendoza",
-    "horarioCita": "11:55"
+    "horarioCita": "11:54"
   },
   {
     "promedio": 7.84,
@@ -1845,7 +1835,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60849,
     "docente": "Victor Hernández Pérez",
-    "horarioCita": "11:56"
+    "horarioCita": "11:55"
   },
   {
     "promedio": 7.82,
@@ -1855,7 +1845,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60871,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:57"
+    "horarioCita": "11:56"
   },
   {
     "promedio": 7.81,
@@ -1865,7 +1855,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60871,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:58"
+    "horarioCita": "11:57"
   },
   {
     "promedio": 7.78,
@@ -1875,7 +1865,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60871,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "11:59"
+    "horarioCita": "11:58"
   },
   {
     "promedio": 7.77,
@@ -1885,7 +1875,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60853,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "12:00"
+    "horarioCita": "11:59"
   },
   {
     "promedio": 7.74,
@@ -1895,7 +1885,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60875,
     "docente": "Nayelli Salamanca M",
-    "horarioCita": "12:01"
+    "horarioCita": "12:00"
   },
   {
     "promedio": 7.73,
@@ -1905,7 +1895,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60871,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "12:02"
+    "horarioCita": "12:01"
   },
   {
     "promedio": 7.65,
@@ -1915,7 +1905,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 61052,
     "docente": "Victor Arenas Pérez",
-    "horarioCita": "12:03"
+    "horarioCita": "12:02"
   },
   {
     "promedio": 7.64,
@@ -1925,7 +1915,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60857,
     "docente": "Jesus Torres Machorro",
-    "horarioCita": "12:04"
+    "horarioCita": "12:03"
   },
   {
     "promedio": 7.61,
@@ -1935,7 +1925,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60875,
     "docente": "Nayelli Salamanca M",
-    "horarioCita": "12:05"
+    "horarioCita": "12:04"
   },
   {
     "promedio": 7.54,
@@ -1945,7 +1935,7 @@ const ALUMNOS = [
     "periodo": "202625",
     "nrc": 60853,
     "docente": "Daniel Demetrio Tejeda Barrientos",
-    "horarioCita": "12:06"
+    "horarioCita": "12:05"
   }
 ];
 

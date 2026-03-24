@@ -402,7 +402,7 @@
                 <div class="alu-sub">Matrícula ${alumno.matricula} · Prioridad #${rankG} global</div>
               </div>
               <div class="alu-badges">
-                <span class="prom-chip ${badge.class.replace('badge-','badge-')}">${alumno.promedio.toFixed(2)}</span>
+                <span class="prom-chip ${badge.class.replace('badge-','badge-')}">${(alumno.promedio || 0).toFixed(2)}</span>
                 <span class="chip ${sol?(sol.estado==='confirmada'?'chip-confirmada':'chip-pendiente'):'chip-sin'}">${sol?(sol.estado==='confirmada'?'Confirmada':'Pendiente'):'Sin solicitud'}</span>
               </div>
             </div>
@@ -490,7 +490,7 @@
           <td style="font-weight:600;font-size:.85em">${toTitleCase(a.nombre)}</td>
           <td style="font-size:.8em;color:var(--buap-navy);font-family:monospace">${a.matricula}</td>
           ${docenteData.esSuperUsuario ? `<td>${contactStr}</td>` : ''}
-          ${docenteData.esSuperUsuario ? `<td style="font-size:.8em;font-weight:700;color:var(--gold)">${a.horarioCita || '12:00'}</td>` : `<td style="font-weight:700">${a.promedio.toFixed(2)}</td>`}
+          ${docenteData.esSuperUsuario ? `<td style="font-size:.8em;font-weight:700;color:var(--gold)">${a.horarioCita || '12:00'}</td>` : `<td style="font-weight:700">${(a.promedio || 0).toFixed(2)}</td>`}
           ${docenteData.esSuperUsuario ? 
               `<td>
                   <label class="switch">
