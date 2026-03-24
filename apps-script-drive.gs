@@ -1,116 +1,140 @@
 // =============================================
 // GOOGLE APPS SCRIPT – Subida de PDFs a Drive
 // Facultad de Cultura Física – Prácticas NMS
+// Versión actualizada: Marzo 2026
 // =============================================
 //
 // INSTRUCCIONES DE INSTALACIÓN:
 // 1. Ve a https://script.google.com
 // 2. Crea un nuevo proyecto y pega TODO este código
-// 3. Cambia FOLDER_ID abajo por el ID de tu carpeta de Drive
+// 3. En la línea FOLDER_ID, reemplaza el ID de tu carpeta de Drive
+//    → Abre tu carpeta en Drive → la URL termina en /folders/ESTE_ID
 // 4. Menú "Implementar" → "Nueva implementación"
-//    - Tipo: "Aplicación web"
-//    - Ejecutar como: "Yo"
-//    - Quién tiene acceso: "Cualquier usuario"
-// 5. Autoriza los permisos cuando se solicite
-// 6. Copia la URL que aparece (termina en /exec)
-// 7. Pégala en perfil-alumno.html donde dice APPS_SCRIPT_URL
+//    - Tipo: Aplicación web
+//    - Ejecutar como: Yo (ya tienes la cuenta de gmail)
+//    - Quién tiene acceso: Cualquier usuario
+// 5. Autoriza los permisos cuando Google te los pida
+// 6. Copia la URL generada (termina en /exec)
+// 7. Pégala en perfil-alumno.html donde dice window._APPS_SCRIPT_URL
 // =============================================
 
 // ⚠️ REEMPLAZA CON EL ID DE TU CARPETA DE DRIVE
 // (la parte larga de la URL: drive.google.com/drive/folders/ESTE_ID)
 const FOLDER_ID = 'TU_FOLDER_ID_AQUI';
 
+// Tipos de documento válidos (coinciden con los nombres usados en perfil-alumno.html)
+const DOC_TYPES = ['INE', 'CARTA_ACEPTA', 'OFICIO_ASIGNA', 'ACUERDOS', 'BITACORA', 'DESEMPENO', 'LIBERACION'];
+
+// ── MANEJADOR PRINCIPAL POST ──────────────────────────────────────────────
 function doPost(e) {
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Content-Type': 'application/json'
-  };
+  // Respuesta con CORS habilitado
+  const json = (obj) =>
+    ContentService.createTextOutput(JSON.stringify(obj))
+      .setMimeType(ContentService.MimeType.JSON);
 
   try {
-    const data = JSON.parse(e.postData.contents);
-    const { matricula, nombre, nrc, docenteName = 'SIN DOCENTE', fileName, fileData } = data;
+    // Parsear payload
+    const raw = e.postData ? e.postData.contents : null;
+    if (!raw) return json({ error: 'Sin datos en el body del request' });
 
-    if (!fileData || !fileName || !matricula) {
-      return ContentService.createTextOutput(
-        JSON.stringify({ error: 'Datos incompletos' })
-      ).setMimeType(ContentService.MimeType.JSON);
-    }
+    const data = JSON.parse(raw);
+    const {
+      matricula,
+      nombre,
+      nrc,
+      docenteName = 'SIN DOCENTE',
+      fileName,
+      fileData
+    } = data;
 
-    // Decodificar base64
+    // Validar campos obligatorios
+    if (!fileData)    return json({ error: 'Falta fileData (Base64 del PDF)' });
+    if (!fileName)    return json({ error: 'Falta fileName' });
+    if (!matricula)   return json({ error: 'Falta matricula' });
+
+    // Decodificar Base64 → Blob PDF
     const bytes = Utilities.base64Decode(fileData);
-    const blob = Utilities.newBlob(bytes, 'application/pdf', fileName);
+    const blob  = Utilities.newBlob(bytes, 'application/pdf', fileName);
 
-    // Obtener carpeta principal
+    // ── ESTRUCTURA DE CARPETAS ─────────────────────────────
+    // Drive/[Carpeta Base]/[Nombre Docente]/[Matricula - Nombre Alumno]/archivo.pdf
     const baseFolder = DriveApp.getFolderById(FOLDER_ID);
-    
-    // Obtener o crear carpeta del DOCENTE
-    let docenteFolder;
-    const docenteFolders = baseFolder.getFoldersByName(docenteName);
-    if (docenteFolders.hasNext()) {
-      docenteFolder = docenteFolders.next();
-    } else {
-      docenteFolder = baseFolder.createFolder(docenteName);
-    }
-    
-    // Obtener o crear carpeta del ALUMNO
-    const alumnoFolderName = matricula + " - " + nombre;
-    let alumnoFolder;
-    const alumnoFolders = docenteFolder.getFoldersByName(alumnoFolderName);
-    if (alumnoFolders.hasNext()) {
-      alumnoFolder = alumnoFolders.next();
-    } else {
-      alumnoFolder = docenteFolder.createFolder(alumnoFolderName);
-    }
 
-    // Buscar si ya existe un archivo de este tipo y eliminarlo
+    // Carpeta del DOCENTE
+    const docenteFolder = getOrCreateFolder(baseFolder, docenteName);
+
+    // Carpeta del ALUMNO  (matrícula + nombre para fácil búsqueda)
+    const alumnoFolderName   = matricula + ' - ' + nombre;
+    const alumnoFolder       = getOrCreateFolder(docenteFolder, alumnoFolderName);
+
+    // Si ya existe un archivo con el mismo nombre → mandarlo a la papelera (reemplazar)
     const existing = alumnoFolder.getFilesByName(fileName);
     while (existing.hasNext()) {
       existing.next().setTrashed(true);
     }
 
-    // Crear nuevo archivo dentro de la carpeta del alumno
+    // Crear el archivo dentro de la carpeta del alumno
     const file = alumnoFolder.createFile(blob);
     file.setName(fileName);
+
+    // Compartir con enlace (solo lectura) → para que el maestro lo pueda ver desde Firestore
     file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
 
     const url = 'https://drive.google.com/file/d/' + file.getId() + '/view';
 
-    // Log en hoja de cálculo (opcional)
+    // Log en hoja de cálculo (no interrumpe si falla)
     try {
-      logUpload(matricula, nombre, nrc, fileName, url);
-    } catch(logErr) { /* No interrumpir si el log falla */ }
+      logUpload(matricula, nombre, nrc, docenteName, fileName, url);
+    } catch (logErr) { /* ignorar errores de log */ }
 
-    return ContentService.createTextOutput(
-      JSON.stringify({ success: true, url: url, fileId: file.getId() })
-    ).setMimeType(ContentService.MimeType.JSON);
+    return json({ success: true, url: url, fileId: file.getId() });
 
   } catch (err) {
-    return ContentService.createTextOutput(
-      JSON.stringify({ error: err.message })
-    ).setMimeType(ContentService.MimeType.JSON);
+    // Devolver el error completo para facilitar depuración
+    return json({ error: err.message, stack: err.stack });
   }
 }
 
+// ── CORS pre-flight (OPTIONS) ─────────────────────────────────────────────
 function doGet(e) {
-  // Para verificar que el script está activo
   return ContentService.createTextOutput(
-    JSON.stringify({ status: 'ok', message: 'Apps Script activo - FCF Prácticas NMS' })
+    JSON.stringify({
+      status: 'ok',
+      message: 'Apps Script activo – FCF Prácticas NMS Primavera 2026',
+      docTypes: DOC_TYPES,
+      timestamp: new Date().toISOString()
+    })
   ).setMimeType(ContentService.MimeType.JSON);
 }
 
-// Registrar subidas en una hoja de Google Sheets (opcional)
-function logUpload(matricula, nombre, nrc, fileName, url) {
+// ── UTILIDAD: Obtener o crear subcarpeta ──────────────────────────────────
+function getOrCreateFolder(parent, name) {
+  const iter = parent.getFoldersByName(name);
+  if (iter.hasNext()) return iter.next();
+  return parent.createFolder(name);
+}
+
+// ── LOG OPCIONAL en Google Sheets ─────────────────────────────────────────
+// Si el script está vinculado a una hoja de cálculo, lleva registro de cada subida.
+function logUpload(matricula, nombre, nrc, docente, fileName, url) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  if (!ss) return;
+  if (!ss) return; // No hay hoja vinculada → saltar silenciosamente
+
   let sheet = ss.getSheetByName('Registro PDFs');
   if (!sheet) {
     sheet = ss.insertSheet('Registro PDFs');
-    sheet.appendRow(['Fecha', 'Matrícula', 'Nombre', 'NRC', 'Archivo', 'URL Drive']);
+    sheet.appendRow(['Fecha y Hora', 'Matrícula', 'Nombre Alumno', 'NRC', 'Docente', 'Archivo', 'URL Drive']);
+    // Congelar la fila del encabezado
+    sheet.setFrozenRows(1);
   }
+
   sheet.appendRow([
-    new Date().toLocaleString('es-MX'),
-    matricula, nombre, nrc, fileName, url
+    new Date().toLocaleString('es-MX', { timeZone: 'America/Mexico_City' }),
+    matricula,
+    nombre,
+    nrc,
+    docente,
+    fileName,
+    url
   ]);
 }
