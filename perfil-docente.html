@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perfil de Docente – Prácticas Curriculares FCF</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <style>
@@ -288,6 +289,7 @@
       <div class="tab-bar">
         <button class="tab-btn ${activeTab==='solicitudes'?'active':''}" onclick="switchTab('solicitudes')">📋 Solicitudes de Escuela</button>
         <button class="tab-btn ${activeTab==='lista'?'active':''}" onclick="switchTab('lista')">🎓 Lista de Alumnos</button>
+        ${docenteData.esSuperUsuario ? `<button class="tab-btn" onclick="exportToExcel()" style="margin-left:auto; background:linear-gradient(135deg,#1e7e34,#28a745); color:#fff; border-color:#1e7e34;">📊 Exportar a Excel</button>` : ''}
       </div>
 
       <div id="tab-content"></div>
@@ -536,6 +538,70 @@
     } catch(e) {
       alert('Error al resetear: ' + e.message);
     }
+  }
+
+  function exportToExcel() {
+    const rows = [];
+    // Header row
+    rows.push([
+      'No.', 'Matrícula', 'Nombre', 'Promedio', 'Bloque', 'Prioridad Global',
+      'NRC', 'Sección', 'Docente', 'Horario Cita',
+      'Correo', 'Teléfono',
+      'Estado Solicitud', 'Escuela Asignada', 'CCT', 'Municipio', 'Dirección Completa', 'Zona', 'Tipo', 'Turno',
+      'INE', 'Carta Aceptación', 'Oficio Asignación', 'Acuerdos', 'Bitácora', 'Hoja Desempeño', 'Oficio Liberación'
+    ]);
+
+    const sorted = [...ALUMNOS].sort((a,b) => b.promedio - a.promedio);
+    sorted.forEach((a, index) => {
+      const badge = getPromedioBadge(a.promedio);
+      const sol = todasSolicitudes.find(s => s.matricula === a.matricula);
+      const esc = sol ? ESCUELAS.find(e => e.id === sol.escuelaId) : null;
+      const docente = DOCENTES.find(d => d.secciones.some(s => s.nrc === a.nrc));
+      const seccion = docente ? docente.secciones.find(s => s.nrc === a.nrc) : null;
+
+      rows.push([
+        index + 1,
+        a.matricula,
+        a.nombre,
+        a.promedio.toFixed(2),
+        badge.label,
+        index + 1,
+        a.nrc || '',
+        seccion ? seccion.seccion : '',
+        docente ? docente.nombre : '',
+        a.horarioCita || '',
+        sol ? (sol.email || '') : '',
+        sol ? (sol.telefono || '') : '',
+        sol ? sol.estado : 'Sin solicitud',
+        sol ? (esc ? esc.nombre : sol.escuelaNombre) : '',
+        sol ? (esc ? esc.cct : sol.escuelaCCT || '') : '',
+        sol ? (esc ? esc.municipio : sol.escuelaMunicipio || '') : '',
+        sol ? (sol.escuelaUbicacion || (esc ? [esc.direccion, esc.localidad, esc.municipio].filter(Boolean).join(', ') : '')) : '',
+        esc ? esc.zona : '',
+        esc ? esc.tipo : '',
+        esc ? esc.turno : '',
+        sol && sol.ineUrl ? sol.ineUrl : 'NO',
+        sol && sol.cartaUrl ? sol.cartaUrl : 'NO',
+        sol && sol.oficioUrl ? sol.oficioUrl : 'NO',
+        sol && sol.acuerdosUrl ? sol.acuerdosUrl : 'NO',
+        sol && sol.bitacoraUrl ? sol.bitacoraUrl : 'NO',
+        sol && sol.desempenoUrl ? sol.desempenoUrl : 'NO',
+        sol && sol.liberacionUrl ? sol.liberacionUrl : 'NO',
+      ]);
+    });
+
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_sheet(rows);
+
+    // Auto-width columns
+    const colWidths = rows[0].map((_, colIdx) => ({
+      wch: Math.max(...rows.map(r => String(r[colIdx] || '').length), 10)
+    }));
+    ws['!cols'] = colWidths;
+
+    XLSX.utils.book_append_sheet(wb, ws, 'Alumnos Prácticas 2026');
+    const fecha = new Date().toISOString().slice(0,10);
+    XLSX.writeFile(wb, `Reporte_Practicas_FCF_${fecha}.xlsx`);
   }
 
   // ─── MODAL REASIGNACIÓN ──────────────────────────────────
