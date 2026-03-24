@@ -6,6 +6,10 @@
   <title>Perfil de Alumno – Prácticas Curriculares FCF</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- Hidden logos for PDF generation -->
+  <img id="logo-buap" src="Logo_de_la_BUAP.svg" style="display:none" crossorigin="anonymous">
+  <img id="logo-facufi" src="FACUFI.png" style="display:none" crossorigin="anonymous">
   <style>
             :root {
       --gold: #00B5E2; --gold-dark: #008cb0; --bg: #F4F7F9;
@@ -926,6 +930,20 @@
   }
 
   window.descargarFormatoOficial = function() {
+      // Helper to convert img element to base64
+      function getImgData(imgId) {
+          const img = document.getElementById(imgId);
+          if (!img) return null;
+          const canvas = document.createElement('canvas');
+          canvas.width = img.naturalWidth || img.width;
+          canvas.height = img.naturalHeight || img.height;
+          // Si el tamaño es 0, no está cargada, devolvemos null
+          if (canvas.width === 0) return null;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+          return canvas.toDataURL('image/png');
+      }
+
       loadJspdf(() => {
           const { jsPDF } = window.jspdf;
           const doc = new jsPDF();
@@ -934,7 +952,7 @@
           doc.setFontSize(14);
           doc.text("FACULTAD DE CULTURA FÍSICA", 105, 20, null, null, "center");
           doc.setFontSize(12);
-          doc.text("COORDINACION DE PRACTICAS CURRICULARES", 105, 28, null, null, "center");
+          doc.text("COORDINACION DE PRÁCTICAS CURRICULARES", 105, 28, null, null, "center");
           
           doc.setFontSize(11);
           doc.text("CARTA DE ACEPTACIÓN CON FIRMA DE CONFORMIDAD", 105, 45, null, null, "center");
@@ -950,35 +968,42 @@
           doc.text(`Nombre Completo: ${toTitleCase(alumnoData.nombre)}`, 20, 90);
           doc.text(`Matrícula: ${alumnoData.matricula}`, 20, 100);
           
+          const aluEmail = miSolicitud && miSolicitud.email ? miSolicitud.email : '_________________';
+          const aluTel = miSolicitud && miSolicitud.telefono ? miSolicitud.telefono : '_________________';
+          doc.text(`Correo Electrónico: ${aluEmail}`, 20, 110);
+          doc.text(`Teléfono: ${aluTel}`, 120, 110);
+          
           const escNombre = miSolicitud ? miSolicitud.escuelaNombre : '______________________________';
           const escCCT = miSolicitud && miSolicitud.escuelaCCT ? miSolicitud.escuelaCCT : '____________________';
           const escMuni = miSolicitud && miSolicitud.escuelaMunicipio ? miSolicitud.escuelaMunicipio : '____________________';
           
           doc.setFont('helvetica', 'bold');
-          doc.text("DATOS DEL CENTRO DE PRÁCTICAS ELEGIDO:", 20, 115);
+          doc.text("DATOS DEL CENTRO DE PRÁCTICAS ELEGIDO:", 20, 130);
           doc.setFont('helvetica', 'normal');
-          doc.text(`Escuela asignada: ${escNombre}`, 20, 125);
-          doc.text(`Clave CCT: ${escCCT}`, 20, 135);
-          doc.text(`Dirección / Municipio: ${escMuni}`, 20, 145);
+          doc.text(`Escuela asignada: ${escNombre}`, 20, 140);
+          doc.text(`Clave CCT: ${escCCT}`, 20, 150);
+          doc.text(`Dirección / Municipio: ${escMuni}`, 20, 160);
           
           // Firmas
           doc.setFontSize(9);
-          doc.text("FIRMA DE CONFORMIDAD DEL ALUMNO", 55, 185, null, null, "center");
-          doc.line(25, 180, 85, 180);
-          doc.text(toTitleCase(alumnoData.nombre), 55, 190, null, null, "center");
+          doc.text("FIRMA DE CONFORMIDAD DEL ALUMNO", 55, 205, null, null, "center");
+          doc.line(25, 200, 85, 200);
+          doc.text(toTitleCase(alumnoData.nombre), 55, 210, null, null, "center");
           
-          doc.text("FIRMA Y SELLO DE LA ESCUELA DONDE FUERON ACEPTADOS", 145, 185, null, null, "center");
-          doc.line(105, 180, 185, 180);
-          doc.rect(130, 195, 30, 30); // Recuadro para el sello
+          doc.text("FIRMA Y SELLO DE LA ESCUELA DONDE FUERON ACEPTADOS", 145, 205, null, null, "center");
+          doc.line(105, 200, 185, 200);
+          doc.rect(130, 215, 30, 30); // Recuadro para el sello
           doc.setFontSize(8);
-          doc.text("Sello", 145, 210, null, null, "center");
+          doc.text("Sello", 145, 230, null, null, "center");
 
-          // Simulate logos
-          doc.setDrawColor(0);
-          doc.rect(20, 15, 20, 20); 
-          doc.text("BUAP", 23, 27);
-          doc.rect(170, 15, 20, 20);
-          doc.text("FCF", 175, 27);
+          // Logos (Real Images)
+          try {
+              const bData = getImgData('logo-buap');
+              if (bData) doc.addImage(bData, 'PNG', 15, 10, 25, 27);
+              
+              const fData = getImgData('logo-facufi');
+              if (fData) doc.addImage(fData, 'PNG', 170, 10, 25, 25);
+          } catch(e) { console.log('Error adding images to PDF', e); }
 
           doc.save(`Carta_Aceptacion_${alumnoData.matricula}.pdf`);
       });
