@@ -92,6 +92,7 @@
     .si-sub { font-size:.72em; color:var(--buap-navy); margin-top:2px; }
     .si-tag { margin-left:auto; flex-shrink:0; }
     .tag-taken { background:rgba(239,83,80,.1); color:var(--red); border:1px solid rgba(239,83,80,.2); padding:3px 9px; border-radius:10px; font-size:.65em; font-weight:700; }
+    .tag-partial { background:rgba(255,152,0,.12); color:#e65100; border:1px solid rgba(255,152,0,.3); padding:3px 9px; border-radius:10px; font-size:.65em; font-weight:700; }
     .tag-free { background:rgba(76,175,125,.1); color:var(--green); border:1px solid rgba(76,175,125,.2); padding:3px 9px; border-radius:10px; font-size:.65em; font-weight:700; }
     /* Priority badge */
     .priority-badge { display:inline-flex; align-items:center; gap:6px; padding:6px 14px;
@@ -474,7 +475,12 @@
     }
     
     // Sin solicitud – mostrar selector
-    const tomadas = new Set(Object.values(solicitudesGlobales).map(s => s.escuelaId));
+    // Count how many students per school (max 3 per school)
+    const MAX_POR_ESCUELA = 3;
+    const conteoEscuelas = {};
+    Object.values(solicitudesGlobales).forEach(s => {
+      if (s.escuelaId) conteoEscuelas[s.escuelaId] = (conteoEscuelas[s.escuelaId] || 0) + 1;
+    });
     let html = `
       <div class="status-banner sin-solicitud">
         <span class="sb-icon">ℹ️</span>
@@ -492,15 +498,19 @@
         <div class="school-list" id="school-list-el">
     `;
     ESCUELAS.forEach(esc => {
-      const isTaken = tomadas.has(esc.id);
+      const count = conteoEscuelas[esc.id] || 0;
+      const isFull = count >= MAX_POR_ESCUELA;
+      const spotsLeft = MAX_POR_ESCUELA - count;
+      const tagLabel = isFull ? `Llena (${count}/${MAX_POR_ESCUELA})` : count > 0 ? `${spotsLeft} lugar${spotsLeft>1?'es':''} libre` : 'Disponible';
+      const tagClass = isFull ? 'tag-taken' : count > 0 ? 'tag-partial' : 'tag-free';
       html += `
-        <div class="school-item${isTaken?' taken':''}" id="si-${esc.id}" onclick="${isTaken?'':'selectSchool('+esc.id+')'}">
+        <div class="school-item${isFull?' taken':''}" id="si-${esc.id}" onclick="${isFull?'':'selectSchool('+esc.id+')'}">
           <div class="si-num">${esc.id}</div>
           <div class="si-info">
             <div class="si-name">${toTitleCase(esc.nombre)}</div>
             <div class="si-sub">${esc.municipio} (${esc.localidad}) · CCT: ${esc.cct}</div>
           </div>
-          <div class="si-tag"><span class="${isTaken?'tag-taken':'tag-free'}">${isTaken?'Ocupada':'Disponible'}</span></div>
+          <div class="si-tag"><span class="${tagClass}">${tagLabel}</span></div>
         </div>`;
     });
     html += `</div>
@@ -532,7 +542,7 @@
     ESCUELAS.forEach(esc => {
       const el = document.getElementById('si-'+esc.id);
       if (!el) return;
-      const match = esc.nombre.toLowerCase().includes(q) || esc.municipio.toLowerCase().includes(q);
+      const match = esc.nombre.toLowerCase().includes(q) || esc.municipio.toLowerCase().includes(q) || esc.localidad.toLowerCase().includes(q);
       el.style.display = match ? '' : 'none';
     });
   }
@@ -540,28 +550,41 @@
   function selectSchool(id) {
     selectedSchoolId = id;
     const esc = ESCUELAS.find(e => e.id === id);
-    // Update UI
+    if (!esc) return;
+    const count = Object.values(solicitudesGlobales).filter(s => s.escuelaId === id).length;
+    if (count >= 3) {
+      showAlert('school-alert','error','⚠️ Esta escuela ya tiene 3 alumnos asignados. Por favor elige otra.');
+      selectedSchoolId = null;
+      return;
+    }
     document.querySelectorAll('.school-item').forEach(el => el.classList.remove('selected'));
-    const item = document.getElementById('si-'+id);
-    if (item) item.classList.add('selected');
-    // Preview
+    const el = document.getElementById('si-'+id);
+    if (el) el.classList.add('selected');
     const preview = document.getElementById('selected-school-preview');
-    if (preview) {
-      preview.style.display = '';
-      document.getElementById('preview-nombre').textContent = toTitleCase(esc.nombre);
-      document.getElementById('preview-sub').innerHTML = `
+    if (preview) { preview.style.display = ''; }
+    const pn = document.getElementById('preview-nombre');
+    const ps = document.getElementById('preview-sub');
+    if (pn) pn.textContent = toTitleCase(esc.nombre);
+    if (ps) ps.innerHTML = `
         📍 ${esc.direccion} <br>
         🌎 ${esc.municipio} (${esc.localidad}) <br>
         🏷️ CCT: ${esc.cct} | <strong>Zona:</strong> ${esc.zona} | <strong>Tipo:</strong> ${esc.tipo} <br>
         🕒 <strong>Turno:</strong> ${esc.turno}
       `;
-    }
     const btn = document.getElementById('btn-solicitar');
     if (btn) btn.disabled = false;
   }
 
   async function enviarSolicitud() {
     if (!selectedSchoolId) return;
+    // Double-check capacity before saving
+    const currentCount = Object.values(solicitudesGlobales).filter(s => s.escuelaId === selectedSchoolId).length;
+    if (currentCount >= 3) {
+      showAlert('school-alert','error','⚠️ Lo sentimos, esta escuela ya llegó a su límite de 3 alumnos. Por favor elige otra.');
+      selectedSchoolId = null;
+      renderEscuelaSection();
+      return;
+    }
     const btn = document.getElementById('btn-solicitar');
     btn.textContent = 'Enviando...'; btn.disabled = true;
     try {
