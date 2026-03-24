@@ -334,8 +334,8 @@
           </div>
           <div style="background:var(--surface2); border:1px solid rgba(0,181,226,.2); border-radius:var(--radius-sm); padding:20px; text-align:center;">
             <h4 style="color:var(--gold); margin-bottom:8px; font-size:.9em;">Formato de Acuerdos</h4>
-            <p style="font-size:0.75em; color:var(--text-muted); margin-bottom:14px; line-height:1.4;">Descarga este formato, llénalo, escanéalo, y envíalo en el recuadro de abajo como "Oficio de Asignación / Acuerdos".</p>
-             <a href="#" class="btn-primary" style="text-decoration:none; display:flex; justify-content:center; align-items:center; gap:6px; background:rgba(100,181,246,.15); color:var(--blue); border:1px solid rgba(100,181,246,.3);">
+            <p style="font-size:0.75em; color:var(--text-muted); margin-bottom:14px; line-height:1.4;">Descarga este formato oficial en blanco, imprímelo, llénalo y asegúrate de escanearlo y subirlo en el recuadro "4. Formato de Acuerdos".</p>
+             <a href="Formato_de_Acuerdos.pdf" target="_blank" class="btn-primary" style="text-decoration:none; display:flex; justify-content:center; align-items:center; gap:6px; background:rgba(100,181,246,.15); color:var(--blue); border:1px solid rgba(100,181,246,.3);">
               <span style="font-size:1.2em">📥</span> Descargar Formato
             </a>
           </div>
@@ -595,90 +595,53 @@
   }
 
   // ─── DOCS SECTION ─────────────────────────────────────
-  let filesToUpload = { 'ine': null, 'carta': null, 'acuerdos': null };
+  let filesToUpload = { 'ine': null, 'carta': null, 'oficio': null, 'acuerdos': null, 'bitacora': null };
 
   function renderDocsSection() {
     const el = document.getElementById('docs-content');
     if (!el) return;
     
     // Check if URLs exist
-    const tieneIne = miSolicitud && miSolicitud.ineUrl;
-    const tieneCarta = miSolicitud && miSolicitud.cartaUrl;
-    const tieneAcuerdos = miSolicitud && miSolicitud.acuerdosUrl;
+    const tIne = miSolicitud && miSolicitud.ineUrl;
+    const tCarta = miSolicitud && miSolicitud.cartaUrl;
+    const tOficio = miSolicitud && miSolicitud.oficioUrl;
+    const tAcuerdos = miSolicitud && miSolicitud.acuerdosUrl;
+    const tBitacora = miSolicitud && miSolicitud.bitacoraUrl;
+
+    const mkBox = (type, title, hasUrl, url, emoji, desc) => `
+      <div style="margin-bottom:20px; padding:16px; background:var(--surface2); border-radius:var(--radius-sm); border:1px solid rgba(0,59,92,.1);">
+        <h4 style="font-size:.85em; font-weight:700; color:var(--gold); margin-bottom:10px;">${title}</h4>
+        ${hasUrl ? `
+          <div class="status-banner confirmada" style="margin-bottom:10px">
+            <span class="sb-icon">📎</span>
+            <div><strong>Documento subido correctamente</strong>
+            <div style="font-size:.8em;margin-top:3px"><a href="${url}" target="_blank" style="color:var(--green)">Ver PDF →</a></div></div>
+          </div>
+          <button class="btn-danger" onclick="resetFileDoc('${type}')" style="width:auto;padding:6px 14px;font-size:.75em;margin-top:0;">Reemplazar documento</button>
+        ` : `
+          <div class="upload-zone" id="upload-zone-${type}" onclick="document.getElementById('input-${type}').click()"
+               ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')"
+               ondrop="handleDocDrop(event, '${type}')" style="padding:16px;">
+            <div class="uz-icon" style="font-size:1.5em;margin-bottom:4px;">${emoji}</div>
+            <div class="uz-title" id="title-${type}">${desc}</div>
+          </div>
+          <input type="file" id="input-${type}" accept=".pdf" style="display:none" onchange="handleDocSelect(event, '${type}')">
+          <div class="progress-bar" id="bar-${type}" style="display:none"><div class="progress-fill" id="fill-${type}" style="width:0%"></div></div>
+          <button class="btn-primary" id="btn-up-${type}" onclick="subirDoc('${type}')" disabled style="padding:10px;font-size:.8em;">Subir a Drive</button>
+        `}
+      </div>
+    `;
 
     el.innerHTML = `
       <p style="font-size:.82em;color:var(--buap-navy);margin-bottom:14px;line-height:1.6">
         Sube tus documentos <strong style="color:var(--text)">en formato PDF (máx. 1 MB c/u)</strong>. Deben guardarse uno por uno.
       </p>
 
-      <!-- Caja 0: INE / Credencial -->
-      <div style="margin-bottom:20px; padding:16px; background:var(--surface2); border-radius:var(--radius-sm); border:1px solid rgba(0,59,92,.1);">
-        <h4 style="font-size:.85em; font-weight:700; color:var(--gold); margin-bottom:10px;">1. Identificación Oficial o Escolar</h4>
-        ${tieneIne ? `
-          <div class="status-banner confirmada" style="margin-bottom:10px">
-            <span class="sb-icon">📎</span>
-            <div><strong>Documento subido correctamente</strong>
-            <div style="font-size:.8em;margin-top:3px"><a href="${miSolicitud.ineUrl}" target="_blank" style="color:var(--green)">Ver PDF →</a></div></div>
-          </div>
-          <button class="btn-danger" onclick="resetFileDoc('ine')" style="width:auto;padding:6px 14px;font-size:.75em;margin-top:0;">Reemplazar documento</button>
-        ` : `
-          <div class="upload-zone" id="upload-zone-ine" onclick="document.getElementById('input-ine').click()"
-               ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')"
-               ondrop="handleDocDrop(event, 'ine')" style="padding:16px;">
-            <div class="uz-icon" style="font-size:1.5em;margin-bottom:4px;">🪪</div>
-            <div class="uz-title" id="title-ine">Clic o arrastra el INE/Credencial (PDF)</div>
-          </div>
-          <input type="file" id="input-ine" accept=".pdf" style="display:none" onchange="handleDocSelect(event, 'ine')">
-          <div class="progress-bar" id="bar-ine" style="display:none"><div class="progress-fill" id="fill-ine" style="width:0%"></div></div>
-          <button class="btn-primary" id="btn-up-ine" onclick="subirDoc('ine')" disabled style="padding:10px;font-size:.8em;">Subir INE a Drive</button>
-        `}
-      </div>
-
-      <!-- Caja 1: Carta de Aceptación -->
-      <div style="margin-bottom:20px; padding:16px; background:var(--surface2); border-radius:var(--radius-sm); border:1px solid rgba(0,59,92,.1);">
-        <h4 style="font-size:.85em; font-weight:700; color:var(--gold); margin-bottom:10px;">2. Carta de Aceptación / Conformidad</h4>
-        ${tieneCarta ? `
-          <div class="status-banner confirmada" style="margin-bottom:10px">
-            <span class="sb-icon">📎</span>
-            <div><strong>Documento subido correctamente</strong>
-            <div style="font-size:.8em;margin-top:3px"><a href="${miSolicitud.cartaUrl}" target="_blank" style="color:var(--green)">Ver PDF →</a></div></div>
-          </div>
-          <button class="btn-danger" onclick="resetFileDoc('carta')" style="width:auto;padding:6px 14px;font-size:.75em;margin-top:0;">Reemplazar documento</button>
-        ` : `
-          <div class="upload-zone" id="upload-zone-carta" onclick="document.getElementById('input-carta').click()"
-               ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')"
-               ondrop="handleDocDrop(event, 'carta')" style="padding:16px;">
-            <div class="uz-icon" style="font-size:1.5em;margin-bottom:4px;">📥</div>
-            <div class="uz-title" id="title-carta">Clic o arrastra la Carta PDF</div>
-          </div>
-          <input type="file" id="input-carta" accept=".pdf" style="display:none" onchange="handleDocSelect(event, 'carta')">
-          <div class="progress-bar" id="bar-carta" style="display:none"><div class="progress-fill" id="fill-carta" style="width:0%"></div></div>
-          <button class="btn-primary" id="btn-up-carta" onclick="subirDoc('carta')" disabled style="padding:10px;font-size:.8em;">Subir Carta a Drive</button>
-        `}
-      </div>
-
-      <!-- Caja 2: Oficio Asignación / Acuerdos -->
-      <div style="padding:16px; background:var(--surface2); border-radius:var(--radius-sm); border:1px solid rgba(0,59,92,.1);">
-        <h4 style="font-size:.85em; font-weight:700; color:var(--gold); margin-bottom:10px;">3. Oficio de Asignación / Formato de Acuerdos</h4>
-        ${tieneAcuerdos ? `
-          <div class="status-banner confirmada" style="margin-bottom:10px">
-            <span class="sb-icon">📎</span>
-            <div><strong>Documento subido correctamente</strong>
-            <div style="font-size:.8em;margin-top:3px"><a href="${miSolicitud.acuerdosUrl}" target="_blank" style="color:var(--green)">Ver PDF →</a></div></div>
-          </div>
-          <button class="btn-danger" onclick="resetFileDoc('acuerdos')" style="width:auto;padding:6px 14px;font-size:.75em;margin-top:0;">Reemplazar documento</button>
-        ` : `
-          <div class="upload-zone" id="upload-zone-acuerdos" onclick="document.getElementById('input-acuerdos').click()"
-               ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')"
-               ondrop="handleDocDrop(event, 'acuerdos')" style="padding:16px;">
-            <div class="uz-icon" style="font-size:1.5em;margin-bottom:4px;">📥</div>
-            <div class="uz-title" id="title-acuerdos">Clic o arrastra el Oficio PDF</div>
-          </div>
-          <input type="file" id="input-acuerdos" accept=".pdf" style="display:none" onchange="handleDocSelect(event, 'acuerdos')">
-          <div class="progress-bar" id="bar-acuerdos" style="display:none"><div class="progress-fill" id="fill-acuerdos" style="width:0%"></div></div>
-          <button class="btn-primary" id="btn-up-acuerdos" onclick="subirDoc('acuerdos')" disabled style="padding:10px;font-size:.8em;">Subir Oficio a Drive</button>
-        `}
-      </div>
+      ${mkBox('ine', '1. INE o Credencial Escolar', tIne, miSolicitud?.ineUrl, '🪪', 'Clic o arrastra (PDF)')}
+      ${mkBox('carta', '2. Carta de Aceptación de Conformidad', tCarta, miSolicitud?.cartaUrl, '📥', 'Firmada por el alumno (Generada aquí)')}
+      ${mkBox('oficio', '3. Oficio de Asignación', tOficio, miSolicitud?.oficioUrl, '🏛️', 'Dado por FCF y sellado/firmado por el Bachillerato')}
+      ${mkBox('acuerdos', '4. Formato de Acuerdos', tAcuerdos, miSolicitud?.acuerdosUrl, '🤝', 'Firmado (Formulario en blanco)')}
+      ${mkBox('bitacora', '5. Bitácora de Asistencia', tBitacora, miSolicitud?.bitacoraUrl, '📝', 'Formato de asistencias completo')}
 
       <p style="font-size:.72em;color:var(--gold);margin-top:14px;text-align:center;line-height:1.5">
         ⚠️ <strong>Nota:</strong> Los archivos se renombrarán y organizarán automáticamente en carpetas en Google Drive correspondientes a tu docente.
@@ -711,7 +674,9 @@
   function resetFileDoc(type) {
     if (type === 'ine') { miSolicitud.ineUrl = null; }
     if (type === 'carta') { miSolicitud.cartaUrl = null; }
+    if (type === 'oficio') { miSolicitud.oficioUrl = null; }
     if (type === 'acuerdos') { miSolicitud.acuerdosUrl = null; }
+    if (type === 'bitacora') { miSolicitud.bitacoraUrl = null; }
     renderDocsSection();
   }
 
@@ -734,7 +699,14 @@
       const docente = DOCENTES.find(d=>d.secciones.some(s=>s.nrc===alumnoData.nrc));
       const docenteName = docente ? (docente.nombreFormato || docente.nombre) : 'SIN_DOCENTE';
       
-      const docName = type === 'ine' ? 'INE' : type === 'carta' ? 'CARTA_ACEPTA' : 'OFICIO_ACUERDOS';
+      const docNameDict = {
+          'ine': 'INE',
+          'carta': 'CARTA_ACEPTA',
+          'oficio': 'OFICIO_ASIGNA',
+          'acuerdos': 'ACUERDOS',
+          'bitacora': 'BITACORA'
+      };
+      const docName = docNameDict[type] || 'DOC_GENERAL';
       const fileName = `${docName}_${alumnoData.matricula}_${alumnoData.nombre}`.replace(/\s+/g,'_').toUpperCase() + '.pdf';
 
       const resp = await fetch(window._APPS_SCRIPT_URL, {
@@ -753,7 +725,9 @@
         const updateData = {};
         if (type === 'ine') updateData.ineUrl = result.url;
         if (type === 'carta') updateData.cartaUrl = result.url;
+        if (type === 'oficio') updateData.oficioUrl = result.url;
         if (type === 'acuerdos') updateData.acuerdosUrl = result.url;
+        if (type === 'bitacora') updateData.bitacoraUrl = result.url;
         
         await window._guardarSolicitud(alumnoData.matricula, { ...miSolicitud, ...updateData, fechaPDF: new Date().toISOString() });
         miSolicitud = await window._getMiSolicitud(alumnoData.matricula);
