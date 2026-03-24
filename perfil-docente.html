@@ -357,12 +357,29 @@
               <div class="asi-name">${esc ? toTitleCase(esc.nombre) : sol.escuelaNombre} <span style="font-size:.7em;color:var(--gold);border:1px solid var(--gold);padding:2px 6px;border-radius:10px;margin-left:4px;display:${!esc?'inline-block':'none'}">EXTEMPORÁNEO</span></div>
               <div class="asi-sub">${esc ? '📍 ' + esc.direccion + '<br>🌎 ' + esc.municipio + ' (' + esc.localidad + ')<br>🏷️ CCT: ' + esc.cct + ' | Zona: ' + esc.zona + ' | Tipo: ' + esc.tipo + '<br>🕒 Turno: ' + esc.turno : '🌎 ' + (sol.escuelaMunicipio || 'No especificado')}</div>
             </div>
-            <div class="alu-actions">
-              <button class="btn-confirm" onclick="confirmarEscuela('${alumno.matricula}')" ${isConf?'disabled':''}>
-                ${isConf ? '✅ Confirmada' : '✅ Confirmar escuela'}
-              </button>
-              <button class="btn-change" onclick="openModal('${alumno.matricula}','${alumno.nombre}')">🔄 Cambiar escuela</button>
-              ${sol.pdfUrl ? `<a href="${sol.pdfUrl}" target="_blank" class="btn-pdf">📎 Ver PDF</a>` : '<span style="font-size:.72em;color:var(--buap-navy);padding:8px 0">Sin documento aún</span>'}
+            
+            <div class="alu-actions" style="display:flex; flex-direction:column; gap:8px;">
+              <div style="font-size:0.8em; color:var(--buap-navy); background:rgba(0,181,226,0.05); padding:8px; border-radius:4px; border:1px solid rgba(0,181,226,0.2);">
+                <strong>Datos del alumno:</strong><br>
+                📧 ${sol.email || 'Sin correo asignado'}<br>
+                📞 ${sol.telefono || 'Sin teléfono asignado'}
+              </div>
+              <div style="font-size:0.8em; padding:8px; background:rgba(0,0,0,0.02); border-radius:4px; border:1px solid rgba(0,0,0,0.05);">
+                <strong>Documentos Recibidos:</strong><br>
+                ${sol.ineUrl ? `<a href="${sol.ineUrl}" target="_blank" style="margin-right:8px; text-decoration:none;">✅ INE</a>` : '<span style="color:#ccc; margin-right:8px; text-decoration:line-through;">INE</span>'}
+                ${sol.cartaUrl ? `<a href="${sol.cartaUrl}" target="_blank" style="margin-right:8px; text-decoration:none;">✅ CARTA</a>` : '<span style="color:#ccc; margin-right:8px; text-decoration:line-through;">CARTA</span>'}
+                ${sol.oficioUrl ? `<a href="${sol.oficioUrl}" target="_blank" style="margin-right:8px; text-decoration:none;">✅ OFICIO</a>` : '<span style="color:#ccc; margin-right:8px; text-decoration:line-through;">OFICIO</span>'}
+                ${sol.acuerdosUrl ? `<a href="${sol.acuerdosUrl}" target="_blank" style="margin-right:8px; text-decoration:none;">✅ ACUERDOS</a>` : '<span style="color:#ccc; margin-right:8px; text-decoration:line-through;">ACUERDOS</span>'}<br>
+                ${sol.bitacoraUrl ? `<a href="${sol.bitacoraUrl}" target="_blank" style="margin-right:8px; text-decoration:none;">✅ BITÁCORA</a>` : '<span style="color:#ccc; margin-right:8px; text-decoration:line-through;">BITÁCORA</span>'}
+                ${sol.desempenoUrl ? `<a href="${sol.desempenoUrl}" target="_blank" style="margin-right:8px; text-decoration:none;">✅ DESEMPEÑO</a>` : '<span style="color:#ccc; margin-right:8px; text-decoration:line-through;">DESEMPEÑO</span>'}
+                ${sol.liberacionUrl ? `<a href="${sol.liberacionUrl}" target="_blank" style="margin-right:8px; text-decoration:none;">✅ LIBERACIÓN</a>` : '<span style="color:#ccc; margin-right:8px; text-decoration:line-through;">LIBERACIÓN</span>'}
+              </div>
+              <div style="display:flex; gap:10px; margin-top:4px;">
+                <button class="btn-confirm" onclick="confirmarEscuela('${alumno.matricula}')" ${isConf?'disabled':''}>
+                  ${isConf ? '✅ Confirmada' : '✅ Confirmar escuela'}
+                </button>
+                <button class="btn-change" onclick="openModal('${alumno.matricula}','${alumno.nombre}')">🔄 Cambiar escuela</button>
+              </div>
             </div>`;
         } else {
           schoolBlock = `<div style="font-size:.8em;color:var(--buap-navy);padding:8px 0;font-style:italic">Este alumno aún no ha solicitado escuela.</div>`;
@@ -429,7 +446,13 @@
         <input type="text" class="search-inp" id="lista-search" placeholder="🔍 Buscar..." oninput="renderListaTab()">
         <div class="table-wrap">
           <table>
-            <thead><tr><th>#</th><th>Nombre</th><th>Matrícula</th><th>${docenteData.esSuperUsuario ? 'Horario Cita' : 'Promedio'}</th><th>${docenteData.esSuperUsuario ? 'Acceso al Cuestionario' : 'Nivel'}</th><th>Escuela asignada</th></tr></thead>
+            <thead><tr>
+              <th>#</th><th>Nombre</th><th>Matrícula</th>
+              ${docenteData.esSuperUsuario ? '<th>Contacto</th>' : ''}
+              ${docenteData.esSuperUsuario ? '<th>Cita</th><th>Acceso</th>' : '<th>Promedio</th><th>Nivel</th>'}
+              <th>Escuela (Estado)</th>
+              ${docenteData.esSuperUsuario ? '<th style="min-width:180px">Documentos (PDF)</th>' : ''}
+            </tr></thead>
             <tbody>`;
 
     if (filtered.length === 0) {
@@ -442,10 +465,23 @@
         const isExt = sol && !esc;
         const escNombre = sol ? toTitleCase(esc ? esc.nombre : sol.escuelaNombre) + (isExt ? ' [EXT]' : '') : '—';
         const escStatus = sol ? `<span class="chip ${sol.estado==='confirmada'?'chip-confirmada':'chip-pendiente'}">${sol.estado==='confirmada'?'✅':' ⏳'} ${escNombre}</span>` : `<span style="font-size:.75em;color:var(--text-muted)">Sin solicitud</span>`;
+        
+        const contactStr = sol ? `<div style="font-size:0.75em"><a href="mailto:${sol.email}" style="color:var(--blue)">${sol.email || '—'}</a><br>${sol.telefono || '—'}</div>` : '<div style="font-size:0.7em;color:#999">—</div>';
+
+        const dl = (url, lbl) => url ? `<a href="${url}" target="_blank" style="margin-right:2px; font-size:0.75em; color:var(--green); text-decoration:none;" title="${lbl}">✅${lbl}</a>` : `<span style="margin-right:2px; font-size:0.75em; color:#ccc; text-decoration:line-through" title="Falta ${lbl}">❌${lbl}</span>`;
+
+        const docsStr = sol ? `
+           ${dl(sol.ineUrl, 'INE')} ${dl(sol.cartaUrl, 'CARTA')}<br>
+           ${dl(sol.oficioUrl, 'OFICIO')} ${dl(sol.acuerdosUrl, 'ACUERD')}<br>
+           ${dl(sol.bitacoraUrl, 'BITAC')} ${dl(sol.desempenoUrl, 'DESEMP')}<br>
+           ${dl(sol.liberacionUrl, 'LIBER')}
+        ` : '<span style="font-size:0.7em;color:#999">—</span>';
+
         html += `<tr>
           <td style="color:var(--buap-navy);font-size:.8em;font-weight:600">#${i+1}</td>
           <td style="font-weight:600;font-size:.85em">${toTitleCase(a.nombre)}</td>
           <td style="font-size:.8em;color:var(--buap-navy);font-family:monospace">${a.matricula}</td>
+          ${docenteData.esSuperUsuario ? `<td>${contactStr}</td>` : ''}
           ${docenteData.esSuperUsuario ? `<td style="font-size:.8em;font-weight:700;color:var(--gold)">${a.horarioCita || '12:00'}</td>` : `<td style="font-weight:700">${a.promedio.toFixed(2)}</td>`}
           ${docenteData.esSuperUsuario ? 
               `<td>
@@ -456,6 +492,7 @@
                </td>` 
             : `<td><span class="${badge.class}">${badge.label}</span></td>`}
           <td>${escStatus}</td>
+          ${docenteData.esSuperUsuario ? `<td>${docsStr}</td>` : ''}
         </tr>`;
       });
     }

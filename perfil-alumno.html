@@ -339,6 +339,14 @@
               <span style="font-size:1.2em">📥</span> Descargar Formato
             </a>
           </div>
+
+          <div style="background:var(--surface2); border:1px solid rgba(0,181,226,.2); border-radius:var(--radius-sm); padding:20px; text-align:center;">
+            <h4 style="color:var(--gold); margin-bottom:8px; font-size:.9em;">Hoja de Desempeño</h4>
+            <p style="font-size:0.75em; color:var(--text-muted); margin-bottom:14px; line-height:1.4;">Al finalizar, descárgala para que la llene tu docente y la subas en el recuadro "6. Hoja de Desempeño".</p>
+             <a href="Hoja_Desempeno.pdf" target="_blank" class="btn-primary" style="text-decoration:none; display:flex; justify-content:center; align-items:center; gap:6px; background:rgba(100,181,246,.15); color:var(--blue); border:1px solid rgba(100,181,246,.3);">
+              <span style="font-size:1.2em">📄</span> Descargar Hoja
+            </a>
+          </div>
         </div>
       </div>
 
@@ -595,7 +603,7 @@
   }
 
   // ─── DOCS SECTION ─────────────────────────────────────
-  let filesToUpload = { 'ine': null, 'carta': null, 'oficio': null, 'acuerdos': null, 'bitacora': null };
+  let filesToUpload = { 'ine': null, 'carta': null, 'oficio': null, 'acuerdos': null, 'bitacora': null, 'desempeno': null, 'liberacion': null };
 
   function renderDocsSection() {
     const el = document.getElementById('docs-content');
@@ -607,6 +615,8 @@
     const tOficio = miSolicitud && miSolicitud.oficioUrl;
     const tAcuerdos = miSolicitud && miSolicitud.acuerdosUrl;
     const tBitacora = miSolicitud && miSolicitud.bitacoraUrl;
+    const tDesempeno = miSolicitud && miSolicitud.desempenoUrl;
+    const tLiberacion = miSolicitud && miSolicitud.liberacionUrl;
 
     const mkBox = (type, title, hasUrl, url, emoji, desc) => `
       <div style="margin-bottom:20px; padding:16px; background:var(--surface2); border-radius:var(--radius-sm); border:1px solid rgba(0,59,92,.1);">
@@ -642,6 +652,8 @@
       ${mkBox('oficio', '3. Oficio de Asignación', tOficio, miSolicitud?.oficioUrl, '🏛️', 'Dado por FCF y sellado/firmado por el Bachillerato')}
       ${mkBox('acuerdos', '4. Formato de Acuerdos', tAcuerdos, miSolicitud?.acuerdosUrl, '🤝', 'Firmado (Formulario en blanco)')}
       ${mkBox('bitacora', '5. Bitácora de Asistencia', tBitacora, miSolicitud?.bitacoraUrl, '📝', 'Formato de asistencias completo')}
+      ${mkBox('desempeno', '6. Hoja de Desempeño', tDesempeno, miSolicitud?.desempenoUrl, '⭐', 'Llenada, firmada y sellada por el Bachillerato')}
+      ${mkBox('liberacion', '7. Oficio de Liberación', tLiberacion, miSolicitud?.liberacionUrl, '🎓', 'Oficio final de liberación (PDF)')}
 
       <p style="font-size:.72em;color:var(--gold);margin-top:14px;text-align:center;line-height:1.5">
         ⚠️ <strong>Nota:</strong> Los archivos se renombrarán y organizarán automáticamente en carpetas en Google Drive correspondientes a tu docente.
@@ -677,6 +689,8 @@
     if (type === 'oficio') { miSolicitud.oficioUrl = null; }
     if (type === 'acuerdos') { miSolicitud.acuerdosUrl = null; }
     if (type === 'bitacora') { miSolicitud.bitacoraUrl = null; }
+    if (type === 'desempeno') { miSolicitud.desempenoUrl = null; }
+    if (type === 'liberacion') { miSolicitud.liberacionUrl = null; }
     renderDocsSection();
   }
 
@@ -704,7 +718,9 @@
           'carta': 'CARTA_ACEPTA',
           'oficio': 'OFICIO_ASIGNA',
           'acuerdos': 'ACUERDOS',
-          'bitacora': 'BITACORA'
+          'bitacora': 'BITACORA',
+          'desempeno': 'DESEMPENO',
+          'liberacion': 'LIBERACION'
       };
       const docName = docNameDict[type] || 'DOC_GENERAL';
       const fileName = `${docName}_${alumnoData.matricula}_${alumnoData.nombre}`.replace(/\s+/g,'_').toUpperCase() + '.pdf';
@@ -728,6 +744,8 @@
         if (type === 'oficio') updateData.oficioUrl = result.url;
         if (type === 'acuerdos') updateData.acuerdosUrl = result.url;
         if (type === 'bitacora') updateData.bitacoraUrl = result.url;
+        if (type === 'desempeno') updateData.desempenoUrl = result.url;
+        if (type === 'liberacion') updateData.liberacionUrl = result.url;
         
         await window._guardarSolicitud(alumnoData.matricula, { ...miSolicitud, ...updateData, fechaPDF: new Date().toISOString() });
         miSolicitud = await window._getMiSolicitud(alumnoData.matricula);
