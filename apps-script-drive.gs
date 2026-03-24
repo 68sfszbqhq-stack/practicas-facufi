@@ -20,7 +20,7 @@
 
 // ⚠️ REEMPLAZA CON EL ID DE TU CARPETA DE DRIVE
 // (la parte larga de la URL: drive.google.com/drive/folders/ESTE_ID)
-const FOLDER_ID = 'TU_FOLDER_ID_AQUI';
+const FOLDER_ID = '1IfPdQ6KQ3p3hd4UOzC43ZUTlPLA_HVX5';
 
 // Tipos de documento válidos (coinciden con los nombres usados en perfil-alumno.html)
 const DOC_TYPES = ['INE', 'CARTA_ACEPTA', 'OFICIO_ASIGNA', 'ACUERDOS', 'BITACORA', 'DESEMPENO', 'LIBERACION'];
