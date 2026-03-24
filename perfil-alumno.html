@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <!-- Hidden logos for PDF generation -->
-  <img id="logo-buap" src="Logo_de_la_BUAP.svg" style="display:none" crossorigin="anonymous">
+  <img id="logo-buap" src="Logo_de_la_BUAP.png" style="display:none" crossorigin="anonymous">
   <img id="logo-facufi" src="FACUFI.png" style="display:none" crossorigin="anonymous">
   <style>
             :root {
@@ -508,7 +508,9 @@
         <h4 style="margin-bottom:6px;color:var(--gold);font-size:.95em">Registro de lugar extemporáneo</h4>
         <p style="font-size:.78em;color:var(--buap-navy);margin-bottom:14px;line-height:1.4">Si ya contabas con un lugar asignado desde el inicio del semestre y no necesitas elegir del listado oficial, indícalo aquí.</p>
         <input type="text" id="ext-nombre" class="school-search" placeholder="Nombre completo de la escuela" style="margin-bottom:10px">
-        <input type="text" id="ext-muni" class="school-search" placeholder="Municipio o Localidad" style="margin-bottom:14px">
+        <input type="text" id="ext-cct" class="school-search" placeholder="Clave CCT (Obligatorio)" style="margin-bottom:10px">
+        <input type="text" id="ext-municipio" class="school-search" placeholder="Municipio o Localidad (Ej. PUEBLA)" style="margin-bottom:10px">
+        <input type="text" id="ext-ubicacion" class="school-search" placeholder="Dirección Completa (Calle, número, colonia)" style="margin-bottom:14px">
         <button class="btn-primary" onclick="enviarSolicitudExtemporanea()" id="btn-solicitar-ext">Registrar mi lugar de prácticas</button>
       </div>
 
@@ -556,6 +558,7 @@
     btn.textContent = 'Enviando...'; btn.disabled = true;
     try {
       const esc = ESCUELAS.find(e => e.id === selectedSchoolId);
+      const direccionCompleta = [esc.direccion, esc.localidad, esc.municipio].filter(Boolean).join(', ');
       await window._guardarSolicitud(alumnoData.matricula, {
         matricula: alumnoData.matricula,
         nombre: alumnoData.nombre,
@@ -566,6 +569,7 @@
         escuelaNombre: esc.nombre,
         escuelaCCT: esc.cct,
         escuelaMunicipio: esc.municipio,
+        escuelaUbicacion: direccionCompleta,
         estado: 'pendiente',
         pdfUrl: null,
         fechaSolicitud: new Date().toISOString()
@@ -937,34 +941,33 @@
           
           const escNombre = miSolicitud ? miSolicitud.escuelaNombre : '______________________________';
           const escCCT = miSolicitud && miSolicitud.escuelaCCT ? miSolicitud.escuelaCCT : '____________________';
-          const escMuni = miSolicitud && miSolicitud.escuelaMunicipio ? miSolicitud.escuelaMunicipio : '____________________';
+          const escDir = miSolicitud && miSolicitud.escuelaUbicacion ? miSolicitud.escuelaUbicacion : '____________________';
           
           doc.setFont('helvetica', 'bold');
           doc.text("DATOS DEL CENTRO DE PRÁCTICAS ELEGIDO:", 20, 130);
           doc.setFont('helvetica', 'normal');
           doc.text(`Escuela asignada: ${escNombre}`, 20, 140);
           doc.text(`Clave CCT: ${escCCT}`, 20, 150);
-          doc.text(`Dirección / Municipio: ${escMuni}`, 20, 160);
           
-          // Firmas
-          doc.setFontSize(9);
-          doc.text("FIRMA DE CONFORMIDAD DEL ALUMNO", 55, 205, null, null, "center");
-          doc.line(25, 200, 85, 200);
-          doc.text(toTitleCase(alumnoData.nombre), 55, 210, null, null, "center");
+          // The address might be long, so we wrap it
+          const dirLines = doc.splitTextToSize(`Dirección Completa: ${escDir}`, 170);
+          doc.text(dirLines, 20, 160);
           
-          doc.text("FIRMA Y SELLO DE LA ESCUELA DONDE FUERON ACEPTADOS", 145, 205, null, null, "center");
-          doc.line(105, 200, 185, 200);
-          doc.rect(130, 215, 30, 30); // Recuadro para el sello
-          doc.setFontSize(8);
-          doc.text("Sello", 145, 230, null, null, "center");
+          // Firmas (Solamente alumno, centrado)
+          doc.setFontSize(10);
+          doc.setFont('helvetica', 'bold');
+          doc.text("FIRMA DE CONFORMIDAD DEL ALUMNO", 105, 215, null, null, "center");
+          doc.line(65, 210, 145, 210);
+          doc.setFont('helvetica', 'normal');
+          doc.text(toTitleCase(alumnoData.nombre), 105, 222, null, null, "center");
 
           // Logos (Real Images)
           try {
               const bData = getImgData('logo-buap');
-              if (bData) doc.addImage(bData, 'PNG', 15, 10, 25, 27);
+              if (bData) doc.addImage(bData, 'PNG', 15, 10, 32, 32);
               
               const fData = getImgData('logo-facufi');
-              if (fData) doc.addImage(fData, 'PNG', 170, 10, 25, 25);
+              if (fData) doc.addImage(fData, 'PNG', 165, 10, 25, 25);
           } catch(e) { console.log('Error adding images to PDF', e); }
 
           doc.save(`Carta_Aceptacion_${alumnoData.matricula}.pdf`);
