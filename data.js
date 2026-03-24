@@ -1668,6 +1668,16 @@ const ALUMNOS = [
     "horarioCita": "11:57"
   },
   {
+    "promedio": 9.0,
+    "matricula": "202331025_GARCIA",
+    "nombre": "GARCIA RODRIGUEZ JESUS GAEL",
+    "plan": "LEF-2016",
+    "periodo": "202625",
+    "nrc": 61052,
+    "docente": "Victor Arenas Pérez",
+    "horarioCita": "09:00"
+  },
+  {
     "promedio": 7.64,
     "matricula": "202330029",
     "nombre": "ESPINOZA CASTILLO DIEGO ARMANDO",
