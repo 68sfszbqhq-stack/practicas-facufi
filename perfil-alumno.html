@@ -933,7 +933,21 @@
           
           const escNombre = miSolicitud ? miSolicitud.escuelaNombre : '';
           const escCCT = miSolicitud && miSolicitud.escuelaCCT ? miSolicitud.escuelaCCT : 'Sin CCT';
-          const escDir = miSolicitud && miSolicitud.escuelaUbicacion ? miSolicitud.escuelaUbicacion : 'Sin dirección';
+          
+          let escDir = 'Sin dirección';
+          if (miSolicitud) {
+              if (miSolicitud.escuelaUbicacion) {
+                  escDir = miSolicitud.escuelaUbicacion;
+              } else {
+                  // Reconstruct for applications made prior to the update
+                  const sInfo = ESCUELAS.find(e => e.id === miSolicitud.escuelaId);
+                  if (sInfo) {
+                      escDir = [sInfo.direccion, sInfo.localidad, sInfo.municipio].filter(Boolean).join(', ');
+                  } else {
+                      escDir = miSolicitud.escuelaMunicipio || 'Sin dirección';
+                  }
+              }
+          }
           
           doc.setFont('helvetica', 'bold');
           doc.text("DATOS DEL CENTRO DE PRÁCTICAS ELEGIDO:", 20, 130);
