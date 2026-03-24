@@ -1578,6 +1578,16 @@ const ALUMNOS = [
     "horarioCita": "11:49"
   },
   {
+    "promedio": 9.0,
+    "matricula": "202356663",
+    "nombre": "SANTIBAÑEZ LORA AZAEL EMANUEL",
+    "plan": "LEF-2016",
+    "periodo": "202625",
+    "nrc": 60866,
+    "docente": "Alejandra Marciano Mendoza",
+    "horarioCita": "09:00"
+  },
+  {
     "promedio": 7.84,
     "matricula": "202370300",
     "nombre": "CANO PAJARO JOSE MARIA",
