@@ -84,7 +84,6 @@
     .si-num { width:28px; height:28px; background:var(--surface3); border-radius:7px;
       display:flex; align-items:center; justify-content:center; font-size:.72em; font-weight:700; color:var(--buap-navy); flex-shrink:0; }
     .school-item.selected .si-num { background:var(--gold); color:#fff; }
-    .si-info {}
     .si-name { font-size:.85em; font-weight:600; }
     .si-sub { font-size:.72em; color:var(--buap-navy); margin-top:2px; }
     .si-tag { margin-left:auto; flex-shrink:0; }
@@ -186,6 +185,13 @@
     return snap.exists() ? snap.data() : null;
   }
 
+  // ─── Obtener acceso del alumno
+  async function getMiAcceso(matricula) {
+    const ref = doc(db, 'acceso_alumnos', matricula);
+    const snap = await getDoc(ref);
+    return snap.exists() ? snap.data().activo : false;
+  }
+
   // ─── Guardar solicitud
   async function guardarSolicitud(matricula, data) {
     await setDoc(doc(db, 'solicitudes_practicas', matricula), data);
@@ -200,6 +206,7 @@
   window._getMiSolicitud = getMiSolicitud;
   window._guardarSolicitud = guardarSolicitud;
   window._cancelarSolicitud = cancelarSolicitud;
+  window._getMiAcceso = getMiAcceso;
 
   // Signal ready
   window._firebaseReady = true;
@@ -211,8 +218,10 @@
   let alumnoData = null;
   let solicitudesGlobales = {};
   let miSolicitud = null;
+  let miAccesoActivo = false;
   let selectedSchoolId = null;
   let selectedFile = null;
+  let selectedIneFile = null;
   let rankGlobal = 0;
 
   // Esperar Firebase
@@ -234,6 +243,7 @@
     waitFirebase(async () => {
       solicitudesGlobales = await window._getSolicitudes();
       miSolicitud = await window._getMiSolicitud(alumnoData.matricula);
+      miAccesoActivo = await window._getMiAcceso(alumnoData.matricula);
       renderPerfil();
     });
   }
@@ -286,6 +296,15 @@
         <div class="detail-row"><span class="dr-label">Posición en sección</span><span class="dr-value">#${posSec} de ${compSec.length}</span></div>
       </div>
 
+      <!-- Datos Personales -->
+      <div class="section-card" id="datos-section" style="animation:fadeInUp .5s ease .2s both">
+        <div class="section-header">
+          <div class="sh-icon">👤</div>
+          <h3>Datos de Contacto e Identificación</h3>
+        </div>
+        <div id="datos-content"></div>
+      </div>
+
       <!-- Selector de escuela -->
       <div class="section-card" id="school-section" style="animation:fadeInUp .5s ease .25s both">
         <div class="section-header">
@@ -295,30 +314,106 @@
         <div id="school-content"></div>
       </div>
 
-      <!-- Documentos -->
-      <div class="section-card" id="docs-section" style="animation:fadeInUp .5s ease .35s both">
+      <!-- Documentos descargables -->
+      <div class="section-card" id="descargas-section" style="animation:fadeInUp .5s ease .3s both; display: ${miAccesoActivo && miSolicitud ? 'block' : 'none'}">
         <div class="section-header">
-          <div class="sh-icon">📄</div>
-          <h3>Documentos Requeridos</h3>
+          <div class="sh-icon">📥</div>
+          <h3>Documentos para Descargar e Imprimir</h3>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+          <div style="background:var(--surface2); border:1px solid rgba(0,181,226,.2); border-radius:var(--radius-sm); padding:20px; text-align:center;">
+            <h4 style="color:var(--gold); margin-bottom:8px; font-size:.9em;">Carta de Aceptación y Conformidad</h4>
+            <p style="font-size:0.75em; color:var(--text-muted); margin-bottom:14px; line-height:1.4;">Se generará automáticamente con tus datos y los de la escuela que elegiste. Deberás firmarla y que te la firme/selle la escuela.</p>
+            <button class="btn-primary" onclick="descargarFormatoOficial()" style="width:100%; padding:10px; font-size:.85em; display:flex; justify-content:center; align-items:center; gap:6px;">
+              <span style="font-size:1.2em">📄</span> Generar Carta PDF
+            </button>
+          </div>
+          <div style="background:var(--surface2); border:1px solid rgba(0,181,226,.2); border-radius:var(--radius-sm); padding:20px; text-align:center;">
+            <h4 style="color:var(--gold); margin-bottom:8px; font-size:.9em;">Formato de Acuerdos</h4>
+            <p style="font-size:0.75em; color:var(--text-muted); margin-bottom:14px; line-height:1.4;">Descarga este formato, llénalo, escanéalo, y envíalo en el recuadro de abajo como "Oficio de Asignación / Acuerdos".</p>
+             <a href="#" class="btn-primary" style="text-decoration:none; display:flex; justify-content:center; align-items:center; gap:6px; background:rgba(100,181,246,.15); color:var(--blue); border:1px solid rgba(100,181,246,.3);">
+              <span style="font-size:1.2em">📥</span> Descargar Formato
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Documentos requeridos (Upload) -->
+      <div class="section-card" id="docs-section" style="animation:fadeInUp .5s ease .35s both; display: ${miAccesoActivo && miSolicitud ? 'block' : 'none'}">
+        <div class="section-header">
+          <div class="sh-icon">📤</div>
+          <h3>Subir Documentos Firmados</h3>
         </div>
         <div id="docs-content"></div>
       </div>
     `;
 
+    if (!miAccesoActivo) {
+        document.getElementById('school-content').innerHTML = `
+          <div class="status-banner pendiente" style="background:var(--surface2); border: 1px dashed var(--red); color: var(--text);">
+            <span class="sb-icon" style="font-size:2em">🔒</span>
+            <div>
+              <strong style="font-size:1.1em; color: var(--red);">Tu acceso está deshabilitado</strong>
+              <div style="font-size:.9em;margin-top:6px;line-height:1.4">
+                El docente no ha activado tu acceso al sistema. Espera a tu horario asignado (${alumnoData.horarioCita || '12:00'}).<br>
+                Si tienes dudas, comunícate con tu docente.
+              </div>
+            </div>
+          </div>
+        `;
+        document.getElementById('datos-content').innerHTML = '<p style="color:var(--text-muted);font-size:0.9em;">Bloqueado hasta tener acceso.</p>';
+        document.getElementById('docs-content').innerHTML = '<p style="color:var(--text-muted);font-size:0.9em;">Bloqueado hasta tener acceso.</p>';
+        return;
+    }
+
+    renderDatosSection();
     renderEscuelaSection();
     renderDocsSection();
   }
 
 
-  // ─── CONFIGURACIÓN DE FECHAS DE APERTURA POR CATEGORÍA ───
-  // Modifica estas fechas y horas con el día exacto en el que deseas que cada grupo pueda empezar a elegir.
   const SCHEDULE = {
-    'Excelente': new Date('2026-03-24T08:00:00-06:00'), // Martes 24 de Marzo a las 8:00 AM
-    'Muy Bueno': new Date('2026-03-25T08:00:00-06:00'), // Miércoles 25 a las 8:00 AM
-    'Bueno':     new Date('2026-03-26T08:00:00-06:00'), // Jueves 26 a las 8:00 AM
-    'Regular':   new Date('2026-03-27T08:00:00-06:00'), // Viernes 27 a las 8:00 AM
-    'Suficiente':new Date('2026-03-28T08:00:00-06:00')  // Sábado 28 a las 8:00 AM
+    'Excelente': new Date('2025-01-01T00:00:00-06:00'), // Already past
+    'Muy Bueno': new Date('2025-01-01T00:00:00-06:00'),
+    'Bueno':     new Date('2025-01-01T00:00:00-06:00'),
+    'Regular':   new Date('2025-01-01T00:00:00-06:00'),
+    'Suficiente':new Date('2025-01-01T00:00:00-06:00')
   };
+
+  function renderDatosSection() {
+    const el = document.getElementById('datos-content');
+    if (!el) return;
+
+    // Obtener los datos actuales del firebase
+    const savedEmail = miSolicitud ? miSolicitud.email || '' : '';
+    const savedPhone = miSolicitud ? miSolicitud.telefono || '' : '';
+    const ineInfoLabel = miSolicitud && miSolicitud.ineUrl ? '✅ INE Subido' : 'Subir INE/Credencial (PDF)';
+
+    el.innerHTML = `
+      <div style="margin-bottom:12px">
+         <label style="font-size:0.8em; font-weight:600; color:var(--text-muted);">Correo Electrónico</label>
+         <input type="email" id="input-email" class="school-search" placeholder="ejemplo@correo.buap.mx" value="${savedEmail}" style="margin-top:4px;">
+      </div>
+      <div style="margin-bottom:12px">
+         <label style="font-size:0.8em; font-weight:600; color:var(--text-muted);">Teléfono</label>
+         <input type="tel" id="input-phone" class="school-search" placeholder="(xxx) xxx xxxx" value="${savedPhone}" style="margin-top:4px;">
+      </div>
+      <div style="margin-bottom:12px">
+         <label style="font-size:0.8em; font-weight:600; color:var(--text-muted);">Identificación Oficial o Escolar</label>
+         <div class="upload-zone" id="ine-upload-zone" onclick="document.getElementById('ine-input').click()"
+             ondragover="event.preventDefault();this.classList.add('dragover')"
+             ondragleave="this.classList.remove('dragover')"
+             ondrop="handleIneDrop(event)" style="padding: 16px; margin-top:4px">
+          <div class="uz-icon" style="font-size:1.5em; margin-bottom:4px;">🪪</div>
+          <div class="uz-title" id="ine-upload-title">${ineInfoLabel}</div>
+        </div>
+        <input type="file" id="ine-input" accept=".pdf" style="display:none" onchange="handleIneSelect(event)">
+        <div class="progress-bar" id="ine-progress-bar" style="display:none"><div class="progress-fill" id="ine-fill" style="width:0%"></div></div>
+      </div>
+      <button class="btn-primary" onclick="guardarDatosPersonales()" id="btn-guardar-datos" style="width:auth; padding:8px 20px;">Guardar Datos</button>
+      <div id="datos-alert" class="alert"></div>
+    `;
+  }
 
   function renderEscuelaSection() {
     const el = document.getElementById('school-content');
@@ -503,138 +598,150 @@
   }
 
   // ─── DOCS SECTION ─────────────────────────────────────
+  let filesToUpload = { 'carta': null, 'acuerdos': null };
+
   function renderDocsSection() {
     const el = document.getElementById('docs-content');
     if (!el) return;
-    const tienePDF = miSolicitud && miSolicitud.pdfUrl;
+    
+    // Check if URLs exist
+    const tieneCarta = miSolicitud && miSolicitud.cartaUrl;
+    const tieneAcuerdos = miSolicitud && miSolicitud.acuerdosUrl;
+
     el.innerHTML = `
       <p style="font-size:.82em;color:var(--buap-navy);margin-bottom:14px;line-height:1.6">
-        Sube un <strong style="color:var(--text)">PDF único (máx. 1 MB)</strong> con todos los documentos firmados requeridos para realizar tus prácticas curriculares.
+        Sube tus documentos debidamente llenados y firmados. <strong style="color:var(--text)">Solo formato PDF (máx. 1 MB c/u)</strong>.
       </p>
-      ${tienePDF ? `
-        <div class="status-banner confirmada" style="margin-bottom:12px">
-          <span class="sb-icon">📎</span>
-          <div><strong>Documento subido correctamente</strong>
-          <div style="font-size:.82em;margin-top:3px"><a href="${miSolicitud.pdfUrl}" target="_blank" style="color:var(--green)">Ver PDF en Google Drive →</a></div></div>
-        </div>
-        <button class="btn-danger" onclick="renderDocsSection()" style="width:auto;padding:8px 20px;font-size:.78em">Reemplazar documento</button>
-      ` : `
-        <div class="upload-zone" id="upload-zone" onclick="document.getElementById('pdf-input').click()"
-             ondragover="event.preventDefault();this.classList.add('dragover')"
-             ondragleave="this.classList.remove('dragover')"
-             ondrop="handleDrop(event)">
-          <div class="uz-icon">📤</div>
-          <div class="uz-title">Haz clic o arrastra tu PDF aquí</div>
-          <div class="uz-sub">Solo PDF · Máximo 1 MB</div>
-        </div>
-        <input type="file" id="pdf-input" accept=".pdf" style="display:none" onchange="handleFileSelect(event)">
-        <div id="file-preview-wrap"></div>
-        <div class="progress-bar" id="upload-progress-bar" style="display:none"><div class="progress-fill" id="upload-fill" style="width:0%"></div></div>
-        <button class="btn-primary" id="btn-upload" onclick="subirPDF()" disabled>Subir documentos a Google Drive</button>
-        <p style="font-size:.75em;color:var(--gold);margin-top:14px;text-align:center;line-height:1.5">
-          ⚠️ <strong>Nota:</strong> El sistema renombrará tu PDF automáticamente bajo el formato institucional:<br>
-          <em>APELLIDO-DOCENTE_MATRICULA_NOMBRE-COMPLETO</em>
-        </p>
-      `}
+
+      <!-- Caja 1: Carta de Aceptación -->
+      <div style="margin-bottom:20px; padding:16px; background:var(--surface2); border-radius:var(--radius-sm); border:1px solid rgba(0,59,92,.1);">
+        <h4 style="font-size:.85em; font-weight:700; color:var(--gold); margin-bottom:10px;">1. Carta de Aceptación / Conformidad</h4>
+        ${tieneCarta ? `
+          <div class="status-banner confirmada" style="margin-bottom:10px">
+            <span class="sb-icon">📎</span>
+            <div><strong>Documento subido correctamente</strong>
+            <div style="font-size:.8em;margin-top:3px"><a href="${miSolicitud.cartaUrl}" target="_blank" style="color:var(--green)">Ver PDF →</a></div></div>
+          </div>
+          <button class="btn-danger" onclick="resetFileDoc('carta')" style="width:auto;padding:6px 14px;font-size:.75em;margin-top:0;">Reemplazar documento</button>
+        ` : `
+          <div class="upload-zone" id="upload-zone-carta" onclick="document.getElementById('input-carta').click()"
+               ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')"
+               ondrop="handleDocDrop(event, 'carta')" style="padding:16px;">
+            <div class="uz-icon" style="font-size:1.5em;margin-bottom:4px;">📥</div>
+            <div class="uz-title" id="title-carta">Clic o arrastra la Carta PDF</div>
+          </div>
+          <input type="file" id="input-carta" accept=".pdf" style="display:none" onchange="handleDocSelect(event, 'carta')">
+          <div class="progress-bar" id="bar-carta" style="display:none"><div class="progress-fill" id="fill-carta" style="width:0%"></div></div>
+          <button class="btn-primary" id="btn-up-carta" onclick="subirDoc('carta')" disabled style="padding:10px;font-size:.8em;">Subir Carta a Drive</button>
+        `}
+      </div>
+
+      <!-- Caja 2: Oficio Asignación / Acuerdos -->
+      <div style="padding:16px; background:var(--surface2); border-radius:var(--radius-sm); border:1px solid rgba(0,59,92,.1);">
+        <h4 style="font-size:.85em; font-weight:700; color:var(--gold); margin-bottom:10px;">2. Oficio de Asignación / Formato de Acuerdos</h4>
+        ${tieneAcuerdos ? `
+          <div class="status-banner confirmada" style="margin-bottom:10px">
+            <span class="sb-icon">📎</span>
+            <div><strong>Documento subido correctamente</strong>
+            <div style="font-size:.8em;margin-top:3px"><a href="${miSolicitud.acuerdosUrl}" target="_blank" style="color:var(--green)">Ver PDF →</a></div></div>
+          </div>
+          <button class="btn-danger" onclick="resetFileDoc('acuerdos')" style="width:auto;padding:6px 14px;font-size:.75em;margin-top:0;">Reemplazar documento</button>
+        ` : `
+          <div class="upload-zone" id="upload-zone-acuerdos" onclick="document.getElementById('input-acuerdos').click()"
+               ondragover="event.preventDefault();this.classList.add('dragover')" ondragleave="this.classList.remove('dragover')"
+               ondrop="handleDocDrop(event, 'acuerdos')" style="padding:16px;">
+            <div class="uz-icon" style="font-size:1.5em;margin-bottom:4px;">📥</div>
+            <div class="uz-title" id="title-acuerdos">Clic o arrastra el Oficio PDF</div>
+          </div>
+          <input type="file" id="input-acuerdos" accept=".pdf" style="display:none" onchange="handleDocSelect(event, 'acuerdos')">
+          <div class="progress-bar" id="bar-acuerdos" style="display:none"><div class="progress-fill" id="fill-acuerdos" style="width:0%"></div></div>
+          <button class="btn-primary" id="btn-up-acuerdos" onclick="subirDoc('acuerdos')" disabled style="padding:10px;font-size:.8em;">Subir Oficio a Drive</button>
+        `}
+      </div>
+
+      <p style="font-size:.72em;color:var(--gold);margin-top:14px;text-align:center;line-height:1.5">
+        ⚠️ <strong>Nota:</strong> Los archivos se renombrarán y organizarán automáticamente en carpetas en Google Drive correspondientes a tu docente.
+      </p>
       <div id="docs-alert" class="alert"></div>
     `;
   }
 
-  function handleDrop(e) {
+  function handleDocDrop(e, type) {
     e.preventDefault();
-    document.getElementById('upload-zone').classList.remove('dragover');
+    document.getElementById('upload-zone-'+type).classList.remove('dragover');
     const file = e.dataTransfer.files[0];
-    if (file) processFile(file);
+    if (file) processDoc(file, type);
   }
-
-  function handleFileSelect(e) {
+  function handleDocSelect(e, type) {
     const file = e.target.files[0];
-    if (file) processFile(file);
+    if (file) processDoc(file, type);
   }
-
-  function processFile(file) {
+  function processDoc(file, type) {
     if (file.type !== 'application/pdf') {
-      showAlert('docs-alert','error','⚠️ Solo se aceptan archivos PDF.');
-      return;
+      showAlert('docs-alert','error','⚠️ Solo se aceptan archivos PDF.'); return;
     }
     if (file.size > 1024 * 1024) {
-      showAlert('docs-alert','error','⚠️ El archivo excede 1 MB. Comprime el PDF antes de subirlo.');
-      return;
+      showAlert('docs-alert','error','⚠️ El archivo excede 1 MB. Comprímelo.'); return;
     }
-    selectedFile = file;
-    const sizeMB = (file.size / 1024 / 1024).toFixed(2);
-    const pw = document.getElementById('file-preview-wrap');
-    if (pw) pw.innerHTML = `
-      <div class="file-preview">
-        <span class="fp-icon">📄</span>
-        <div>
-          <div class="fp-name">${file.name}</div>
-          <div class="fp-size">${sizeMB} MB · PDF</div>
-        </div>
-        <button class="fp-remove" onclick="removeFile()" title="Quitar">✕</button>
-      </div>`;
-    const btn = document.getElementById('btn-upload');
-    if (btn) btn.disabled = false;
+    filesToUpload[type] = file;
+    document.getElementById('title-'+type).innerHTML = `📄 ${file.name} (Listo)`;
+    document.getElementById('btn-up-'+type).disabled = false;
+  }
+  function resetFileDoc(type) {
+    if (type === 'carta') { miSolicitud.cartaUrl = null; }
+    if (type === 'acuerdos') { miSolicitud.acuerdosUrl = null; }
+    renderDocsSection();
   }
 
-  function removeFile() {
-    selectedFile = null;
-    const pw = document.getElementById('file-preview-wrap');
-    if (pw) pw.innerHTML = '';
-    const btn = document.getElementById('btn-upload');
-    if (btn) btn.disabled = true;
-    const inp = document.getElementById('pdf-input');
-    if (inp) inp.value = '';
-  }
+  async function subirDoc(type) {
+    const file = filesToUpload[type];
+    if (!file) return;
 
-  async function subirPDF() {
-    if (!selectedFile) return;
-    if (!miSolicitud) {
-      showAlert('docs-alert','info','ℹ️ Primero selecciona una escuela y envía tu solicitud.');
-      return;
-    }
-
-    const btn = document.getElementById('btn-upload');
+    const btn = document.getElementById('btn-up-'+type);
     btn.textContent = 'Subiendo...'; btn.disabled = true;
 
-    const bar = document.getElementById('upload-progress-bar');
-    const fill = document.getElementById('upload-fill');
+    const bar = document.getElementById('bar-'+type);
+    const fill = document.getElementById('fill-'+type);
     if (bar) bar.style.display = '';
     if (fill) fill.style.width = '30%';
 
     try {
-      // Convertir PDF a base64
-      const base64 = await fileToBase64(selectedFile);
+      const base64 = await fileToBase64(file);
       if (fill) fill.style.width = '60%';
 
-      // Enviar a Google Apps Script
+      const docente = DOCENTES.find(d=>d.secciones.some(s=>s.nrc===alumnoData.nrc));
+      const docenteName = docente ? (docente.nombreFormato || docente.nombre) : 'SIN_DOCENTE';
+      const docName = type === 'carta' ? 'CARTA_ACEPTA' : 'OFICIO_ACUERDOS';
+      const fileName = `${docName}_${alumnoData.matricula}_${alumnoData.nombre}`.replace(/\s+/g,'_').toUpperCase() + '.pdf';
+
       const resp = await fetch(window._APPS_SCRIPT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({
-          matricula: alumnoData.matricula,
-          nombre: alumnoData.nombre,
-          nrc: alumnoData.nrc,
-          fileName: `${(DOCENTES.find(d=>d.secciones.some(s=>s.nrc===alumnoData.nrc))||{}).primerApellido||'DOCENTE'}_${alumnoData.matricula}_${alumnoData.nombre}`.replace(/\s+/g,'_').toUpperCase() + '.pdf',
-          fileData: base64
+          matricula: alumnoData.matricula, nombre: alumnoData.nombre, nrc: alumnoData.nrc,
+          docenteName: docenteName, fileName: fileName, fileData: base64
         })
       });
+
       if (fill) fill.style.width = '85%';
       const result = await resp.json();
 
       if (result.url) {
-        // Guardar URL en Firestore
-        await window._guardarSolicitud(alumnoData.matricula, { ...miSolicitud, pdfUrl: result.url, fechaPDF: new Date().toISOString() });
+        const updateData = {};
+        if (type === 'carta') updateData.cartaUrl = result.url;
+        if (type === 'acuerdos') updateData.acuerdosUrl = result.url;
+        
+        await window._guardarSolicitud(alumnoData.matricula, { ...miSolicitud, ...updateData, fechaPDF: new Date().toISOString() });
         miSolicitud = await window._getMiSolicitud(alumnoData.matricula);
         if (fill) fill.style.width = '100%';
-        setTimeout(() => { renderDocsSection(); showAlert('docs-alert','success','✅ Documento subido correctamente a Google Drive.'); }, 400);
+        setTimeout(() => { renderDocsSection(); showAlert('docs-alert','success','✅ Documento subido a la carpeta de tu docente en Drive.'); }, 400);
       } else {
-        throw new Error(result.error || 'Error desconocido');
+        throw new Error(result.error || 'Error en Google Apps Script');
       }
     } catch(err) {
       if (bar) bar.style.display = 'none';
-      btn.textContent = 'Subir documentos a Google Drive'; btn.disabled = false;
-      showAlert('docs-alert','error','❌ Error al subir el PDF. Verifica tu conexión e intenta de nuevo. (' + err.message + ')');
+      btn.textContent = 'Subir a Drive'; btn.disabled = false;
+      showAlert('docs-alert','error','❌ Error al subir (' + err.message + ')');
     }
   }
 
@@ -645,6 +752,88 @@
       reader.onerror = rej;
       reader.readAsDataURL(file);
     });
+  }
+
+  // ─── INE UPLOAD & DATOS ───────────────────────────────────
+  function handleIneDrop(e) {
+      e.preventDefault();
+      document.getElementById('ine-upload-zone').classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      if (file) processIneFile(file);
+  }
+  function handleIneSelect(e) {
+      const file = e.target.files[0];
+      if (file) processIneFile(file);
+  }
+  function processIneFile(file) {
+      if (file.type !== 'application/pdf') {
+          showAlert('datos-alert','error','⚠️ Solo PDF para el INE/Credencial.');
+          return;
+      }
+      if (file.size > 1024 * 1024 * 2) {
+          showAlert('datos-alert','error','⚠️ El archivo excede 2 MB.');
+          return;
+      }
+      selectedIneFile = file;
+      document.getElementById('ine-upload-title').innerHTML = `📄 ${file.name} (Listo para guardar)`;
+  }
+  async function guardarDatosPersonales() {
+      const email = document.getElementById('input-email').value.trim();
+      const phone = document.getElementById('input-phone').value.trim();
+      
+      if (!miSolicitud) {
+          showAlert('datos-alert', 'error', 'Debes enviar la solicitud de escuela antes de actualizar tus datos.');
+          return;
+      }
+
+      const btn = document.getElementById('btn-guardar-datos');
+      btn.textContent = 'Guardando...'; btn.disabled = true;
+
+      try {
+          let ineUrlToSave = miSolicitud.ineUrl || null;
+          
+          if (selectedIneFile) {
+              const bar = document.getElementById('ine-progress-bar');
+              const fill = document.getElementById('ine-fill');
+              if (bar) bar.style.display = '';
+              if (fill) fill.style.width = '30%';
+
+              const base64 = await fileToBase64(selectedIneFile);
+              if (fill) fill.style.width = '60%';
+              const docenteNameInfo = DOCENTES.find(d=>d.secciones.some(s=>s.nrc===alumnoData.nrc));
+              const dName = docenteNameInfo ? (docenteNameInfo.nombreFormato || docenteNameInfo.nombre) : 'SIN_DOCENTE';
+
+              const resp = await fetch(window._APPS_SCRIPT_URL, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                  body: JSON.stringify({
+                      matricula: alumnoData.matricula,
+                      nombre: alumnoData.nombre,
+                      nrc: alumnoData.nrc,
+                      docenteName: dName,
+                      fileName: `INE_${alumnoData.matricula}_${alumnoData.nombre}`.replace(/\s+/g,'_').toUpperCase() + '.pdf',
+                      fileData: base64
+                  })
+              });
+              if (fill) fill.style.width = '85%';
+              const result = await resp.json();
+              if (result.url) {
+                  ineUrlToSave = result.url;
+                  if (fill) fill.style.width = '100%';
+              } else throw new Error('Error al subir INE');
+              if (bar) setTimeout(()=>bar.style.display='none', 1000);
+          }
+
+          await window._guardarSolicitud(alumnoData.matricula, { ...miSolicitud, email, telefono: phone, ineUrl: ineUrlToSave });
+          miSolicitud = await window._getMiSolicitud(alumnoData.matricula);
+          showAlert('datos-alert', 'success', '✅ Datos e identificación actualizados');
+          selectedIneFile = null;
+          document.getElementById('ine-upload-title').innerHTML = `✅ INE/Credencial guardado correctamente`;
+      } catch (e) {
+          showAlert('datos-alert', 'error', 'Error al guardar datos');
+      } finally {
+          btn.textContent = 'Guardar Datos'; btn.disabled = false;
+      }
   }
 
   function showAlert(id, type, msg) {
@@ -718,11 +907,82 @@
   window.toggleExtemporanea = toggleExtemporanea;
   window.enviarSolicitudExtemporanea = enviarSolicitudExtemporanea;
   window.cancelarMiSolicitud = cancelarMiSolicitud;
-  window.handleDrop = handleDrop;
-  window.handleFileSelect = handleFileSelect;
-  window.removeFile = removeFile;
-  window.subirPDF = subirPDF;
+  window.handleDocDrop = handleDocDrop;
+  window.handleDocSelect = handleDocSelect;
+  window.resetFileDoc = resetFileDoc;
+  window.subirDoc = subirDoc;
   window.renderDocsSection = renderDocsSection;
+  window.guardarDatosPersonales = guardarDatosPersonales;
+  window.handleIneDrop = handleIneDrop;
+  window.handleIneSelect = handleIneSelect;
+
+  // ─── JSPDF LOGIC ──────────────────────────────────────
+  function loadJspdf(callback) {
+      if (window.jspdf) { callback(); return; }
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+      script.onload = () => callback();
+      document.head.appendChild(script);
+  }
+
+  window.descargarFormatoOficial = function() {
+      loadJspdf(() => {
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF();
+          
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(14);
+          doc.text("FACULTAD DE CULTURA FÍSICA", 105, 20, null, null, "center");
+          doc.setFontSize(12);
+          doc.text("COORDINACION DE PRACTICAS CURRICULARES", 105, 28, null, null, "center");
+          
+          doc.setFontSize(11);
+          doc.text("CARTA DE ACEPTACIÓN CON FIRMA DE CONFORMIDAD", 105, 45, null, null, "center");
+          
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(10);
+          const theText = `Por medio de la presente, manifiesto mi entera conformidad con la asignación del Bachillerato/Escuela Medio Superior que he elegido para realizar mis Prácticas Curriculares correspondientes al periodo Primavera 2026.`;
+          doc.text(theText, 20, 60, { maxWidth: 170, align: 'justify' });
+          
+          doc.setFont('helvetica', 'bold');
+          doc.text("DATOS DEL ALUMNO:", 20, 80);
+          doc.setFont('helvetica', 'normal');
+          doc.text(`Nombre Completo: ${toTitleCase(alumnoData.nombre)}`, 20, 90);
+          doc.text(`Matrícula: ${alumnoData.matricula}`, 20, 100);
+          
+          const escNombre = miSolicitud ? miSolicitud.escuelaNombre : '______________________________';
+          const escCCT = miSolicitud && miSolicitud.escuelaCCT ? miSolicitud.escuelaCCT : '____________________';
+          const escMuni = miSolicitud && miSolicitud.escuelaMunicipio ? miSolicitud.escuelaMunicipio : '____________________';
+          
+          doc.setFont('helvetica', 'bold');
+          doc.text("DATOS DEL CENTRO DE PRÁCTICAS ELEGIDO:", 20, 115);
+          doc.setFont('helvetica', 'normal');
+          doc.text(`Escuela asignada: ${escNombre}`, 20, 125);
+          doc.text(`Clave CCT: ${escCCT}`, 20, 135);
+          doc.text(`Dirección / Municipio: ${escMuni}`, 20, 145);
+          
+          // Firmas
+          doc.setFontSize(9);
+          doc.text("FIRMA DE CONFORMIDAD DEL ALUMNO", 55, 185, null, null, "center");
+          doc.line(25, 180, 85, 180);
+          doc.text(toTitleCase(alumnoData.nombre), 55, 190, null, null, "center");
+          
+          doc.text("FIRMA Y SELLO DE LA ESCUELA DONDE FUERON ACEPTADOS", 145, 185, null, null, "center");
+          doc.line(105, 180, 185, 180);
+          doc.rect(130, 195, 30, 30); // Recuadro para el sello
+          doc.setFontSize(8);
+          doc.text("Sello", 145, 210, null, null, "center");
+
+          // Simulate logos
+          doc.setDrawColor(0);
+          doc.rect(20, 15, 20, 20); 
+          doc.text("BUAP", 23, 27);
+          doc.rect(170, 15, 20, 20);
+          doc.text("FCF", 175, 27);
+
+          doc.save(`Carta_Aceptacion_${alumnoData.matricula}.pdf`);
+      });
+  };
 
   init();
 </script>

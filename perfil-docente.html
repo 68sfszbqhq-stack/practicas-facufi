@@ -20,7 +20,7 @@
         .bg-canvas { position: fixed; inset: 0; z-index: 0;
       background: linear-gradient(rgba(244, 247, 249, 0.85), rgba(244, 247, 249, 0.95)), url('bg-fcf.jpg') center/cover no-repeat fixed;
     }
-    .topbar {position:sticky;top:0;z-index:100;background:rgba(13,13,13,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,181,226,.1);padding:14px 24px;display:flex;align-items:center;justify-content:space-between color: white; }
+    .topbar {position:sticky;top:0;z-index:100;background:rgba(13,13,13,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,181,226,.1);padding:14px 24px;display:flex;align-items:center;justify-content:space-between; color: white; }
     .topbar-brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:.88em;color:var(--gold)}
     .btn-sm{padding:7px 16px;border:1px solid rgba(0,181,226,.3);border-radius:20px;background:transparent;color:var(--buap-navy);font-family:'Montserrat',sans-serif;font-size:.75em;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:5px}
     .btn-sm:hover{border-color:var(--gold);color:var(--gold);background:rgba(0,181,226,.05)}
@@ -65,7 +65,6 @@
     .alumno-row:hover{border-color:rgba(0,181,226,.15);background:var(--surface3)}
     .alumno-row-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
     .alu-avatar{width:38px;height:38px;background:linear-gradient(135deg,var(--gold),var(--gold-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.82em;font-weight:800;color:#fff;flex-shrink:0}
-    .alu-meta{}
     .alu-nombre{font-weight:700;font-size:.88em}
     .alu-sub{font-size:.72em;color:var(--text-muted)}
     .alu-badges{margin-left:auto;display:flex;gap:6px;align-items:center}
@@ -118,6 +117,15 @@
     .badge-bueno{background:rgba(0,181,226,.15);color:var(--gold);padding:3px 9px;border-radius:10px;font-size:.72em;font-weight:700}
     .badge-regular{background:rgba(255,183,77,.15);color:var(--orange);padding:3px 9px;border-radius:10px;font-size:.72em;font-weight:700}
     .badge-suficiente{background:rgba(239,83,80,.15);color:var(--red);padding:3px 9px;border-radius:10px;font-size:.72em;font-weight:700}
+    /* Switch */
+    .switch{position:relative;display:inline-block;width:40px;height:22px}
+    .switch input{opacity:0;width:0;height:0}
+    .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background-color:#ccc;transition:.4s}
+    .slider:before{position:absolute;content:"";height:16px;width:16px;left:3px;bottom:3px;background-color:white;transition:.4s}
+    input:checked+.slider{background-color:var(--green)}
+    input:checked+.slider:before{transform:translateX(18px)}
+    .slider.round{border-radius:34px}
+    .slider.round:before{border-radius:50%}
     @media(max-width:700px){.hero-card{flex-direction:column;text-align:center}.pills{justify-content:center}.stats-bar{grid-template-columns:1fr 1fr}}
   </style>
 </head>
@@ -175,9 +183,22 @@
     await updateDoc(doc(db, 'solicitudes_practicas', matricula), data);
   }
 
+  async function getAccesos() {
+    const snap = await getDocs(collection(db, 'acceso_alumnos'));
+    const map = {};
+    snap.forEach(d => { map[d.id] = d.data()?.activo || false; });
+    return map;
+  }
+
+  async function updateAcceso(matricula, activo) {
+    await setDoc(doc(db, 'acceso_alumnos', matricula), { activo }, { merge: true });
+  }
+
   window._db = db;
   window._getSolicitudes = getSolicitudes;
   window._updateSolicitud = updateSolicitud;
+  window._getAccesos = getAccesos;
+  window._updateAcceso = updateAcceso;
   window._firebaseReady = true;
   document.dispatchEvent(new Event('firebase-ready'));
 </script>
@@ -186,7 +207,8 @@
 <script>
   let docenteData = null;
   let todasSolicitudes = [];
-  let activeTab = 'solicitudes';
+  let todosAccesos = {};
+  let activeTab = 'lista';
   let nrcFiltro = 'todos';
   let modalMatricula = null;
   let modalEscuelaId = null;
@@ -204,18 +226,26 @@
     const full = DOCENTES.find(d => d.id === docenteData.id);
     if (full) docenteData = full;
 
+    if (docenteData.id === 'alemarci2026') {
+      docenteData.esSuperUsuario = true;
+      docenteData.secciones = [];
+    }
+
     waitFirebase(async () => {
       todasSolicitudes = await window._getSolicitudes();
+      todosAccesos = await window._getAccesos();
       renderPage();
     });
   }
 
   function getMisAlumnos() {
+    if (docenteData.esSuperUsuario) return [...ALUMNOS];
     const nrcs = docenteData.secciones.map(s => s.nrc);
     return ALUMNOS.filter(a => nrcs.includes(a.nrc));
   }
 
   function getMisSolicitudes() {
+    if (docenteData.esSuperUsuario) return [...todasSolicitudes];
     const nrcs = docenteData.secciones.map(s => s.nrc);
     return todasSolicitudes.filter(s => nrcs.includes(s.nrc));
   }
@@ -376,10 +406,10 @@
     const sorted = [...misAlumnos].sort((a,b) => b.promedio - a.promedio);
 
     const filterBtns = `<button class="filter-btn ${nrcFiltro==='todos'?'active':''}" onclick="setNrcFiltroLista('todos')">Todos (${misAlumnos.length})</button>` +
-      docenteData.secciones.map(s => {
+      (docenteData.esSuperUsuario ? '' : docenteData.secciones.map(s => {
         const cnt = misAlumnos.filter(a=>a.nrc===s.nrc).length;
         return `<button class="filter-btn ${nrcFiltro===String(s.nrc)?'active':''}" onclick="setNrcFiltroLista('${s.nrc}')">Secc. ${s.seccion} (${cnt})</button>`;
-      }).join('');
+      }).join(''));
 
     const q = document.getElementById('lista-search')?.value?.toLowerCase() || '';
     const filtered = sorted.filter(a => {
@@ -399,7 +429,7 @@
         <input type="text" class="search-inp" id="lista-search" placeholder="🔍 Buscar..." oninput="renderListaTab()">
         <div class="table-wrap">
           <table>
-            <thead><tr><th>#</th><th>Nombre</th><th>Matrícula</th><th>Promedio</th><th>Nivel</th><th>Escuela asignada</th></tr></thead>
+            <thead><tr><th>#</th><th>Nombre</th><th>Matrícula</th><th>${docenteData.esSuperUsuario ? 'Horario Cita' : 'Promedio'}</th><th>${docenteData.esSuperUsuario ? 'Acceso al Cuestionario' : 'Nivel'}</th><th>Escuela asignada</th></tr></thead>
             <tbody>`;
 
     if (filtered.length === 0) {
@@ -416,8 +446,15 @@
           <td style="color:var(--buap-navy);font-size:.8em;font-weight:600">#${i+1}</td>
           <td style="font-weight:600;font-size:.85em">${toTitleCase(a.nombre)}</td>
           <td style="font-size:.8em;color:var(--buap-navy);font-family:monospace">${a.matricula}</td>
-          <td style="font-weight:700">${a.promedio.toFixed(2)}</td>
-          <td><span class="${badge.class}">${badge.label}</span></td>
+          ${docenteData.esSuperUsuario ? `<td style="font-size:.8em;font-weight:700;color:var(--gold)">${a.horarioCita || '12:00'}</td>` : `<td style="font-weight:700">${a.promedio.toFixed(2)}</td>`}
+          ${docenteData.esSuperUsuario ? 
+              `<td>
+                  <label class="switch">
+                    <input type="checkbox" onchange="toggleAccesoAlumno('${a.matricula}', this.checked)" ${todosAccesos[a.matricula] ? 'checked' : ''}>
+                    <span class="slider round"></span>
+                  </label>
+               </td>` 
+            : `<td><span class="${badge.class}">${badge.label}</span></td>`}
           <td>${escStatus}</td>
         </tr>`;
       });
@@ -509,6 +546,17 @@
   window.confirmarReasignacion = confirmarReasignacion;
   window.renderSolicitudesTab = renderSolicitudesTab;
   window.renderListaTab = renderListaTab;
+  
+  window.toggleAccesoAlumno = async function(matricula, activo) {
+      todosAccesos[matricula] = activo;
+      try {
+          await window._updateAcceso(matricula, activo);
+      } catch(e) {
+          alert('Error al actualizar acceso');
+          todosAccesos[matricula] = !activo;
+          renderListaTab();
+      }
+  };
 
   init();
 </script>

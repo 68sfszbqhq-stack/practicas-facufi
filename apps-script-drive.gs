@@ -30,7 +30,7 @@ function doPost(e) {
 
   try {
     const data = JSON.parse(e.postData.contents);
-    const { matricula, nombre, nrc, fileName, fileData } = data;
+    const { matricula, nombre, nrc, docenteName = 'SIN DOCENTE', fileName, fileData } = data;
 
     if (!fileData || !fileName || !matricula) {
       return ContentService.createTextOutput(
@@ -42,17 +42,36 @@ function doPost(e) {
     const bytes = Utilities.base64Decode(fileData);
     const blob = Utilities.newBlob(bytes, 'application/pdf', fileName);
 
-    // Obtener carpeta
-    const folder = DriveApp.getFolderById(FOLDER_ID);
+    // Obtener carpeta principal
+    const baseFolder = DriveApp.getFolderById(FOLDER_ID);
+    
+    // Obtener o crear carpeta del DOCENTE
+    let docenteFolder;
+    const docenteFolders = baseFolder.getFoldersByName(docenteName);
+    if (docenteFolders.hasNext()) {
+      docenteFolder = docenteFolders.next();
+    } else {
+      docenteFolder = baseFolder.createFolder(docenteName);
+    }
+    
+    // Obtener o crear carpeta del ALUMNO
+    const alumnoFolderName = matricula + " - " + nombre;
+    let alumnoFolder;
+    const alumnoFolders = docenteFolder.getFoldersByName(alumnoFolderName);
+    if (alumnoFolders.hasNext()) {
+      alumnoFolder = alumnoFolders.next();
+    } else {
+      alumnoFolder = docenteFolder.createFolder(alumnoFolderName);
+    }
 
-    // Buscar si ya existe un archivo de este alumno y eliminarlo
-    const existing = folder.getFilesByName(fileName);
+    // Buscar si ya existe un archivo de este tipo y eliminarlo
+    const existing = alumnoFolder.getFilesByName(fileName);
     while (existing.hasNext()) {
       existing.next().setTrashed(true);
     }
 
-    // Crear nuevo archivo
-    const file = folder.createFile(blob);
+    // Crear nuevo archivo dentro de la carpeta del alumno
+    const file = alumnoFolder.createFile(blob);
     file.setName(fileName);
     file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
 

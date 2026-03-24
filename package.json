@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/68sfszbqhq-stack/Territorio-de-campeones#readme",
   "dependencies": {
-    "firebase": "^12.11.0"
+    "firebase": "^12.11.0",
+    "xlsx": "^0.18.5"
   }
 }

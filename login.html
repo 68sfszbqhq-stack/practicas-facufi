@@ -423,6 +423,16 @@
         }
       } else {
         const idDoc = document.getElementById('input-id-docente').value.trim();
+
+        // 🏆 SUPER USUARIO DOCENTE
+        if (idDoc === 'alemarci2026' && pwd === 'Canelo2204') {
+          const superUsuario = { id: 'alemarci2026', nombre: 'Alejandra Adriana Marciano Mendoza (SUPERUSUARIO)', primerApellido: 'SUPERUSUARIO', esSuperUsuario: true, secciones: [] };
+          sessionStorage.setItem('usuario_tipo', 'docente');
+          sessionStorage.setItem('usuario_data', JSON.stringify(superUsuario));
+          window.location.href = 'perfil-docente.html';
+          return;
+        }
+
         // Agrupar docentes por ID
         const docente = DOCENTES.find(d => d.id === idDoc);
         if (docente && pwd.toUpperCase() === getPasswordDocente(docente)) {
