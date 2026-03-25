@@ -449,6 +449,7 @@
         return `<button class="filter-btn ${nrcFiltro===String(s.nrc)?'active':''}" onclick="setNrcFiltroLista('${s.nrc}')">Secc. ${s.seccion} (${cnt})</button>`;
       }).join(''));
 
+    const q = document.getElementById('lista-search')?.value?.toLowerCase() || '';
     const filtered = sorted.filter(a => {
       if (nrcFiltro !== 'todos' && a.nrc !== parseInt(nrcFiltro)) return false;
       if (q && !a.nombre.toLowerCase().includes(q) && !a.matricula.includes(q)) return false;
