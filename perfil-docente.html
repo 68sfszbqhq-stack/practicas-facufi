@@ -231,6 +231,7 @@
   let modalMatricula = null;
   let modalEscuelaId = null;
   let advFilter = 'none'; // 'none', 'no-school', 'no-docs', 'no-contact'
+  let matriculasFiltradas = [];
 
 
   function waitFirebase(cb) {
@@ -479,6 +480,8 @@
       return true;
     });
 
+    matriculasFiltradas = filtered.map(a => a.matricula);
+
     let html = `
       <div class="section-card">
         <div class="section-header">
@@ -565,33 +568,34 @@
   }
 
   async function toggleTodosAccesos(val) {
-    const total = ALUMNOS.length;
-    if (!confirm(`⚠️ ¿ESTÁS SEGURO?\n\nEsta acción va a ${val ? 'HABILITAR' : 'BLOQUEAR'} el acceso a la plataforma para los ${total} alumnos registrados.\n\n¿Deseas continuar?`)) {
-        // Reset checkbox state if cancelled
+    if (!confirm(`⚠️ ¿ESTÁS SEGURO?\n\nEsta acción va a ${val ? 'HABILITAR' : 'BLOQUEAR'} el acceso a la plataforma para los alumnos VISIBLES en la lista.\n\n¿Deseas continuar?`)) {
         renderListaTab();
         return;
     }
-    
-    const statusText = val ? 'abriendo' : 'cerrando';
-    console.log(`${statusText.toUpperCase()} todas las sesiones...`);
-    
     try {
         const updates = {};
-        ALUMNOS.forEach(a => {
-            updates[a.matricula] = val;
-            todosAccesos[a.matricula] = val;
+        matriculasFiltradas.forEach(m => {
+            updates[m] = val;
+            todosAccesos[m] = val;
         });
         
-        await window._batchUpdateAcceso(updates); // Ejecución en un solo lote (batch) más estable y eficiente
+        const totalAfectados = Object.keys(updates).length;
+        if (totalAfectados === 0) {
+            alert("No hay alumnos visibles para modificar.");
+            renderListaTab();
+            return;
+        }
+
+        await window._batchUpdateAcceso(updates); 
         
         renderListaTab();
-        alert(`✅ Proceso completado: Se han ${val ? 'abierto' : 'cerrado'} ${total} sesiones.`);
+        alert(`✅ Proceso completado: Se han ${val ? 'abierto' : 'cerrado'} ${totalAfectados} sesiones de la lista filtrada.`);
     } catch(e) { 
         console.error(e);
         if (e.message && e.message.includes('blocked-by-client')) {
              alert('⚠️ Error: La conexión fue bloqueada por tu navegador. Desactiva tu AdBlocker o extensiones de privacidad para este sitio.');
         } else {
-             alert('Hubo un error al intentar actualizar todos los accesos en lote.'); 
+             alert('Hubo un error al intentar actualizar los accesos en lote.'); 
         }
     }
   }
