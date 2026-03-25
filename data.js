@@ -2580,7 +2580,7 @@ const ESCUELAS = [
   },
   {
     "id": 53,
-    "nombre": "HERMANOS SERDAN",
+    "nombre": "BACHILLERATO HERMANOS SERDAN",
     "cct": "21EBH0051F",
     "zona": "BGE034",
     "tipo": "B.G.E.",
@@ -2973,5 +2973,16 @@ const ESCUELAS = [
     "localidad": "HEROICA PUEBLA DE ZARAGOZA",
     "municipio": "PUEBLA",
     "turno": "VESPERTINO"
+  },
+  {
+    "id": 89,
+    "nombre": "BACHILLERATO OCTAVIO PAZ",
+    "cct": "21EBH0279J",
+    "zona": "BGE012",
+    "tipo": "B.G.E.",
+    "direccion": "AVENIDA LONDRES NO. 5, PUEBLO SANCTORUM",
+    "localidad": "SANCTORUM",
+    "municipio": "CUAUTLANCINGO",
+    "turno": "MATUTINO"
   }
 ];

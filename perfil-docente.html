@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Perfil de Docente – Prácticas Curriculares FCF</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <style>
@@ -289,7 +291,10 @@
       <div class="tab-bar">
         <button class="tab-btn ${activeTab==='solicitudes'?'active':''}" onclick="switchTab('solicitudes')">📋 Solicitudes de Escuela</button>
         <button class="tab-btn ${activeTab==='lista'?'active':''}" onclick="switchTab('lista')">🎓 Lista de Alumnos</button>
-        ${docenteData.esSuperUsuario ? `<button class="tab-btn" onclick="exportToExcel()" style="margin-left:auto; background:linear-gradient(135deg,#1e7e34,#28a745); color:#fff; border-color:#1e7e34;">📊 Exportar a Excel</button>` : ''}
+        ${docenteData.esSuperUsuario ? `
+          <button class="tab-btn" onclick="exportToExcel()" style="margin-left:auto; background:linear-gradient(135deg,#1e7e34,#28a745); color:#fff; border-color:#1e7e34; margin-right:5px; flex:0 0 auto; width:auto; padding:0 15px;">📊 Excel</button>
+          <button class="tab-btn" onclick="exportToPDF()" style="background:linear-gradient(135deg,#c62828,#e53935); color:#fff; border-color:#c62828; flex:0 0 auto; width:auto; padding:0 15px;">📄 PDF por Escuela</button>
+        ` : ''}
       </div>
 
       <div id="tab-content"></div>
@@ -393,13 +398,15 @@
           schoolBlock = `<div style="font-size:.8em;color:var(--buap-navy);padding:8px 0;font-style:italic">Este alumno aún no ha solicitado escuela.</div>`;
         }
 
+        const needsContactInfo = sol && (!sol.email || !sol.telefono);
         html += `
-          <div class="alumno-row">
+          <div class="alumno-row" style="${needsContactInfo ? 'background:#fff9c4; border:1px solid #fbc02d;' : ''}">
             <div class="alumno-row-top">
               <div class="alu-avatar">${initials}</div>
               <div class="alu-meta">
                 <div class="alu-nombre">${toTitleCase(alumno.nombre)}</div>
                 <div class="alu-sub">Matrícula ${alumno.matricula} · Prioridad #${rankG} global</div>
+                ${needsContactInfo ? '<div style="color:#d32f2f; font-size:0.65em; font-weight:800; text-transform:uppercase;">⚠️ Falta correo o teléfono</div>' : ''}
               </div>
               <div class="alu-badges">
                 <span class="prom-chip ${badge.class.replace('badge-','badge-')}">${(alumno.promedio || 0).toFixed(2)}</span>
@@ -485,9 +492,10 @@
            ${dl(sol.liberacionUrl, 'LIBER')}
         ` : '<span style="font-size:0.7em;color:#999">—</span>';
 
-        html += `<tr>
+        const needsContactInfo = sol && (!sol.email || !sol.telefono);
+        html += `<tr style="${needsContactInfo ? 'background:#fff9c4;' : ''}">
           <td style="color:var(--buap-navy);font-size:.8em;font-weight:600">#${i+1}</td>
-          <td style="font-weight:600;font-size:.85em">${toTitleCase(a.nombre)}</td>
+          <td style="font-weight:600;font-size:.85em">${toTitleCase(a.nombre)} ${needsContactInfo ? '<span title="Falta correo o teléfono">⚠️</span>' : ''}</td>
           <td style="font-size:.8em;color:var(--buap-navy);font-family:monospace">${a.matricula}</td>
           ${docenteData.esSuperUsuario ? `<td>${contactStr}</td>` : ''}
           ${docenteData.esSuperUsuario ? `<td style="font-size:.8em;font-weight:700;color:var(--gold)">${a.horarioCita || '12:00'}</td>` : `<td style="font-weight:700">${(a.promedio || 0).toFixed(2)}</td>`}
@@ -593,15 +601,164 @@
     const wb = XLSX.utils.book_new();
     const ws = XLSX.utils.aoa_to_sheet(rows);
 
-    // Auto-width columns
+    // Auto-width columns for Sheet 1
     const colWidths = rows[0].map((_, colIdx) => ({
       wch: Math.max(...rows.map(r => String(r[colIdx] || '').length), 10)
     }));
     ws['!cols'] = colWidths;
 
-    XLSX.utils.book_append_sheet(wb, ws, 'Alumnos Prácticas 2026');
+    XLSX.utils.book_append_sheet(wb, ws, 'Alumnos Global');
+
+    // Hoja 2: Reporte por Escuela
+    const rows2 = [];
+    const escuelasConAlumnos = {};
+    ALUMNOS.forEach(a => {
+        const sol = todasSolicitudes.find(s => s.matricula === a.matricula);
+        if (sol) {
+            const escId = sol.escuelaId;
+            const esc = ESCUELAS.find(e => e.id === escId);
+            const key = esc ? esc.id : (sol.escuelaNombre || 'Otras');
+            if (!escuelasConAlumnos[key]) {
+                escuelasConAlumnos[key] = {
+                    info: esc || { nombre: sol.escuelaNombre, cct: 'EXTEMPORANEO', municipio: sol.escuelaMunicipio, direccion: sol.escuelaUbicacion || '—' },
+                    estudiantes: []
+                };
+            }
+            escuelasConAlumnos[key].estudiantes.push({ ...a, sol });
+        }
+    });
+
+    const keys = Object.keys(escuelasConAlumnos).sort((a,b) => {
+        const nameA = escuelasConAlumnos[a].info.nombre || '';
+        const nameB = escuelasConAlumnos[b].info.nombre || '';
+        return nameA.localeCompare(nameB);
+    });
+
+    keys.forEach(key => {
+        const esc = escuelasConAlumnos[key].info;
+        const alumnos = escuelasConAlumnos[key].estudiantes;
+        
+        rows2.push(['🏫 ESCUELA:', esc.nombre.toUpperCase()]);
+        rows2.push(['📍 DIRECCIÓN:', esc.direccion || esc.escuelaUbicacion || '—', '🏷️ CCT:', esc.cct || '—', '🌎 MUNICIPIO:', esc.municipio || '—']);
+        rows2.push(['MATRICULA', 'NOMBRE COMPLETO', 'PROMEDIO', 'CORREO', 'TELÉFONO', 'ESTADO']);
+        
+        alumnos.sort((a,b) => b.promedio - a.promedio).forEach(item => {
+            rows2.push([
+                item.matricula,
+                item.nombre.toUpperCase(),
+                item.promedio.toFixed(2),
+                item.sol.email || '—',
+                item.sol.telefono || '—',
+                item.sol.estado.toUpperCase()
+            ]);
+        });
+        rows2.push([]); // Espacio entre escuelas
+    });
+
+    const ws2 = XLSX.utils.aoa_to_sheet(rows2);
+    XLSX.utils.book_append_sheet(wb, ws2, 'Por Escuela');
+
     const fecha = new Date().toISOString().slice(0,10);
     XLSX.writeFile(wb, `Reporte_Practicas_FCF_${fecha}.xlsx`);
+  }
+
+  async function exportToPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'landscape' });
+    
+    // Agrupar escuelas
+    const escuelasConAlumnos = {};
+    const sinEscuela = [];
+    
+    ALUMNOS.forEach(a => {
+        const sol = todasSolicitudes.find(s => s.matricula === a.matricula);
+        if (sol) {
+            const escId = sol.escuelaId;
+            const esc = ESCUELAS.find(e => e.id === escId);
+            const key = esc ? esc.id : (sol.escuelaNombre || 'Otras');
+            if (!escuelasConAlumnos[key]) {
+                escuelasConAlumnos[key] = {
+                    info: esc || { nombre: sol.escuelaNombre, cct: 'EXTEMPORANEO', municipio: sol.escuelaMunicipio, direccion: sol.escuelaUbicacion || '—', zona: '—', turno: '—' },
+                    estudiantes: []
+                };
+            }
+            escuelasConAlumnos[key].estudiantes.push({ ...a, sol });
+        } else {
+            sinEscuela.push(a);
+        }
+    });
+
+    const keys = Object.keys(escuelasConAlumnos).sort((a,b) => {
+        const nameA = escuelasConAlumnos[a].info.nombre || '';
+        const nameB = escuelasConAlumnos[b].info.nombre || '';
+        return nameA.localeCompare(nameB);
+    });
+
+    if (keys.length === 0) {
+        alert("No hay alumnos con escuela asignada para exportar.");
+        return;
+    }
+
+    keys.forEach((key, index) => {
+        if (index > 0) doc.addPage();
+        
+        const esc = escuelasConAlumnos[key].info;
+        const alumnos = escuelasConAlumnos[key].estudiantes;
+
+        // Header
+        doc.setFontSize(16);
+        doc.setTextColor(0, 59, 92); // BUAP Navy
+        doc.text("REPORTE DE ASIGNACIÓN POR ESCUELA - PRIMAVERA 2026", 14, 15);
+        
+        doc.setFontSize(12);
+        doc.setTextColor(0, 181, 226); // BUAP Light Blue (Gold in css)
+        doc.text(esc.nombre.toUpperCase(), 14, 25);
+        
+        doc.setFontSize(9);
+        doc.setTextColor(100);
+        doc.text(`CCT: ${esc.cct} | MUNICIPIO: ${esc.municipio} | TURNO: ${esc.turno} | ZONA: ${esc.zona}`, 14, 32);
+        doc.text(`DIRECCIÓN: ${esc.direccion || '—'}`, 14, 37);
+        
+        doc.setDrawColor(0, 181, 226);
+        doc.line(14, 40, 280, 40);
+
+        // Tabla de alumnos
+        const tableRows = alumnos.sort((a,b) => b.promedio - a.promedio).map((item, i) => [
+            i + 1,
+            item.matricula,
+            item.nombre.toUpperCase(),
+            item.promedio.toFixed(2),
+            item.sol.email || '—',
+            item.sol.telefono || '—',
+            item.sol.estado.toUpperCase()
+        ]);
+
+        doc.autoTable({
+            startY: 45,
+            head: [['#', 'MATRÍCULA', 'NOMBRE COMPLETO', 'PROM', 'CORREO', 'TELÉFONO', 'ESTADO']],
+            body: tableRows,
+            theme: 'grid',
+            headStyles: { fillColor: [0, 59, 92], textColor: 255, fontSize: 8 },
+            bodyStyles: { fontSize: 8 },
+            columnStyles: {
+                0: { cellWidth: 10 },
+                1: { cellWidth: 25 },
+                2: { cellWidth: 80 },
+                3: { cellWidth: 15 },
+                4: { cellWidth: 60 },
+                5: { cellWidth: 35 },
+                6: { cellWidth: 25 }
+            }
+        });
+
+        const finalY = doc.lastAutoTable.finalY + 10;
+        doc.setFontSize(8);
+        doc.setTextColor(150);
+        doc.text(`Total de alumnos en esta escuela: ${alumnos.length}`, 14, finalY);
+    });
+
+    const fecha = new Date().toISOString().slice(0,10);
+    doc.save(`Reporte_Escuelas_FCF_${fecha}.pdf`);
   }
 
   // ─── MODAL REASIGNACIÓN ──────────────────────────────────
@@ -622,13 +779,21 @@
   }
 
   function buildModalList(q) {
-    const tomadas = new Set(todasSolicitudes.filter(s=>s.matricula!==modalMatricula).map(s=>s.escuelaId));
+    const conteos = {};
+    todasSolicitudes.forEach(s => {
+      if (s.escuelaId && s.matricula !== modalMatricula) {
+        conteos[s.escuelaId] = (conteos[s.escuelaId] || 0) + 1;
+      }
+    });
+
     const el = document.getElementById('modal-school-list');
     const filtered = ESCUELAS.filter(e => !q || e.nombre.toLowerCase().includes(q) || e.municipio.toLowerCase().includes(q));
     el.innerHTML = filtered.map(e => {
-      const taken = tomadas.has(e.id);
-      return `<div class="msl-item${modalEscuelaId===e.id?' selected':''}" onclick="selectModalSchool(${e.id})">
-        <strong>${toTitleCase(e.nombre)}</strong>${taken?' <span style="color:var(--orange);font-size:.75em">⚠ Ya asignada</span>':''}
+      const count = conteos[e.id] || 0;
+      const isFull = count >= 3;
+      return `<div class="msl-item${modalEscuelaId===e.id?' selected':''}${isFull?' taken':''}" onclick="${isFull?'':'selectModalSchool('+e.id+')'}" style="${isFull?'opacity:0.6; cursor:not-allowed;':''}">
+        <strong>${toTitleCase(e.nombre)}</strong>
+        <span style="font-size:.75em; color:${isFull?'var(--red)':'var(--green)'};"> (${count}/3) ${isFull?'LLENA':''}</span>
         <div style="font-size:.75em;color:var(--text-muted)">${e.municipio} (${e.localidad}) · CCT: ${e.cct}<br>Zona: ${e.zona} | Turno: ${e.turno}</div>
       </div>`;
     }).join('') || '<div class="empty-state">Sin resultados</div>';
@@ -646,6 +811,15 @@
 
   async function confirmarReasignacion() {
     if (!modalMatricula || !modalEscuelaId) return;
+    
+    // REFRESH DATA right before final check
+    todasSolicitudes = await window._getSolicitudes();
+    const count = todasSolicitudes.filter(s => s.escuelaId === modalEscuelaId && s.matricula !== modalMatricula).length;
+    if (count >= 3) {
+      alert('⚠️ Lo sentimos, esta escuela ya tiene 3 alumnos. No se puede reasignar.');
+      return;
+    }
+
     const esc = ESCUELAS.find(e => e.id === modalEscuelaId);
     try {
       await window._updateSolicitud(modalMatricula, {

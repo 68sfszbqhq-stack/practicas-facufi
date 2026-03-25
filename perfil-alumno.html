@@ -396,14 +396,17 @@
   function renderDatosSection() {
     const el = document.getElementById('datos-content');
     if (!el) return;
+    if (!miSolicitud) { 
+        el.innerHTML = '<p style="color:var(--text-muted);font-size:0.9em;">Selecciona una escuela primero para habilitar tus datos de contacto.</p>';
+        return; 
+    }
 
     // Obtener los datos actuales del firebase
-    const savedEmail = miSolicitud ? miSolicitud.email || '' : '';
-    const savedPhone = miSolicitud ? miSolicitud.telefono || '' : '';
-    const ineInfoLabel = miSolicitud && miSolicitud.ineUrl ? '✅ INE Subido' : 'Subir INE/Credencial (PDF)';
+    const savedEmail = miSolicitud.email || '';
+    const savedPhone = miSolicitud.telefono || '';
 
     el.innerHTML = `
-      <p style="font-size:0.85em; color:var(--text-muted); margin-bottom:12px">Estos datos son importantes para que tu docente pueda contactarte. Guárdalos antes de continuar.</p>
+      <p style="font-size:0.85em; color:var(--text-muted); margin-bottom:12px">Estos datos son importantes para que tu docente pueda contactarte. Puedes actualizarlos aquí.</p>
       <div style="margin-bottom:12px">
          <label style="font-size:0.8em; font-weight:600; color:var(--text-muted);">Correo Electrónico</label>
          <input type="email" id="input-email" class="school-search" placeholder="ejemplo@correo.buap.mx" value="${savedEmail}" style="margin-top:4px;">
@@ -412,11 +415,11 @@
          <label style="font-size:0.8em; font-weight:600; color:var(--text-muted);">Teléfono</label>
          <input type="tel" id="input-phone" class="school-search" placeholder="(xxx) xxx xxxx" value="${savedPhone}" style="margin-top:4px;">
       </div>
-      <button class="btn-primary" onclick="guardarDatosPersonales()" id="btn-guardar-datos" style="width:auto; padding:8px 20px;">Guardar Datos</button>
+      <button class="btn-primary" onclick="guardarDatosPersonales()" id="btn-guardar-datos" style="width:auto; padding:8px 20px;">Guardar Cambios</button>
       <div id="datos-alert" class="alert"></div>
     `;
   }
-
+  
   function renderEscuelaSection() {
     const el = document.getElementById('school-content');
     if (!el) return;
@@ -514,11 +517,19 @@
         </div>`;
     });
     html += `</div>
-      <div id="selected-school-preview" style="display:none;margin-top:14px;background:rgba(0,181,226,.08);border:1px solid rgba(0,181,226,.2);border-radius:var(--radius-sm);padding:14px">
+      <div id="selected-school-preview" style="display:none;margin-top:14px;background:rgba(0,181,226,.08);border:1px solid rgba(0,181,226,.2);border-radius:var(--radius-sm);padding:14px;margin-bottom:16px;">
         <div style="font-size:.68em;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);font-weight:700;margin-bottom:6px">Escuela seleccionada</div>
         <div id="preview-nombre" style="font-weight:700;font-size:.92em;margin-bottom:3px"></div>
         <div id="preview-sub" style="font-size:.75em;color:var(--text-muted)"></div>
       </div>
+
+      <div id="contact-info-fields" style="display:none; margin-bottom:16px;">
+        <h4 style="margin-bottom:10px;color:var(--gold);font-size:.85em">📞 Información de contacto obligatoria</h4>
+        <input type="email" id="sol-email" class="school-search" placeholder="Tu correo electrónico BUAP" style="margin-bottom:8px">
+        <input type="tel" id="sol-phone" class="school-search" placeholder="Tu número de teléfono (10 dígitos)" style="margin-bottom:4px">
+        <p style="font-size:0.65em; color:var(--buap-navy); opacity:0.7">El docente usará estos datos para contactarte.</p>
+      </div>
+
       <button class="btn-primary" id="btn-solicitar" onclick="enviarSolicitud()" disabled>Solicitar esta escuela</button>
       </div> <!-- Cierra selector-normal -->
 
@@ -529,6 +540,13 @@
         <input type="text" id="ext-cct" class="school-search" placeholder="Clave CCT (Obligatorio)" style="margin-bottom:10px">
         <input type="text" id="ext-municipio" class="school-search" placeholder="Municipio o Localidad (Ej. PUEBLA)" style="margin-bottom:10px">
         <input type="text" id="ext-ubicacion" class="school-search" placeholder="Dirección Completa (Calle, número, colonia)" style="margin-bottom:14px">
+        
+        <div style="margin-bottom:16px; border-top:1px solid rgba(0,181,226,0.2); padding-top:12px;">
+          <h4 style="margin-bottom:10px;color:var(--gold);font-size:.85em">📞 Contacto obligatorio</h4>
+          <input type="email" id="ext-email" class="school-search" placeholder="Tu correo electrónico BUAP" style="margin-bottom:8px">
+          <input type="tel" id="ext-phone" class="school-search" placeholder="Tu número de teléfono" style="margin-bottom:4px">
+        </div>
+
         <button class="btn-primary" onclick="enviarSolicitudExtemporanea()" id="btn-solicitar-ext">Registrar mi lugar de prácticas</button>
       </div>
 
@@ -562,6 +580,11 @@
     if (el) el.classList.add('selected');
     const preview = document.getElementById('selected-school-preview');
     if (preview) { preview.style.display = ''; }
+    
+    // Mostramos campos de contacto
+    const contactFields = document.getElementById('contact-info-fields');
+    if (contactFields) contactFields.style.display = 'block';
+
     const pn = document.getElementById('preview-nombre');
     const ps = document.getElementById('preview-sub');
     if (pn) pn.textContent = toTitleCase(esc.nombre);
@@ -576,8 +599,15 @@
   }
 
   async function enviarSolicitud() {
-    if (!selectedSchoolId) return;
-    // Double-check capacity before saving
+    const email = document.getElementById('sol-email').value.trim();
+    const phone = document.getElementById('sol-phone').value.trim();
+    if (!email || !phone) {
+      showAlert('school-alert', 'error', '⚠️ Debes ingresar tu correo y número de teléfono antes de elegir escuela.');
+      return;
+    }
+
+    // Double-check capacity before saving (REFRESH DATA FIRST)
+    solicitudesGlobales = await window._getSolicitudes();
     const currentCount = Object.values(solicitudesGlobales).filter(s => s.escuelaId === selectedSchoolId).length;
     if (currentCount >= 3) {
       showAlert('school-alert','error','⚠️ Lo sentimos, esta escuela ya llegó a su límite de 3 alumnos. Por favor elige otra.');
@@ -601,6 +631,8 @@
         escuelaCCT: esc.cct,
         escuelaMunicipio: esc.municipio,
         escuelaUbicacion: direccionCompleta,
+        email: email,
+        telefono: phone,
         estado: 'pendiente',
         pdfUrl: null,
         fechaSolicitud: new Date().toISOString()
@@ -856,9 +888,15 @@
 
   async function enviarSolicitudExtemporanea() {
     const nombreE = document.getElementById('ext-nombre').value.trim();
-    const muniE = document.getElementById('ext-muni').value.trim();
+    const emailE = document.getElementById('ext-email').value.trim();
+    const phoneE = document.getElementById('ext-phone').value.trim();
+
     if (!nombreE) {
       showAlert('school-alert', 'error', '⚠️ Escribe el nombre de la escuela.');
+      return;
+    }
+    if (!emailE || !phoneE) {
+      showAlert('school-alert', 'error', '⚠️ Debes ingresar tu correo y teléfono.');
       return;
     }
     
@@ -873,8 +911,10 @@
         rankGlobal,
         escuelaId: 'EXTEMPORANEA',
         escuelaNombre: nombreE.toUpperCase(),
-        escuelaCCT: 'EXTEMPORANEO',
-        escuelaMunicipio: muniE.toUpperCase() || 'NO ESPECIFICADO',
+        escuelaMunicipio: (document.getElementById('ext-municipio').value || 'NO ESPECIFICADO').toUpperCase(),
+        escuelaUbicacion: (document.getElementById('ext-ubicacion').value || 'NO ESPECIFICADA').toUpperCase(),
+        email: emailE,
+        telefono: phoneE,
         estado: 'pendiente',
         pdfUrl: null,
         fechaSolicitud: new Date().toISOString(),
