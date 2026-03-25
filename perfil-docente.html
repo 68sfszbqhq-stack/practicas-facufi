@@ -220,6 +220,8 @@
   let nrcFiltro = 'todos';
   let modalMatricula = null;
   let modalEscuelaId = null;
+  let advFilter = 'none'; // 'none', 'no-school', 'no-docs', 'no-contact'
+
 
   function waitFirebase(cb) {
     if (window._firebaseReady) cb();
@@ -438,15 +440,31 @@
     const sorted = [...misAlumnos].sort((a,b) => b.promedio - a.promedio);
 
     const filterBtns = `<button class="filter-btn ${nrcFiltro==='todos'?'active':''}" onclick="setNrcFiltroLista('todos')">Todos (${misAlumnos.length})</button>` +
-      (docenteData.esSuperUsuario ? '' : docenteData.secciones.map(s => {
+      (docenteData.esSuperUsuario ? `
+        <button class="filter-btn ${advFilter==='no-school'?'active':''}" onclick="setAdvFilter('no-school')" style="border-color:var(--orange); color:var(--orange)">🚫 Sin Escuela</button>
+        <button class="filter-btn ${advFilter==='no-docs'?'active':''}" onclick="setAdvFilter('no-docs')" style="border-color:var(--blue); color:var(--blue)">📄 Sin Documentos</button>
+        <button class="filter-btn ${advFilter==='no-contact'?'active':''}" onclick="setAdvFilter('no-contact')" style="border-color:var(--red); color:var(--red)">📞 Sin Datos</button>
+      ` : docenteData.secciones.map(s => {
         const cnt = misAlumnos.filter(a=>a.nrc===s.nrc).length;
         return `<button class="filter-btn ${nrcFiltro===String(s.nrc)?'active':''}" onclick="setNrcFiltroLista('${s.nrc}')">Secc. ${s.seccion} (${cnt})</button>`;
       }).join(''));
 
-    const q = document.getElementById('lista-search')?.value?.toLowerCase() || '';
     const filtered = sorted.filter(a => {
       if (nrcFiltro !== 'todos' && a.nrc !== parseInt(nrcFiltro)) return false;
       if (q && !a.nombre.toLowerCase().includes(q) && !a.matricula.includes(q)) return false;
+      
+      const sol = todasSolicitudes.find(s => s.matricula === a.matricula);
+      if (advFilter === 'no-school' && sol) return false;
+      if (advFilter === 'no-docs') {
+        if (!sol) return true;
+        const hasDocs = sol.ineUrl || sol.cartaUrl || sol.oficioUrl || sol.acuerdosUrl || sol.bitacoraUrl || sol.desempenoUrl || sol.liberacionUrl;
+        if (hasDocs) return false;
+      }
+      if (advFilter === 'no-contact') {
+        if (!sol) return true;
+        if (sol.email && sol.telefono) return false;
+      }
+
       return true;
     });
 
@@ -464,7 +482,7 @@
             <thead><tr>
               <th>#</th><th>Nombre</th><th>Matrícula</th>
               ${docenteData.esSuperUsuario ? '<th>Contacto</th>' : ''}
-              ${docenteData.esSuperUsuario ? '<th>Cita</th><th>Acceso</th>' : '<th>Promedio</th><th>Nivel</th>'}
+              ${docenteData.esSuperUsuario ? '<th>Cita</th><th><div style="display:flex; flex-direction:column; align-items:center; gap:4px;"><span style="font-size:0.7em">SUPER ACCESO</span><input type="checkbox" onchange="toggleTodosAccesos(this.checked)" title="Prender/Apagar TODOS" style="width:18px; height:18px; cursor:pointer"></div></th>' : '<th>Promedio</th><th>Nivel</th>'}
               <th>Escuela (Estado)</th>
               ${docenteData.esSuperUsuario ? '<th style="min-width:180px">Documentos (PDF)</th>' : ''}
             </tr></thead>
@@ -524,7 +542,33 @@
 
   function setNrcFiltroLista(nrc) {
     nrcFiltro = nrc;
+    advFilter = 'none';
     renderListaTab();
+  }
+
+  function setAdvFilter(filter) {
+    if (advFilter === filter) advFilter = 'none';
+    else advFilter = filter;
+    nrcFiltro = 'todos';
+    renderListaTab();
+  }
+
+  async function toggleTodosAccesos(val) {
+    if (!confirm(`¿Estás seguro de querer ${val ? 'ACTIVAR' : 'DESACTIVAR'} el acceso a TODOS los alumnos (${ALUMNOS.length})?`)) return;
+    const updates = {};
+    ALUMNOS.forEach(a => {
+      updates[a.matricula] = val;
+      todosAccesos[a.matricula] = val;
+    });
+    try {
+        // En lugar de múltiples calls, ideally una sola. 
+        // Nuestro mock _updateAcceso es individual. Haré un loop.
+        for (let m in updates) {
+            await window._updateAcceso(m, updates[m]);
+        }
+        renderListaTab();
+        alert('Acceso masivo completado.');
+    } catch(e) { alert('Error en el proceso masivo.'); }
   }
 
   // ─── CONFIRMAR ESCUELA ──────────────────────────────────
