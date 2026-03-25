@@ -160,7 +160,7 @@
 <!-- Firebase -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-  import { getFirestore, collection, getDocs, doc, setDoc, updateDoc, deleteDoc }
+  import { getFirestore, collection, getDocs, doc, setDoc, updateDoc, deleteDoc, writeBatch }
     from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -201,12 +201,22 @@
     await deleteDoc(doc(db, 'solicitudes_practicas', matricula));
   }
 
+  async function batchUpdateAcceso(updates) {
+    const batch = writeBatch(db);
+    for (const matricula in updates) {
+      const ref = doc(db, 'acceso_alumnos', matricula);
+      batch.set(ref, { activo: updates[matricula] }, { merge: true });
+    }
+    await batch.commit();
+  }
+
   window._db = db;
   window._getSolicitudes = getSolicitudes;
   window._updateSolicitud = updateSolicitud;
   window._deleteSolicitud = deleteSolicitud;
   window._getAccesos = getAccesos;
   window._updateAcceso = updateAcceso;
+  window._batchUpdateAcceso = batchUpdateAcceso;
   window._firebaseReady = true;
   document.dispatchEvent(new Event('firebase-ready'));
 </script>
@@ -566,17 +576,23 @@
     console.log(`${statusText.toUpperCase()} todas las sesiones...`);
     
     try {
-        const promises = ALUMNOS.map(a => {
+        const updates = {};
+        ALUMNOS.forEach(a => {
+            updates[a.matricula] = val;
             todosAccesos[a.matricula] = val;
-            return window._updateAcceso(a.matricula, val);
         });
         
-        await Promise.all(promises); // Ejecución en paralelo (mucho más rápido)
+        await window._batchUpdateAcceso(updates); // Ejecución en un solo lote (batch) más estable y eficiente
+        
         renderListaTab();
         alert(`✅ Proceso completado: Se han ${val ? 'abierto' : 'cerrado'} ${total} sesiones.`);
     } catch(e) { 
         console.error(e);
-        alert('Hubo un error al intentar actualizar todos los accesos.'); 
+        if (e.message && e.message.includes('blocked-by-client')) {
+             alert('⚠️ Error: La conexión fue bloqueada por tu navegador. Desactiva tu AdBlocker o extensiones de privacidad para este sitio.');
+        } else {
+             alert('Hubo un error al intentar actualizar todos los accesos en lote.'); 
+        }
     }
   }
 
