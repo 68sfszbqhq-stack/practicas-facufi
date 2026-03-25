@@ -2984,5 +2984,16 @@ const ESCUELAS = [
     "localidad": "SANCTORUM",
     "municipio": "CUAUTLANCINGO",
     "turno": "MATUTINO"
+  },
+  {
+    "id": 90,
+    "nombre": "BACHILLERATO GENERAL ESTATAL HEROES DE LA REFORMA",
+    "cct": "21EBH0272Q",
+    "zona": "BGE016",
+    "tipo": "B.G.E.",
+    "direccion": "13 PONIENTE 902, COLONIA CENTRO",
+    "localidad": "PUEBLA",
+    "municipio": "PUEBLA",
+    "turno": "MATUTINO"
   }
 ];
