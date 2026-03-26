@@ -1233,8 +1233,8 @@ const ALUMNOS = [
     "nombre": "DAWE FLORES ARTURO ALEJANDRO",
     "plan": "LEF-2016",
     "periodo": "202625",
-    "nrc": 61052,
-    "docente": "Victor Arenas Pérez",
+    "nrc": 60866,
+    "docente": "Alejandra Marciano Mendoza",
     "horarioCita": "10:55"
   },
   {
@@ -2994,6 +2994,50 @@ const ESCUELAS = [
     "direccion": "13 PONIENTE 902, COLONIA CENTRO",
     "localidad": "PUEBLA",
     "municipio": "PUEBLA",
+    "turno": "MATUTINO"
+  },
+  {
+    "id": 91,
+    "nombre": "BACHILLERATO FRANCISCO DE ASIS",
+    "cct": "21EBH0937D",
+    "zona": "BGE012",
+    "tipo": "B.G.E.",
+    "direccion": "AVENIDA ESTACION CENTRAL, UNIDAD HABITACIONAL MISIONES DE SAN FRANCISCO OCOTLAN",
+    "localidad": "SAN FRANCISCO OCOTLAN",
+    "municipio": "CORONANGO",
+    "turno": "MATUTINO"
+  },
+  {
+    "id": 92,
+    "nombre": "BACHILLERATO GENERAL OFICIAL AGUSTIN MELGAR",
+    "cct": "21EBH0768Z",
+    "zona": "BGE-POR-DEFINIR",
+    "tipo": "B.G.E.",
+    "direccion": "CAMINO REAL A PATLANPAYA S/N",
+    "localidad": "SAN MIGUEL DE LAS MINAS",
+    "municipio": "IZUCAR DE MATAMOROS",
+    "turno": "MATUTINO"
+  },
+  {
+    "id": 93,
+    "nombre": "BACHILLERATO GENERAL OFICIAL \"NUEVA CREACION\"",
+    "cct": "21EBH0009Q",
+    "zona": "BGE-POR-DEFINIR",
+    "tipo": "B.G.E.",
+    "direccion": "LAZARO CARDENAS ORIENTE",
+    "localidad": "PUEBLA",
+    "municipio": "PUEBLA",
+    "turno": "MATUTINO"
+  },
+  {
+    "id": 94,
+    "nombre": "BACHILLERATO GENERAL OFICIAL EZEQUIEL CHAVEZ",
+    "cct": "21EBH0141Y",
+    "zona": "BGE099",
+    "tipo": "B.G.E.",
+    "direccion": "CALLE 21 DE MARZO S/N",
+    "localidad": "JICOLAPA",
+    "municipio": "ZACATLAN",
     "turno": "MATUTINO"
   }
 ];
