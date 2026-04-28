@@ -3039,5 +3039,16 @@ const ESCUELAS = [
     "localidad": "JICOLAPA",
     "municipio": "ZACATLAN",
     "turno": "MATUTINO"
+  },
+  {
+    "id": 95,
+    "nombre": "LOS HÉROES PUEBLA",
+    "cct": "21EBH0940R",
+    "zona": "BGE-POR-DEFINIR",
+    "tipo": "B.G.E.",
+    "direccion": "117 ORIENTE Y DIAGONAL DE LA 18 SUR FRACC. LOS HÉROES DE PUEBLA CP.72590",
+    "localidad": "PUEBLA",
+    "municipio": "PUEBLA",
+    "turno": "MATUTINO"
   }
 ];
