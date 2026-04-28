@@ -129,6 +129,8 @@
     input:checked+.slider:before{transform:translateX(18px)}
     .slider.round{border-radius:34px}
     .slider.round:before{border-radius:50%}
+    @keyframes pulse-red{0%{box-shadow:0 0 0 0 rgba(198,40,40,.4)}70%{box-shadow:0 0 0 10px rgba(198,40,40,0)}100%{box-shadow:0 0 0 0 rgba(198,40,40,0)}}
+    .badge-pide{background:var(--red);color:#fff;font-size:.65em;padding:4px 8px;border-radius:10px;font-weight:800;animation:pulse-red 2s infinite;margin-left:5px}
     @media(max-width:700px){.hero-card{flex-direction:column;text-align:center}.pills{justify-content:center}.stats-bar{grid-template-columns:1fr 1fr}}
   </style>
 </head>
@@ -233,6 +235,10 @@
   let advFilter = 'none'; // 'none', 'no-school', 'no-docs', 'no-contact'
   let matriculasFiltradas = [];
 
+  function getMaxCapacity(id) {
+    if (parseInt(id) === 81) return 10;
+    return 3;
+  }
 
   function waitFirebase(cb) {
     if (window._firebaseReady) cb();
@@ -424,6 +430,7 @@
               <div class="alu-badges">
                 <span class="prom-chip ${badge.class.replace('badge-','badge-')}">${(alumno.promedio || 0).toFixed(2)}</span>
                 <span class="chip ${sol?(sol.estado==='confirmada'?'chip-confirmada':'chip-pendiente'):'chip-sin'}">${sol?(sol.estado==='confirmada'?'Confirmada':'Pendiente'):'Sin solicitud'}</span>
+                ${sol && sol.pideAcceso ? '<span class="badge-pide">📩 PIDE ACCESO PARA SUBIR</span>' : ''}
               </div>
             </div>
             ${schoolBlock}
@@ -541,6 +548,7 @@
             : `<td><span class="${badge.class}">${badge.label}</span></td>`}
           <td>
             ${escStatus}
+            ${sol && sol.pideAcceso ? '<br><span class="badge-pide" style="margin-top:5px;display:inline-block">📩 PIDE ACCESO</span>' : ''}
             ${docenteData.esSuperUsuario && sol ? `<br><button onclick="resetAlumno('${a.matricula}')" style="margin-top:6px; background:none; border:none; color:#e53935; text-decoration:underline; font-size:0.75em; cursor:pointer;" title="Borrar toda la información del alumno">🗑️ Resetear Alumno</button>` : ''}
           </td>
           ${docenteData.esSuperUsuario ? `<td>${docsStr}</td>` : ''}
@@ -863,10 +871,11 @@
     const filtered = ESCUELAS.filter(e => !q || e.nombre.toLowerCase().includes(q) || e.municipio.toLowerCase().includes(q));
     el.innerHTML = filtered.map(e => {
       const count = conteos[e.id] || 0;
-      const isFull = count >= 3;
+      const maxCap = getMaxCapacity(e.id);
+      const isFull = count >= maxCap;
       return `<div class="msl-item${modalEscuelaId===e.id?' selected':''}${isFull?' taken':''}" onclick="${isFull?'':'selectModalSchool('+e.id+')'}" style="${isFull?'opacity:0.6; cursor:not-allowed;':''}">
         <strong>${toTitleCase(e.nombre)}</strong>
-        <span style="font-size:.75em; color:${isFull?'var(--red)':'var(--green)'};"> (${count}/3) ${isFull?'LLENA':''}</span>
+        <span style="font-size:.75em; color:${isFull?'var(--red)':'var(--green)'};"> (${count}/${maxCap}) ${isFull?'LLENA':''}</span>
         <div style="font-size:.75em;color:var(--text-muted)">${e.municipio} (${e.localidad}) · CCT: ${e.cct}<br>Zona: ${e.zona} | Turno: ${e.turno}</div>
       </div>`;
     }).join('') || '<div class="empty-state">Sin resultados</div>';
@@ -888,8 +897,9 @@
     // REFRESH DATA right before final check
     todasSolicitudes = await window._getSolicitudes();
     const count = todasSolicitudes.filter(s => s.escuelaId === modalEscuelaId && s.matricula !== modalMatricula).length;
-    if (count >= 3) {
-      alert('⚠️ Lo sentimos, esta escuela ya tiene 3 alumnos. No se puede reasignar.');
+    const maxCap = getMaxCapacity(modalEscuelaId);
+    if (count >= maxCap) {
+      alert(`⚠️ Lo sentimos, esta escuela ya llegó a su límite de ${maxCap} alumnos. No se puede reasignar.`);
       return;
     }
 
@@ -922,10 +932,17 @@
       todosAccesos[matricula] = activo;
       try {
           await window._updateAcceso(matricula, activo);
+          // Si estamos dando acceso, aprovechamos para limpiar la bandera de petición si existe
+          const sol = todasSolicitudes.find(s => s.matricula === matricula);
+          if (activo && sol && sol.pideAcceso) {
+              await window._updateSolicitud(matricula, { pideAcceso: false });
+              sol.pideAcceso = false;
+          }
+          renderTab(); // Refrescar para ver cambios en badges
       } catch(e) {
           alert('Error al actualizar acceso');
           todosAccesos[matricula] = !activo;
-          renderListaTab();
+          renderTab();
       }
   };
 

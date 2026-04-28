@@ -213,6 +213,26 @@
   window._cancelarSolicitud = cancelarSolicitud;
   window._getMiAcceso = getMiAcceso;
 
+  // ─── Solicitar apertura de acceso
+  async function solicitarAcceso(matricula) {
+    const ref = doc(db, 'solicitudes_practicas', matricula);
+    const snap = await getDoc(ref);
+    if (snap.exists()) {
+      await updateDoc(ref, { pideAcceso: true, fechaPedidoAcceso: new Date().toISOString() });
+    } else {
+      // Si no tiene solicitud, la creamos básica
+      await setDoc(ref, { 
+        matricula, 
+        nombre: JSON.parse(sessionStorage.getItem('usuario_data')).nombre,
+        nrc: JSON.parse(sessionStorage.getItem('usuario_data')).nrc,
+        pideAcceso: true, 
+        fechaPedidoAcceso: new Date().toISOString(),
+        estado: 'sin_envio'
+      });
+    }
+  }
+  window._solicitarAcceso = solicitarAcceso;
+
   // Signal ready
   window._firebaseReady = true;
   document.dispatchEvent(new Event('firebase-ready'));
@@ -228,6 +248,11 @@
   let selectedFile = null;
   let selectedIneFile = null;
   let rankGlobal = 0;
+
+  function getMaxCapacity(id) {
+    if (parseInt(id) === 81) return 10;
+    return 3;
+  }
 
   // Esperar Firebase
   function waitFirebase(cb) {
@@ -368,8 +393,13 @@
             <div>
               <strong style="font-size:1.1em; color: var(--red);">Tu acceso está deshabilitado</strong>
               <div style="font-size:.9em;margin-top:6px;line-height:1.4">
-                El docente no ha activado tu acceso al sistema. Espera a tu horario asignado (${alumnoData.horarioCita || '12:00'}).<br>
-                Si tienes dudas, comunícate con tu docente.
+                El docente ha cerrado la edición. Si necesitas subir documentos faltantes, solicita la apertura temporal aquí:<br>
+                <button id="btn-pide-acceso" class="btn-primary" style="margin-top:12px; width:auto; padding:8px 16px; background:var(--red); font-size:0.8em;" onclick="enviarPeticionAcceso()">
+                  📩 Solicitar apertura para subir archivos
+                </button>
+                <div id="pide-acceso-msg" style="margin-top:8px; font-size:0.85em; font-weight:700; color:var(--green); display:none;">
+                  ✅ Solicitud enviada. Avisa a tu docente.
+                </div>
               </div>
             </div>
           </div>
@@ -478,8 +508,6 @@
     }
     
     // Sin solicitud – mostrar selector
-    // Count how many students per school (max 3 per school)
-    const MAX_POR_ESCUELA = 3;
     const conteoEscuelas = {};
     Object.values(solicitudesGlobales).forEach(s => {
       if (s.escuelaId) conteoEscuelas[s.escuelaId] = (conteoEscuelas[s.escuelaId] || 0) + 1;
@@ -502,9 +530,10 @@
     `;
     ESCUELAS.forEach(esc => {
       const count = conteoEscuelas[esc.id] || 0;
-      const isFull = count >= MAX_POR_ESCUELA;
-      const spotsLeft = MAX_POR_ESCUELA - count;
-      const tagLabel = isFull ? `Llena (${count}/${MAX_POR_ESCUELA})` : count > 0 ? `${spotsLeft} lugar${spotsLeft>1?'es':''} libre` : 'Disponible';
+      const maxCap = getMaxCapacity(esc.id);
+      const isFull = count >= maxCap;
+      const spotsLeft = maxCap - count;
+      const tagLabel = isFull ? `Llena (${count}/${maxCap})` : count > 0 ? `${spotsLeft} lugar${spotsLeft>1?'es':''} libre` : 'Disponible';
       const tagClass = isFull ? 'tag-taken' : count > 0 ? 'tag-partial' : 'tag-free';
       html += `
         <div class="school-item${isFull?' taken':''}" id="si-${esc.id}" onclick="${isFull?'':'selectSchool('+esc.id+')'}">
@@ -570,8 +599,9 @@
     const esc = ESCUELAS.find(e => e.id === id);
     if (!esc) return;
     const count = Object.values(solicitudesGlobales).filter(s => s.escuelaId === id).length;
-    if (count >= 3) {
-      showAlert('school-alert','error','⚠️ Esta escuela ya tiene 3 alumnos asignados. Por favor elige otra.');
+    const maxCap = getMaxCapacity(id);
+    if (count >= maxCap) {
+      showAlert('school-alert','error',`⚠️ Esta escuela ya tiene ${maxCap} alumnos asignados. Por favor elige otra.`);
       selectedSchoolId = null;
       return;
     }
@@ -609,8 +639,9 @@
     // Double-check capacity before saving (REFRESH DATA FIRST)
     solicitudesGlobales = await window._getSolicitudes();
     const currentCount = Object.values(solicitudesGlobales).filter(s => s.escuelaId === selectedSchoolId).length;
-    if (currentCount >= 3) {
-      showAlert('school-alert','error','⚠️ Lo sentimos, esta escuela ya llegó a su límite de 3 alumnos. Por favor elige otra.');
+    const maxCap = getMaxCapacity(selectedSchoolId);
+    if (currentCount >= maxCap) {
+      showAlert('school-alert','error',`⚠️ Lo sentimos, esta escuela ya llegó a su límite de ${maxCap} alumnos. Por favor elige otra.`);
       selectedSchoolId = null;
       renderEscuelaSection();
       return;
@@ -1042,6 +1073,22 @@
           doc.save(`Carta_Aceptacion_${alumnoData.matricula}.pdf`);
       });
   };
+
+  async function enviarPeticionAcceso() {
+    const btn = document.getElementById('btn-pide-acceso');
+    const msg = document.getElementById('pide-acceso-msg');
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    try {
+      await window._solicitarAcceso(alumnoData.matricula);
+      btn.style.display = 'none';
+      msg.style.display = 'block';
+    } catch(e) {
+      alert('Error al enviar solicitud: ' + e.message);
+      btn.disabled = false;
+      btn.textContent = 'Solicitar apertura para subir archivos';
+    }
+  }
 
   init();
 </script>

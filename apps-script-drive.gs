@@ -67,11 +67,14 @@ function doPost(e) {
     const alumnoFolderName   = matricula + ' - ' + nombre;
     const alumnoFolder       = getOrCreateFolder(docenteFolder, alumnoFolderName);
 
-    // Si ya existe un archivo con el mismo nombre → mandarlo a la papelera (reemplazar)
+    // Se ha desactivado la eliminación de archivos previos por solicitud del usuario
+    // para mantener un historial de lo cargado y evitar borrados accidentales.
+    /*
     const existing = alumnoFolder.getFilesByName(fileName);
     while (existing.hasNext()) {
       existing.next().setTrashed(true);
     }
+    */
 
     // Crear el archivo dentro de la carpeta del alumno
     const file = alumnoFolder.createFile(blob);
