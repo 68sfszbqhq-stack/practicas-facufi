@@ -250,6 +250,7 @@
   let rankGlobal = 0;
 
   function getMaxCapacity(id) {
+    if (parseInt(id) === 96) return 15;
     if (parseInt(id) === 81) return 10;
     return 3;
   }
