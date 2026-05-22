@@ -3050,5 +3050,16 @@ const ESCUELAS = [
     "localidad": "PUEBLA",
     "municipio": "PUEBLA",
     "turno": "MATUTINO"
+  },
+  {
+    "id": 96,
+    "nombre": "DIRECCIÓN DE ATENCIÓN ESTUDIANTIL BUAP",
+    "cct": "",
+    "zona": "BUAP",
+    "tipo": "UNIVERSIDAD",
+    "direccion": "TORRE DE GESTION BUAP PISO 2",
+    "localidad": "PUEBLA",
+    "municipio": "PUEBLA",
+    "turno": "MATUTINO / VESPERTINO"
   }
 ];
