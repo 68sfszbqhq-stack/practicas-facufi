@@ -3061,5 +3061,16 @@ const ESCUELAS = [
     "localidad": "PUEBLA",
     "municipio": "PUEBLA",
     "turno": "MATUTINO / VESPERTINO"
+  },
+  {
+    "id": 97,
+    "nombre": "PREPARATORIA REGIONAL ENRIQUE CABRERA BARROSO",
+    "cct": "",
+    "zona": "BUAP",
+    "tipo": "PREPARATORIA",
+    "direccion": "AVENIDA 11 PONIENTE N° 1902, BARRIO DE SAN ANTONIO, C.P. 75480",
+    "localidad": "TECAMACHALCO",
+    "municipio": "TECAMACHALCO",
+    "turno": "MATUTINO / VESPERTINO"
   }
 ];
