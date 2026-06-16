@@ -1,0 +1,22 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Colecciones de solo lectura pública
+    match /centros_practica/{doc} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Alumnos: lectura pública, escritura bloqueada
+    match /alumnos_verano/{doc} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Todo lo demás: bloqueado
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

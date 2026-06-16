@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carga Verano 2026 – NRC 45918</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Playfair+Display:wght@700&display=swap');
+        :root {
+            --dorado: #D4AF37;
+            --dorado2: #B8860B;
+            --fondo: #121212;
+            --tarjeta: #1E1E1E;
+            --texto: rgba(255,255,255,0.87);
+            --verde: #4caf50;
+            --rojo: #ff4c4c;
+            --azul: #4a9eff;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--fondo);
+            color: var(--texto);
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+        .bg {
+            position: fixed; top:0; left:0; width:100%; height:100%; z-index:-1;
+            background: linear-gradient(-45deg,#1a1a1a,#2c2c2c,#121212,#0a0a0a);
+            background-size:400% 400%;
+            animation: bg 15s ease infinite;
+        }
+        @keyframes bg { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+
+        .container { max-width: 900px; margin: 0 auto; }
+
+        /* HEADER */
+        .page-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        .page-header .badge-verano {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--dorado), var(--dorado2));
+            color: #121212;
+            font-weight: 700;
+            font-size: 0.8em;
+            padding: 5px 18px;
+            border-radius: 50px;
+            margin-bottom: 12px;
+            letter-spacing: 0.05em;
+        }
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--dorado);
+            font-size: 2.2em;
+            margin-bottom: 8px;
+        }
+        .page-header p { opacity: 0.65; font-size: 0.9em; }
+
+        /* INFO CARDS */
+        .info-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .info-card {
+            background: var(--tarjeta);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 10px;
+            padding: 18px 15px;
+            text-align: center;
+        }
+        .info-card .val {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6em;
+            color: var(--dorado);
+        }
+        .info-card .lbl { font-size: 0.75em; opacity: 0.6; margin-top: 4px; }
+
+        /* BOTÓN PRINCIPAL */
+        .btn-carga {
+            width: 100%;
+            background: linear-gradient(135deg, var(--dorado), var(--dorado2));
+            color: #121212;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-carga:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212,175,55,0.4);
+        }
+        .btn-carga:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        /* BARRA DE PROGRESO */
+        .progreso-container {
+            background: var(--tarjeta);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            display: none;
+        }
+        .progreso-container.visible { display: block; }
+        .progreso-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+        .progreso-label span:first-child { color: var(--dorado); font-weight: 600; }
+        .barra-bg {
+            background: rgba(255,255,255,0.06);
+            border-radius: 50px;
+            height: 10px;
+            overflow: hidden;
+        }
+        .barra-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--dorado2), var(--dorado));
+            border-radius: 50px;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        /* LISTA DE ALUMNOS */
+        .seccion {
+            background: var(--tarjeta);
+            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+        .seccion-header {
+            background: rgba(212,175,55,0.08);
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(212,175,55,0.15);
+            font-weight: 700;
+            font-size: 0.9em;
+            color: var(--dorado);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        table { width: 100%; border-collapse: collapse; }
+        thead th {
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 0.78em;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--dorado);
+            opacity: 0.7;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        tbody tr { transition: background 0.2s ease; border-bottom: 1px solid rgba(255,255,255,0.04); }
+        tbody tr:last-child { border-bottom: none; }
+        tbody tr:hover { background: rgba(255,255,255,0.03); }
+        tbody td { padding: 11px 15px; font-size: 0.87em; }
+        .td-mat { font-family: monospace; color: var(--dorado); font-size: 0.9em; }
+        .td-nombre { font-weight: 500; }
+        .td-correo { font-size: 0.82em; opacity: 0.65; }
+
+        /* ESTADO POR FILA */
+        .status-icon { font-size: 1.1em; }
+        .s-espera { opacity: 0.3; }
+        .s-cargando { animation: pulse 0.8s ease infinite; }
+        .s-ok { color: var(--verde); }
+        .s-error { color: var(--rojo); }
+        .s-existe { color: var(--azul); }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+        /* RESULTADO FINAL */
+        .resultado-final {
+            background: var(--tarjeta);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            display: none;
+            border: 1px solid rgba(212,175,55,0.2);
+        }
+        .resultado-final.visible { display: block; }
+        .resultado-final .emoji { font-size: 3em; margin-bottom: 12px; }
+        .resultado-final h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--dorado);
+            margin-bottom: 10px;
+        }
+        .resultado-final p { opacity: 0.7; font-size: 0.9em; margin-bottom: 20px; }
+        .resumen-nums {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .num-item .n { font-size: 1.8em; font-weight: 700; }
+        .num-item .l { font-size: 0.75em; opacity: 0.6; }
+        .n-ok { color: var(--verde); }
+        .n-skip { color: var(--azul); }
+        .n-err { color: var(--rojo); }
+        .btn-ir {
+            display: inline-block;
+            background: var(--dorado);
+            color: #121212;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+        }
+        .btn-ir:hover { background: var(--dorado2); transform: translateY(-2px); }
+
+        .nota {
+            background: rgba(74,158,255,0.08);
+            border: 1px solid rgba(74,158,255,0.25);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 0.82em;
+            color: var(--azul);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="page-header">
+        <div class="badge-verano">☀️ PROGRAMA VERANO 2026</div>
+        <h1>Carga Masiva de Alumnos</h1>
+        <p>NRC 45918 · Período 202630 · Facultad de Cultura Física · LEF-2016</p>
+    </div>
+
+    <!-- INFO -->
+    <div class="info-bar">
+        <div class="info-card">
+            <div class="val">18</div>
+            <div class="lbl">Alumnos a registrar</div>
+        </div>
+        <div class="info-card">
+            <div class="val">45918</div>
+            <div class="lbl">NRC del grupo</div>
+        </div>
+        <div class="info-card">
+            <div class="val">202630</div>
+            <div class="lbl">Período (Verano)</div>
+        </div>
+        <div class="info-card">
+            <div class="val">LEF-2016</div>
+            <div class="lbl">Plan de estudios</div>
+        </div>
+    </div>
+
+    <div class="nota">
+        ℹ️ <strong>Nota:</strong> Las escuelas asignadas se agregarán en un paso siguiente con el listado de la coordinadora. Los alumnos se registrarán sin escuela por ahora.
+    </div>
+
+    <!-- BOTÓN -->
+    <button class="btn-carga" id="btn-iniciar" onclick="iniciarCarga()">
+        🚀 Iniciar Carga Masiva a Firebase
+    </button>
+
+    <!-- BARRA PROGRESO -->
+    <div class="progreso-container" id="progreso">
+        <div class="progreso-label">
+            <span id="prog-texto">Cargando...</span>
+            <span id="prog-num">0 / 18</span>
+        </div>
+        <div class="barra-bg"><div class="barra-fill" id="barra"></div></div>
+    </div>
+
+    <!-- TABLA DE ALUMNOS -->
+    <div class="seccion">
+        <div class="seccion-header">📋 Lista de Alumnos – Grupo Verano 2026</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Estado</th>
+                    <th>Matrícula</th>
+                    <th>Nombre Completo</th>
+                    <th>Correo Institucional</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-body"></tbody>
+        </table>
+    </div>
+
+    <!-- RESULTADO FINAL -->
+    <div class="resultado-final" id="resultado">
+        <div class="emoji">🎉</div>
+        <h2>¡Carga Completada!</h2>
+        <p>Los alumnos del grupo Verano 2026 han sido procesados.</p>
+        <div class="resumen-nums">
+            <div class="num-item"><div class="n n-ok" id="res-ok">0</div><div class="l">Nuevos</div></div>
+            <div class="num-item"><div class="n n-skip" id="res-skip">0</div><div class="l">Ya existían</div></div>
+            <div class="num-item"><div class="n n-err" id="res-err">0</div><div class="l">Errores</div></div>
+        </div>
+        <a href="practicas-curriculares.html" class="btn-ir">Ver Sistema de Prácticas →</a>
+    </div>
+
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAHhDJQcaDgojC0qRXQeG3M2y55KgtBaog",
+    authDomain: "sistema-de-practicas-cfbuap.firebaseapp.com",
+    projectId: "sistema-de-practicas-cfbuap",
+    storageBucket: "sistema-de-practicas-cfbuap.firebasestorage.app",
+    messagingSenderId: "802276056298",
+    appId: "1:802276056298:web:9a390b2d13825b66d60b93"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// ===== LISTA DE ALUMNOS VERANO 2026 =====
+const alumnos = [
+    { matricula: "202281789", nombre: "ESTRADA LOPEZ ALEJANDRO",              correo: "alejandro.estradal@alumno.buap.mx" },
+    { matricula: "202119238", nombre: "FERNANDEZ DE LARA ESTRELLA JUAN ANTONIO", correo: "antonio.fernandezdelara@alumno.buap.mx" },
+    { matricula: "202344047", nombre: "FLORES PEREZ JUAN PABLO",              correo: "fp202344047@alm.buap.mx" },
+    { matricula: "202145552", nombre: "FRANCISCO CASTILLA ALBERTO",           correo: "alberto.francisco@alumno.buap.mx" },
+    { matricula: "202330302", nombre: "FRANCO COATL DANIEL",                  correo: "fc202330302@alm.buap.mx" },
+    { matricula: "202274300", nombre: "GUEVARA BERRA GUSTAVO EDUARDO",        correo: "gustavo.guevarabe@alumno.buap.mx" },
+    { matricula: "202242202", nombre: "LOPEZ MENDOZA DIANA",                  correo: "diana.lopezme@alumno.buap.mx" },
+    { matricula: "201821728", nombre: "ORTEGA SALGADO YAIR MARTINIANO",       correo: "yair.ortegas@alumno.buap.mx" },
+    { matricula: "201921422", nombre: "RODRIGUEZ RODRIGUEZ EDSON GIOVANNI",   correo: "edson.rodriguez@alumno.buap.mx" },
+    { matricula: "201962816", nombre: "ROJAS VARGAS JONATHAN DELFINO",        correo: "jonathan.rojas@alumno.buap.mx" },
+    { matricula: "202253252", nombre: "SANCHEZ PEREZ JOB",                    correo: "job.sanchez@alumno.buap.mx" },
+    { matricula: "202160529", nombre: "SANTIAGO GONZALEZ AMERICA FERNANDA",   correo: "america.santiagog@alumno.buap.mx" },
+    { matricula: "202162120", nombre: "TELLEZ MARTINEZ EMMANUEL",             correo: "emmanuel.tellezma@alumno.buap.mx" },
+    { matricula: "202279226", nombre: "TORRES GONZALEZ MARIA CECILIA",        correo: "maria.torresgo@alumno.buap.mx" },
+    { matricula: "202320944", nombre: "TORRES MENESES JAVIER",                correo: "tm202320944@alm.buap.mx" },
+    { matricula: "201945262", nombre: "WILSON GONZALEZ DRUSSO NOE DANIEL",    correo: "drusso.wilsong@alumno.buap.mx" },
+    { matricula: "202077571", nombre: "YOUSHIMATZ CASTRO LUIS ANGEL",         correo: "luis.youshimatz@alumno.buap.mx" },
+    { matricula: "202256891", nombre: "ZAMORA GARCIA JESUS DONALDO",          correo: "jesus.zamoraga@alumno.buap.mx" }
+];
+
+// Renderizar tabla inicial
+const tbody = document.getElementById('tabla-body');
+alumnos.forEach((a, i) => {
+    tbody.innerHTML += `
+        <tr id="fila-${i}">
+            <td><span class="status-icon s-espera" id="icon-${i}">⏳</span></td>
+            <td class="td-mat">${a.matricula}</td>
+            <td class="td-nombre">${a.nombre}</td>
+            <td class="td-correo">${a.correo}</td>
+        </tr>`;
+});
+
+let cargaIniciada = false;
+
+window.iniciarCarga = async () => {
+    if (cargaIniciada) return;
+    cargaIniciada = true;
+
+    const btn = document.getElementById('btn-iniciar');
+    btn.disabled = true;
+    btn.innerHTML = '⏳ Cargando...';
+
+    document.getElementById('progreso').classList.add('visible');
+
+    let ok = 0, skip = 0, err = 0;
+
+    for (let i = 0; i < alumnos.length; i++) {
+        const a = alumnos[i];
+        const icon = document.getElementById(`icon-${i}`);
+        icon.textContent = '🔄';
+        icon.className = 'status-icon s-cargando';
+
+        // Actualizar barra
+        const pct = Math.round((i / alumnos.length) * 100);
+        document.getElementById('barra').style.width = pct + '%';
+        document.getElementById('prog-num').textContent = `${i} / ${alumnos.length}`;
+        document.getElementById('prog-texto').textContent = `Registrando: ${a.nombre.split(' ')[0]}...`;
+
+        try {
+            // Verificar si ya existe por matrícula
+            const existe = await getDocs(query(
+                collection(db, "alumnos_verano"),
+                where("matricula", "==", a.matricula)
+            ));
+
+            if (!existe.empty) {
+                icon.textContent = '🔵';
+                icon.className = 'status-icon s-existe';
+                skip++;
+            } else {
+                await addDoc(collection(db, "alumnos_verano"), {
+                    matricula: a.matricula,
+                    nombre: a.nombre,
+                    correo: a.correo,
+                    unidad_academica: "Facultad de Cultura Fisica",
+                    plan_estudios: "LEF-2016",
+                    campus: "Ciudad Universitaria",
+                    periodo: "202630",
+                    nrc: "45918",
+                    programa: "Verano",
+                    escuela_practica: null,
+                    estatus: "Sin asignar",
+                    fecha_registro: new Date().toISOString()
+                });
+                icon.textContent = '✅';
+                icon.className = 'status-icon s-ok';
+                ok++;
+            }
+        } catch (e) {
+            console.error(e);
+            icon.textContent = '❌';
+            icon.className = 'status-icon s-error';
+            err++;
+        }
+
+        // Pausa breve para no saturar
+        await new Promise(r => setTimeout(r, 300));
+    }
+
+    // Final
+    document.getElementById('barra').style.width = '100%';
+    document.getElementById('prog-num').textContent = `${alumnos.length} / ${alumnos.length}`;
+    document.getElementById('prog-texto').textContent = '¡Proceso completado!';
+    btn.innerHTML = '✅ Carga Finalizada';
+
+    document.getElementById('res-ok').textContent = ok;
+    document.getElementById('res-skip').textContent = skip;
+    document.getElementById('res-err').textContent = err;
+    document.getElementById('resultado').classList.add('visible');
+};
+</script>
+</body>
+</html>

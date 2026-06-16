@@ -1,0 +1,875 @@
+[
+  {
+    "clave": "CTPCF 001",
+    "nombre": "ACADEMIA DE FUTBOL JUAREZ F. B.",
+    "direccion": "AV. 17 PONIENTE 325, BARRIO DE SANTA MARIA XIXITLA 72762, CHOLULA DE RIVADAVIA, PUE.",
+    "nombramiento": "C. Bryan Mauricio Astorga Alvarez - Director General",
+    "responsable": "C. Sergio Juárez (Entrenador)",
+    "correo": "astorga-0581@hotmail.com",
+    "telefono": "2227543974"
+  },
+  {
+    "clave": "CTPCF 002",
+    "nombre": "ASOCIACION JUVENTUD POBLANA POR MEXICO",
+    "direccion": "TURIN 18/223 SAN FRANCISCO OCOTLAN TELEFONO:",
+    "nombramiento": "C. Mario Erik Rodríguez Reyes (Vicepresidente)",
+    "responsable": "C. Mario Erik Rodríguez Reyes (Vicepresidente)",
+    "correo": "",
+    "telefono": "2226713482"
+  },
+  {
+    "clave": "CTPCF 003",
+    "nombre": "AGRUPACION SCOUT MEXICANA AC GRUPO 100 PUEBLA \"APOLO\"",
+    "direccion": "\"PARQUE DEL ARTE\" CALLE SIRIO S/N ZONA TERRITORIAL ANGELOPOLIS PUEBLA 72820",
+    "nombramiento": "C. Nicolás Machorro Contreras",
+    "responsable": "C. Nicolás Machorro Contreras",
+    "correo": "nicoband006@hotmail.com",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 004",
+    "nombre": "ASOCIACION DE JUEGOS Y DEPORTES AUTOCTONOS DEL ESTADO DE PUEBLA A.C.",
+    "direccion": "6 SUR 716 COL. INSURGENTES, TEHUACAN PUEBLA",
+    "nombramiento": "Lic. Rebeca Areli Cruz Ramírez",
+    "responsable": "Lic. Rebeca Areli Cruz Ramírez",
+    "correo": "",
+    "telefono": "2381134730"
+  },
+  {
+    "clave": "CTPCF 005",
+    "nombre": "ASOCIACION DE SCOUTS DE MEXICO PROVINCIA PUEBLA - GRUPO 1",
+    "direccion": "SAN PEDRO CHOLULA",
+    "nombramiento": "C. Mayra Ramírez Luna",
+    "responsable": "C. Mayra Ramírez Luna",
+    "correo": "puel.sanpedrocholula@scouts.org.mx",
+    "telefono": "2211449266"
+  },
+  {
+    "clave": "CTPCF 006",
+    "nombre": "GRUPO SCOUT 7 TEXMULLI",
+    "direccion": "RIO ACOTZALA 112 CHAMIZAL, SAN MARTIN TEXMELUCAN",
+    "nombramiento": "Ernesto Pardiño Montalvo (Jefe de grupo)",
+    "responsable": "Ernesto Pardiño Montalvo (Jefe de grupo)",
+    "correo": "neto.pm17@gmail.com",
+    "telefono": "2481018501"
+  },
+  {
+    "clave": "CTPCF 007",
+    "nombre": "ASOCIACION DE SCOUTS DE MEXICO PROVINCIA PUEBLA - GRUPO 2",
+    "direccion": "INSTALACIONES DEL DEPORTIVO TLACHTLI CALLE TEXMELUCAN 1604, SAN MATIAS COCOYOTLA 72767 CHOLULA DE RIVADAVIA, PUEBLA",
+    "nombramiento": "ING. GERARDO ROMERO RAMIREZ JEFE DE GRUPO",
+    "responsable": "ING. GERARDO ROMERO RAMIREZ JEFE DE GRUPO",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 008",
+    "nombre": "ASOCIACION DE SCOUTS DE MEXICO PROVINCIA PUEBLA - GRUPO 20 \"SAN FRANCISCO DE ASIS\"",
+    "direccion": "AV. GRAL. IGNACIO ZARAGOZA S/N HEROES DE PUEBLA, 72520 PUEBLA",
+    "nombramiento": "C. Yuliana Alejandra Vazquez Ortega (Jefa de grupo)",
+    "responsable": "C. Yuliana Alejandra Vazquez Ortega (Jefa de grupo)",
+    "correo": "pue20.puebla@scouts.org.mx",
+    "telefono": "2223248890"
+  },
+  {
+    "clave": "CTPCF 009",
+    "nombre": "ASOCIACION DE SCOUTS DE MEXICO PROVINCIA PUEBLA - GRUPO 26",
+    "direccion": "2223335967",
+    "nombramiento": "GUILLERMO SABÁS RAMÍREZ PRESIDENTE DE PROVINCIA PUEBLA",
+    "responsable": "EDGAR ADBALÍ VIDAL JUÁREZ",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 010",
+    "nombre": "ASOCIACION DE SCOUTS DE MEXICO PROVINCIA PUEBLA - GRUPO 32",
+    "direccion": "PROL. NEZAHUALCOYOTL 263, LOMAS DE SAN MIGUEL, PUEBLA 72573 PUEBLA",
+    "nombramiento": "C. Jesús Armando de la Rosa A. (Jefe de Grupo)",
+    "responsable": "C. Jesús Armando de la Rosa A. (Jefe de Grupo)",
+    "correo": "pue32.puebla@scouts.mx",
+    "telefono": "2216535747"
+  },
+  {
+    "clave": "CTPCF 011",
+    "nombre": "ASOCIACION DE SCOUTS DE MEXICO PROVINCIA PUEBLA - GRUPO 34",
+    "direccion": "CALLE VENUS LAGO HURON FOVISSSTE SAN ROQUE CP 72460",
+    "nombramiento": "JOSE ROBERTO CASTILLO CAMACHO",
+    "responsable": "JOSE ROBERTO CASTILLO CAMACHO (JEFE DE GRUPO)",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 012",
+    "nombre": "ASOCIACION DE SCOUTS DE MEXICO PROVINCIA PUEBLA-GRUPO 36",
+    "direccion": "BLVD. 5 DE MAYO 17 ORIENTE PUEBLA",
+    "nombramiento": "C. Axel Ceron García (Jefe de grupo)",
+    "responsable": "C. Juan Carlos Cabañas C. (Subgerente Administrativo)",
+    "correo": "pue36.puebla@scouts.org.mx",
+    "telefono": "2223586592"
+  },
+  {
+    "clave": "CTPCF 013",
+    "nombre": "ASOCIACION DE SCOUTS KON-TIKI 91",
+    "direccion": "INSTALACIONES DEL MIRATOYAC, CALLE: GABINO BARREDA S/N ESQ. AV. JOSE MARIA MORELOS Y PAVON COL. CONCEPCION GUADALUPE SAN ANDRES CHOLULA",
+    "nombramiento": "MEP Jennifer Antón Sarabia (Jefe de grupo)",
+    "responsable": "LDG. Luis Alfonso Martínez Villa (Jefe de Métodos Educativos)",
+    "correo": "pue91.sanandrescholula@socuts.org.mx",
+    "telefono": "2226752649"
+  },
+  {
+    "clave": "CTPCF 014",
+    "nombre": "BALNEARIO AGUA AZUL",
+    "direccion": "PROLONGACIÓN 11 SUR 5117, PRADOS AGUA AZUL C.P. 72430",
+    "nombramiento": "Lic. Manuel Rivera Rodríguez (Administrador)",
+    "responsable": "Lic. Manuel Rivera Rodríguez (Administrador)",
+    "correo": "",
+    "telefono": "2213314850"
+  },
+  {
+    "clave": "CTPCF 015",
+    "nombre": "BACHILLERATO ANGELOPOLIS UPAEP",
+    "direccion": "AV. ORION SUR 1547 RESERVA TERRITORIAL CP 72160 SAN ANDRES CHOLULA, PUEBLA",
+    "nombramiento": "C. Maribel San Juan Velasco (Directora)",
+    "responsable": "C. María Fernanda Sandoval Moreno (Coordinadora Deportiva)",
+    "correo": "mariafernanda.sandoval@upaep.mx",
+    "telefono": "2227107489"
+  },
+  {
+    "clave": "CTPCF 016",
+    "nombre": "CASA DE LA NIÑEZ",
+    "direccion": "Av. Reforma 1305, Centro Histórico de Puebla, 72000.",
+    "nombramiento": "C. Héctor Hernández Olivares (Jefe de Departamento de Vinculación con la Sociedad Civil)",
+    "responsable": "C. Alejandro López Marquez.",
+    "correo": "",
+    "telefono": "2222842567"
+  },
+  {
+    "clave": "CTPCF 017",
+    "nombre": "CENTRO MEXICANO UNIVERSITARIO - CMUCH",
+    "direccion": "AV. DEL SOL NO. 5, COL. CONCEPCIÓN DE LA CRUZ SAN ANDRES CHOLULA, PUEBLA. CP. 72836",
+    "nombramiento": "Dra. Nancy Miriam Abascal Medrano (Directora)",
+    "responsable": "Mtra. Marcela García Ortega (Recursos Humanos)",
+    "correo": "contacto@cmuch.edu.mx",
+    "telefono": "2224097990"
+  },
+  {
+    "clave": "CTPCF 018",
+    "nombre": "CASA DE DESCANSO \"LA TERCERA EDAD\" AC",
+    "direccion": "PRIMAVERAS NO. 218 COL. LAS AVES CP 72582",
+    "nombramiento": "Lic. Susana García Arevalo",
+    "responsable": "C. Cristina Iveth López Herrera",
+    "correo": "susagaone@hotmail.com",
+    "telefono": "2222453131"
+  },
+  {
+    "clave": "CTPCF 019",
+    "nombre": "CASA DE DESCANSO \"LA TERCERA EDAD\" AC",
+    "direccion": "C. 11 SUR NO. 5131 COL. PRADOS AGUA AZUL",
+    "nombramiento": "C. Daniel Alvarez García",
+    "responsable": "C. Alma Gómez Bonilla",
+    "correo": "dan.alva.ss@gmail.com",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 020",
+    "nombre": "CASA DE DESCANSO \"LA TERCERA EDAD\" AC SUC. TRES CRUCES",
+    "direccion": "CALLE FRAY TORIBIO DE BENAVENTE NO. 2422 CP 72595 COL. TRES CRUCES",
+    "nombramiento": "CD. Jesús Alvarez Arronte (Administrador)",
+    "responsable": "CD. Jesús Alvarez Arronte (Administrador)",
+    "correo": "",
+    "telefono": "2223686818"
+  },
+  {
+    "clave": "CTPCF 021",
+    "nombre": "CENTRO CULTURAL Y DEPORTIVO MARGARITA MAZA DE JUAREZ",
+    "direccion": "12 NORTE 2206 ESQUINA CON CALZADA DE LOS FUERTES, COL. XANENETLA, 72000 PUEBLA, PUE.",
+    "nombramiento": "C. Hector Henrández Olivares (Jefe de Departamento de Vinculación con la Sociedad)",
+    "responsable": "C. Alejandro Hernández Flores (Coordinador)",
+    "correo": "deportivo.margaritamaza@sedif.gob.mx",
+    "telefono": "2222355548"
+  },
+  {
+    "clave": "CTPCF 022",
+    "nombre": "CENTRO DE INICIACIÓN ACUATICA - FACUFI - BUAP",
+    "direccion": "AV. SAN CLAUDIO ESQ. 24 SUR, COL. SAN MANUEL.",
+    "nombramiento": "Dr. Luis Edmundo López Aguilar (Coordinador)",
+    "responsable": "Dr. Luis Edmundo López Aguilar (Coordinador)",
+    "correo": "edmundol.lopez@correo.buap.mx",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 023",
+    "nombre": "CENTRO DE SALUD URBANO ZACATLAN",
+    "direccion": "CALLE LUIS CABRERA LOBATO NO. 5 COL. CENTRO, ZACATLAN PUEBLA",
+    "nombramiento": "DRA. MARIANA CRUZ CORTES (DIRECTORA)",
+    "responsable": "DRA. MARIANA CRUZ CORTES (DIRECTORA)",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 024",
+    "nombre": "CENTR0 GERONTOLOGICO CASA DEL ABUE",
+    "direccion": "CALLE 11 NORTE 1810 COL SANTA ANITA 72294 PUEBLA PUE.",
+    "nombramiento": "C. Héctor Hernández Olivares (Jefe de Departamento de Vinculación con la Sociedad Civil)",
+    "responsable": "C. Laura Patricia Aguirre Ramírez (Coordinadora de Actividades Integrales",
+    "correo": "casadelabue.pue@sedif.gob.mx",
+    "telefono": "2222422515"
+  },
+  {
+    "clave": "CTPCF 025",
+    "nombre": "CENTRO GIMNASTICO KURI",
+    "direccion": "BLVD ESTEBAN DE ANTUÑANO 2301 AMPLIACION REFORMA SUR 72290 PUEBLA",
+    "nombramiento": "Ing. Juan Carrasco Vargas (Director General)",
+    "responsable": "Ing. Juan Carrasco Vargas (Director General)",
+    "correo": "centrogimnasticokuri@hotmail.com",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 026",
+    "nombre": "CLUB DEPORTIVO SPORTWAY",
+    "direccion": "CALLE CAMINO A LA COSTA NO. 8740 LOMAS DEL VALLE CP 72595 PUEBLA, PUE.",
+    "nombramiento": "LAE. María Luisa Ponce Fuentes (Coordinadora Deportiva)",
+    "responsable": "M.C. Jonathan Alan Villanueva Huerta",
+    "correo": "mluisa.ponce@sportway.com.mx",
+    "telefono": "2229480250"
+  },
+  {
+    "clave": "CTPCF 027",
+    "nombre": "CLUB GALAXY ATLIXCO",
+    "direccion": "CANCHA DEPORTIVA EL RANCHITO. CALZADA 16 DE SEPTIEMBRE NO. 1904, COL. SOLARES CHICOS C.P. 74230, ATLIXCO, PUE.",
+    "nombramiento": "C. José Miguel Alcaide Ramírez",
+    "responsable": "C. José Miguel Alcaide Ramírez",
+    "correo": "",
+    "telefono": "2444492747"
+  },
+  {
+    "clave": "CTPCF 028",
+    "nombre": "DEPARTAMENTO DE ACCIÓN SOCIAL, CULTURAL Y DEPORTIVA. ISSSTE PUEBLA",
+    "direccion": "AV. 3 PONIENTE No. 1906, COL. AMOR C.P. 72140 PUEBLA, PUE.",
+    "nombramiento": "Mtra. Rocio del Carmen Moreno Viveros (Jefa del departamento)",
+    "responsable": "C. Patricia Rosano soriano",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 029",
+    "nombre": "DIRECCIÓN DE ATENCIÓN ESTUDIANTIL",
+    "direccion": "TORRE DE GESTION ACADEMICA Y SERVICIOS ADMINISTRATIVOS CU - BUAP.",
+    "nombramiento": "Mtro. Rodrigo Ivan Aguilar Enriquez (Director)",
+    "responsable": "C. Luis Gerardo Pérez Ortega (Coordinador)",
+    "correo": "",
+    "telefono": "2222295500 ext. 5948"
+  },
+  {
+    "clave": "CTPCF 030",
+    "nombre": "DIRECCION DE DEPORTE Y CULTURA FISICA",
+    "direccion": "ZONA DEPORTIVA, CD UNIVERSITARIA CP 72570, COL. SAN MANUEL",
+    "nombramiento": "Profr. José Miguel López Serrano",
+    "responsable": "C. Viridiana Delgado Alonso (Coordinadora de Servicio Social y Práctica Profesional)",
+    "correo": "viridiana.delgado@correo.buap.mx",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 031",
+    "nombre": "DIRECCION DE RECURSOS HUMANOS - DEPARTAMENTO DE INGRESO Y EVALUACIÓN",
+    "direccion": "TORRE DE GESTION ACADEMICA Y SERVICIOS ADMINISTRATIVOS CU - BUAP.",
+    "nombramiento": "Dr. Sandro Reyes Soto (Director)",
+    "responsable": "Dra. Conchita Mar Martínez Cedano (Jefe de departamento de Ingreso y evaluación)",
+    "correo": "conchita. martinez@correo.buap.mx",
+    "telefono": "2222295500 ext. 5897"
+  },
+  {
+    "clave": "CTPCF 032",
+    "nombre": "FACULTAD DE ENFERMERIA BUAP",
+    "direccion": "25 PONIENTE 1304, COL. VOLCANES, PUEBLA, PUE. C.P. 72410",
+    "nombramiento": "C. Francisco Javier Baez Hernández",
+    "responsable": "C. Israel Rojas Balbuena",
+    "correo": "direccion.enfermeria@correo.buap.mx",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 033",
+    "nombre": "FACULTAD DE LENGUAS BUAP",
+    "direccion": "24 NORTE 2003, COL. HUMBOLDT",
+    "nombramiento": "Dra. María Amelia Xique Suarez (Directora)",
+    "responsable": "C. Nicolás Francisco Ricardez Ramírez (Coordinador Deportivo)",
+    "correo": "direccion.lenguas@correo.buap.mx",
+    "telefono": "2222295500 ext 5810"
+  },
+  {
+    "clave": "CTPCF 034",
+    "nombre": "FACULTAD DE INGENIERIA QUIMICA BUAP",
+    "direccion": "AV. SAN CLAUDIO S/N COL. SAN MANUEL, CIUDAD UNIVERSITARIA, PUEBLA, PUE. C.P. 72590",
+    "nombramiento": "M.I.C. MA. GPE. TITA VAZQUEZ ESPINOSA DE LOS MONTEROS (DIRECTORA)",
+    "responsable": "MTRO. GERARDO LOPEZ ORTEGA (COORDINADOR DE CULTURA Y DEPORTE)",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 035",
+    "nombre": "FACULTAD DE PSICOLOGIA BUAP - COORDINACIÓN DE CULTURA Y DEPORTE",
+    "direccion": "3 ORIENTE 1413 BARRIO DE ANALCO",
+    "nombramiento": "MTRO. VICTOR ALEJANDRO HURTADO TORRES (Coordinador)",
+    "responsable": "MTRO. VICTOR ALEJANDRO HURTADO TORRES (Coordinador)",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 036",
+    "nombre": "H. AYUNTAMIENTO DE SAN MARTIN TEXMELUCAN - DIRECCION GENERAL DE BIENESTAR SOCIAL",
+    "direccion": "BLVD. XICOTENCATL 612 C.P. 74000 SAN MARTIN TEXMELUCAN PUEBLA",
+    "nombramiento": "C. Elias Ariel Diaz Rodriguez (Director General de Bienestar Social)",
+    "responsable": "C. Marcos Garcia Moreno (Jefe de Fomento al Deporte)",
+    "correo": "jefatura.deporte@sanmartintexmelucan.gob.mx",
+    "telefono": "2481095300 ext 620"
+  },
+  {
+    "clave": "CTPCF 037",
+    "nombre": "H. AYUNTAMIENTO DOMINGO ARENAS",
+    "direccion": "CALLE REAL DE ATEXCAC NO. 2 PUEBLA",
+    "nombramiento": "C. Alvaro Botello Munive",
+    "responsable": "C. Patricia Meneses Juárez",
+    "correo": "",
+    "telefono": "2272760399"
+  },
+  {
+    "clave": "CTPCF 038",
+    "nombre": "H. AYUNTAMIENTO DE SAN PABLO DEL MONTE, TLAXCALA",
+    "direccion": "AV. AYUNTAMIENTO NO. 1 SAN BARTOLOME",
+    "nombramiento": "C. JUAN XINATLE GASPARIANO (DIRECTOR DE CULTURA FÍSICA Y DEPORTE)",
+    "responsable": "C. JUAN XINATLE GASPARIANO (DIRECTOR DE CULTURA FÍSICA Y DEPORTE)",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 039",
+    "nombre": "INSTITUTO MUNICIPAL DEL DEPORTE",
+    "direccion": "CALLE 25 SUR 13 PONIENTE NO. 1301 COL. SANTA CRUZ LOS ANGELES.PUEBLA,PUE.",
+    "nombramiento": "C. Ricardo Zayas Gallardo (Director General)",
+    "responsable": "Lic. María Graciela Ordoñez Ruiz (Coordinadora Servicio Social y Práctica Profesional)",
+    "correo": "imdeportepue@hotmail.com",
+    "telefono": "2222304665"
+  },
+  {
+    "clave": "CTPCF 040",
+    "nombre": "INSTITUTO DEL DEPORTE DE TLAXCALA",
+    "direccion": "BLVD. 16 DE SEPTIEMBRE 2904, COL. EL CARMEN, APIZACO, TLAXCALA. C.P. 90300",
+    "nombramiento": "DR. DANIEL MONCAYO CERVANTES (DIRECTOR GENERAL)",
+    "responsable": "C. LUIS DANIEL GONZÁLEZ GONZÁLEZ (221 158 61 84)",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 041",
+    "nombre": "PREPARATORIA URBANA \"ENRIQUE CABRERA BARROSO\" BUAP",
+    "direccion": "RIO SABINAS NO. 6109 COL. JARDINES DE SAN MANUEL, CP 72570 ÚEBLA, PUE.",
+    "nombramiento": "",
+    "responsable": "",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 042",
+    "nombre": "PREPARATORIA 2 DE OCTUBRE DE 1968 BUAP",
+    "direccion": "CALLE BENITO JUAREZ NO. 51-B RESERVA TERRITORIAL ATLICAYOTL, COL. CONCEPCIÓN GUADALUPE MAYORAZGO C.P. 72450, PUEBLA, PUE.",
+    "nombramiento": "Mtra. Irma García Ortega (Directora)",
+    "responsable": "Mtro. Enrique Balderas Rendón (Coordinador de academía de C.F.)",
+    "correo": "prepa.2deoctubre@correo.buap.mx",
+    "telefono": "2222295500 ext 2457"
+  },
+  {
+    "clave": "CTPCF 043",
+    "nombre": "PREPARATORIA \"ALFONSO CALDERON MORENO\" BUAP",
+    "direccion": "KM 1.5 CARRETERA A LA RESURRECCIÓN, COL. EXRANCHO MARAVILLAS, PUEBLA, PUE.",
+    "nombramiento": "Mtra. J. Concepción Meneses Juárez (Directora)",
+    "responsable": "Mtro. Ignacio Vargas Hernández",
+    "correo": "preparatoriaalfonsocalderon@gmail.com",
+    "telefono": "2222295500 ext. 3785"
+  },
+  {
+    "clave": "CTPCF 044",
+    "nombre": "PREPARATORIA EMILIANO ZAPATA BUAP",
+    "direccion": "4 NORTE 6, CENTRO HISTÓRICO 72000 PUEBLA, PUE.",
+    "nombramiento": "Dra. Martha Alicia Herrera López (Directora)",
+    "responsable": "L.C.F. Zulema González Garrido",
+    "correo": "preparatoria.zapata@correo.buap.mx",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 045",
+    "nombre": "PREPARATORIA LIC. BENITO JUÁREZ GARCÍA",
+    "direccion": "Boulevard 14 sur 5107, Jardines de San Manuel 72570, Puebla, Pue.",
+    "nombramiento": "",
+    "responsable": "",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 046",
+    "nombre": "PREPARATORIA GRAL. LAZARO CARDENAS DEL RIO",
+    "direccion": "CALLE ATOYAC NO. 17 RANCHO COLORADO, COL. VILLA POSADAS",
+    "nombramiento": "Mtro. Ernesto Sandoval Munive (Director)",
+    "responsable": "LCF. Dalia Cortes Morales",
+    "correo": "direccion.lc@correo.buap.mx",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 047",
+    "nombre": "BACHILLERATO INTERNACIONAL 5 DE MAYO - BUAP",
+    "direccion": "Del trabajo 6, Barrio del perdón, cuatro caminos 72700, San Juan Cuautlancingo, Pue",
+    "nombramiento": "C. María Luisa González Herrera (Directora)",
+    "responsable": "Mtro. Edgar Pablo Martínez (Docente)",
+    "correo": "bachillerato5demayo@correo.buap.mx",
+    "telefono": "2222295500 ext 2770"
+  },
+  {
+    "clave": "CTPCF 048",
+    "nombre": "Preparatoria Regional Simón bolivar (Atlixco)",
+    "direccion": "Prolongación Boulevard “Emiliano Zapata”, sin número. Colonia San Felix Hidalgo; C.P. 74368, Atlixco, Puebla",
+    "nombramiento": "C. Manuel Palacios Motolinia",
+    "responsable": "C. Claudia Carrasco Franco",
+    "correo": "simon.bolivar@correo.buap.mx",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 049",
+    "nombre": "Preparatoria Regional Prof. Enrique Cabrera Barroso (Tecamachalco)",
+    "direccion": "Calle 19 sur 1100, San Antonio 75480, Tecamachalco, Puebla",
+    "nombramiento": "",
+    "responsable": "",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 050",
+    "nombre": "Preparatoria Emiliano Zapata (San Martín Texmelucan)",
+    "direccion": "Prolongación Pino Suárez 4, La Purisima 74040, San Martín Texmelucan de Labastida, Puebla",
+    "nombramiento": "",
+    "responsable": "",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 051",
+    "nombre": "Preparatoria Libres Complejo Nororiental",
+    "direccion": "Calle 5 de Mayo, Centro, 73780 Cdad. de Libres, Pue",
+    "nombramiento": "",
+    "responsable": "",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 052",
+    "nombre": "Preparatoria Teziutlán Complejo Nororiental",
+    "direccion": "Privada de la BUAP 1, El Fresnillo, Barrio del Fresnillo, 73850 Teziutlán, Pue",
+    "nombramiento": "",
+    "responsable": "",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 053",
+    "nombre": "Preparatoria Tlatlahuquitepec Complejo Nororiental",
+    "direccion": "73900, Av. Revolución 35, Centro, Cdad. de Tlatlauquitepec, Pue.",
+    "nombramiento": "",
+    "responsable": "",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 054",
+    "nombre": "Preparatoria Cd. Serdán Complejo Regional Centro",
+    "direccion": "Sin Nombre de Col 6, 75520 Cdad. Serdán, Pue.",
+    "nombramiento": "",
+    "responsable": "",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 055",
+    "nombre": "Preparatoria Tepeaca Complejo Regional Centro",
+    "direccion": "Dr. Antonio López Rosas, San Juan Negrete, 75200 Tepeaca, Pue.",
+    "nombramiento": "Mtro. Armando José José (Director)",
+    "responsable": "C. Yesenia Maldonado Hernández",
+    "correo": "prepatepeaca.crc@hotmail.com",
+    "telefono": "2222295500 ext. 2466"
+  },
+  {
+    "clave": "CTPCF 056",
+    "nombre": "Preparatoria Acajete Complejo Regional Centro",
+    "direccion": "Carretera Puebla 1 S/N, Cuarta, 75110 Acajete, Pue.",
+    "nombramiento": "Mtro. Armando José José (Director)",
+    "responsable": "Mtro. José Francisco Hernández González",
+    "correo": "rosa.casiano@correo.buap.mx",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 057",
+    "nombre": "PREPARATORIA ACATZINGO COMPLEJO REGIONAL CENTRO",
+    "direccion": "CARRETERA FEDERAL ACATZINGO, NOPALUCAN KM 9, CENTRO 75150, ACATZINGO DE HIDALGO, PUE.",
+    "nombramiento": "",
+    "responsable": "",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 058",
+    "nombre": "BACHILLERATO TECNOLOGICO SAN JOSE CHIAPA - COMPLEJO REGIONAL CENTRO",
+    "direccion": "CALLE 2 SUR, CIUDAD MODELO, C.P. 75012, SAN NJOSE CHIAPA, PUEBLA",
+    "nombramiento": "",
+    "responsable": "",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 059",
+    "nombre": "PREPARATORIA IZUCAR DE MATAMOROS COMPLEJO REGIONAL MIXTECA",
+    "direccion": "CARR. ATLIXCO - IZUCAR DE MATAMOROS 141, SAN MARTIN ALCHICHICA, 74570 IZUCAR DE MATAMOROS, PUE.",
+    "nombramiento": "",
+    "responsable": "",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 060",
+    "nombre": "PREPARATORIA ZACATLAN COMPLEJO REGIONAL NORTE",
+    "direccion": "CAMINO REAL, BARRIO MAQUIXTLA, 73310 ZACATLAN PUE.",
+    "nombramiento": "",
+    "responsable": "",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 061",
+    "nombre": "ESCUELA PRIMARIA LIC. BENITO JUAREZ",
+    "direccion": "5 DE MAYO SUR NO. 1, COLONIA CENTRO, C.P. 74000",
+    "nombramiento": "C. Rocio Vidal Hernandez (Directora)",
+    "responsable": "C. Admir Mirceo Pérez León (Educación Física)",
+    "correo": "benitojuarezm38h@hotmail.com",
+    "telefono": "2484842918"
+  },
+  {
+    "clave": "CTPCF 062",
+    "nombre": "ROCODROMO FUSION - RETA, DESAFIA Y CONQUISTA S.A. DE C.V.",
+    "direccion": "AV. NACIONAL 5728 EL MAYORAZGO PUEBLA, PUE.",
+    "nombramiento": "C. Carlos Eduardo Tapia Camino",
+    "responsable": "C. José Eduardo González Mendoza",
+    "correo": "contacto@rocodromo.mx",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 063",
+    "nombre": "SECRETARIA ADMINISTRATIVA - BUAP",
+    "direccion": "TORRE DE GESTION ACADEMICA Y SERVICIOS ADMINISTRATIVOS PISO 12, AV. CENTRAL, CIUDAD UNIVERSITARIA.",
+    "nombramiento": "Mtro. Juan Antonio Cruz Moctezuma",
+    "responsable": "C. Juan Carlos Moctezuma Morales",
+    "correo": "capacitacion.administrativa @correo.buap.mx",
+    "telefono": "2222295500 ext. 5843"
+  },
+  {
+    "clave": "CTPCF 064",
+    "nombre": "SISTEMA MUNICIPAL DIF PUEBLA",
+    "direccion": "AV. CUE MERLO NO. 201 COL. SAN BALTAZAR CAMPECHE 72550 PUEBLA",
+    "nombramiento": "C. José de Jesús Hernández León (Jefe de Recursos Humanos)",
+    "responsable": "C. Mariela Hernández Mina (Coordinadora de SS y PP)",
+    "correo": "rh.smdifmunicipal@gmail.com",
+    "telefono": "2222140000 ext 107"
+  },
+  {
+    "clave": "CTPCF 065",
+    "nombre": "UNIDAD DEPORTIVA LENIN CAMPOS CORDOVA",
+    "direccion": "PROLONGACION 3 SUR S/N COL. BALCONES DEL SUR",
+    "nombramiento": "C. Hector Bonilla Santiago (Director)",
+    "responsable": "C. Jesús Rivera Rosas (Coordinador)",
+    "correo": "comdelenincampos@gmail.com",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 066",
+    "nombre": "SISTEMA PARA EL DESARROLLO INTEGRAL DE LA FAMILIA DEL ESTADO DE PUEBLA",
+    "direccion": "AV. REFORMA 1305 CENTRO 72000 PUEBLA, PUE.",
+    "nombramiento": "C. Héctor Hernández Olivares (Jefe de Departamento de Vinculación con la Sociedad Civil)",
+    "responsable": "C. Héctor Hernández Olivares (Jefe de Departamento de Vinculación con la Sociedad Civil)",
+    "correo": "vinculacion.soccivil.pue@sedif.gob.mx",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 067",
+    "nombre": "UNIVERSIDAD POLITECNICA DE PUEBLA - DEPARTAMENTO DE ACTIVIDADES CULTURALES Y DEPORTIVAS",
+    "direccion": "TERCER CARRIL DEL EJIDO SERRANO S/N CUANALA C.P. 72640 PUEBLA, PUE.",
+    "nombramiento": "Mtro. Oscar Nandez German (Rector)",
+    "responsable": "Lic. Alma Iris García Gutiérrez",
+    "correo": "alma.garcia@uppuebla.edu.mx",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 068",
+    "nombre": "ESCUELA PRIMARIA \"HERMANOS SERDÁN\"",
+    "direccion": "AV. 23 PTE. 1301, LOS VOLCANES T/M",
+    "nombramiento": "",
+    "responsable": "",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 069",
+    "nombre": "CENTRO DE INICIACIÓN AL FUTBOL (CIFUT)",
+    "direccion": "AV. 135 PTE Y CALLE ACACIAS, PUEBLA, PUE. C.P. 7249",
+    "nombramiento": "",
+    "responsable": "",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 070",
+    "nombre": "TELESECUNDARIA \"JOSE VASCONCELOS\" CCT 21ETV0934P",
+    "direccion": "CAMINO REAL A SAN NICOLAS 3205, SAN JOSE LA LAGUNA, AMOZOC DE MOTA, CP 72960",
+    "nombramiento": "",
+    "responsable": "",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 071",
+    "nombre": "ASOCIACION DE SCOUTS DE MEXICO PROVINCIA PUEBLA - GRUPO 24 \"AGUILAS\"",
+    "direccion": "BLVD. DEL NIÑO POBLANO 2901, RESERVA TERRITORIAL ATLIXCAYOTL, CENTRO COMERCIAL PUEBLA, CP 72834 SAN BERNARDINO TLAXCALANCINGO, PUE.",
+    "nombramiento": "C. Javier Ramírez López (Sub jefe Administrativo)",
+    "responsable": "C. Javier Ramírez López (Sub Jefe Administrativo)",
+    "correo": "pue24.puebla@scouts.org.mx",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 072",
+    "nombre": "ESCUELA PRIMARIA \"JUAN JOSE MARTINEZ AMARO\" CCT 21DPR3650F",
+    "direccion": "Calle Segundo Paseo De Jazmin No. Sn, Colonia Infonavit San Ramon. Heroica Puebla De Zaragoza, Puebla C.P. 72490\r\nRef. Avenida Anturios, Calle Nardos, Manzana 025",
+    "nombramiento": "",
+    "responsable": "",
+    "correo": "juanjosemartinezamaro@hotmail.com",
+    "telefono": "2221296884"
+  },
+  {
+    "clave": "CTPCF 073",
+    "nombre": "SNTE SECCIÓN 51 - SECRETARIA DE RECREACION, CULTURA FÍSICA Y DEPORTE.",
+    "direccion": "35 Norte, Jorge Murad 72044, Puebla",
+    "nombramiento": "Mtro. Daniel Demetrio Tejeda Barrientos",
+    "responsable": "C. Luis Díaz Tirado",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 074",
+    "nombre": "ESCUELA PRIMARIA TIRSO SANCHEZ TABOADA C.C.T. 21DPR0362T",
+    "direccion": "AV. 5 DE MAYO Y 20 DE NOVIEMBRE No. 1, COL. IGNACIO ZARAGOZA C.P. 72380, PUEBLA, PUE.",
+    "nombramiento": "Profr. Andrés Ramírez Guerrero (Director)",
+    "responsable": "Profr. Enrique Castillo Barba (Educación Física)",
+    "correo": "jko-andrik@live.com.mx",
+    "telefono": "2222354198"
+  },
+  {
+    "clave": "CTPCF 075",
+    "nombre": "BACHILLERATO GENERAL OFICIAL \"CARLOS CAMACHO ESPIRITU\" VESPERTINO",
+    "direccion": "AV. CIRCUITO DE LAS FLORES S/N U.H. MATEO DE REGIL RODRIGUEZ C.P. 72080 PUEBLA, PUE",
+    "nombramiento": "Dra. Beatriz Sánchez Torres (Directora)",
+    "responsable": "Dra. Alejandra Adriana Marciano Mendoza (Docente)",
+    "correo": "21ebh0026g@seppue.gob.mx",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 076",
+    "nombre": "SINDICATO NACIONAL DE TRABAJADORES DE LA EDUCACIÓN HIDALGO",
+    "direccion": "BLVD. RAMON GIL BONFIL PARQUE ESMERALDA, 42084, PACHUCA HIDALGO",
+    "nombramiento": "C. Carlos Delgado Campa (Presidente de la Asociación)",
+    "responsable": "C. Carlos Delgado Campa (Presidente de la Asociación)",
+    "correo": "c.delgadocampa@yahoo.com.mx",
+    "telefono": "7711275195"
+  },
+  {
+    "clave": "CTPCF 077",
+    "nombre": "ESC. SEC. TÉCNICA NO. 65 CCT 21DST0070Q",
+    "direccion": "CERRADA DE LA CAMELIA S/N U. H. SAN JOSE XILOTZINGO 72593 PUEBLA",
+    "nombramiento": "C. Elizabeth Rodríguez y Rodríguez (Directora)",
+    "responsable": "C. Gerardo Cristales Montaño",
+    "correo": "esc_sec_tec_65@hotmail.com",
+    "telefono": "2222335281"
+  },
+  {
+    "clave": "CTPCF 078",
+    "nombre": "ESC. PRIMARIA \"HACIENDA DE GUELATAO\" CCT 21DPR1665U",
+    "direccion": "VISTA HERMOSA Y HERRADURA S/N LA HACIENDA 72570 PUEBLA, PUE.",
+    "nombramiento": "Mtra. Araceli Torres del Razo (Directora)",
+    "responsable": "Mtra. Andrea Elvira Tlatelpa Domínguez (Docente E.F.)",
+    "correo": "haciendaguelatao40@gmail.com",
+    "telefono": "2229600652"
+  },
+  {
+    "clave": "CTPCF 079",
+    "nombre": "CENTRO ESCOLAR \"MANUEL ESPINOSA YGLESIAS\" CCT 21AOS5218R",
+    "direccion": "SANTA MARGARITA 72310 PUEBLA",
+    "nombramiento": "Mtro. Godofredo Tiro Tepayotl (Director General)",
+    "responsable": "Mtro. Efren Juárez Hernández (Director Secundaria)",
+    "correo": "gatolef@gmail.com",
+    "telefono": "2221866558"
+  },
+  {
+    "clave": "CTPCF 080",
+    "nombre": "LIGA DEPORTIVA DE FUTBOL A.C. GUERREROS DE PUEBLA",
+    "direccion": "CALLE 18 NORTE COL. 5 DE MAYO 72270 PUEBLA",
+    "nombramiento": "Lic. Claudia Rodriguez Ramos",
+    "responsable": "Lic. Gilberto Gaspar Andrade",
+    "correo": "ggasparondrode@yahoo.com",
+    "telefono": "2221327430"
+  },
+  {
+    "clave": "CTPCF 081",
+    "nombre": "ESCUELA TELESECUNDARIA \"JUSTO SIERRA\" CCT 21DTV0102F",
+    "direccion": "SAN BALTAZAR TETELA, 72560, PUEBLA",
+    "nombramiento": "C. Isabel Zamora Rojas (Directora)",
+    "responsable": "C. Isabel Zamora Rojas (Directora)",
+    "correo": "zamita1105@gmail.com",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 082",
+    "nombre": "ESC. SEC. TÉCNICA No 117 CCT 21DST0126B",
+    "direccion": "CALLE AHUACATEPETL S/N COL. EL TRIUNFO, 72590",
+    "nombramiento": "Mtra. Graciela Aparicio Trujillo (Directora)",
+    "responsable": "Mtro. Jesús León Velazco",
+    "correo": "sectec117@hotmail.com",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 083",
+    "nombre": "CENTRO ESCOLAR \"APARICIO\"",
+    "direccion": "10 ORIENTE 1005, 72000, PUEBLA",
+    "nombramiento": "C. Yolanda Hernández Contreras (Directora)",
+    "responsable": "C. Jorge Sánchez Sánchez",
+    "correo": "",
+    "telefono": "2224506619"
+  },
+  {
+    "clave": "CTPCF 084",
+    "nombre": "FUNDACION CLUB ALPHA DE PUEBLA",
+    "direccion": "BLVD. CAPITAN CARLOS CAMACHO ESPIRITU 903 PRADOS AGUA AZUL, 72430",
+    "nombramiento": "Lic. Valeria Vázquez Herrera",
+    "responsable": "L.A.F. Gabriela Hernández González",
+    "correo": "recursoshumanos@clubalpha.com.mx",
+    "telefono": "2223953654"
+  },
+  {
+    "clave": "CTPCF 085",
+    "nombre": "AYUNTAMIENTO MUNICIPAL DE ZACAPOAXTLA",
+    "direccion": "CALLE 2 DE ABRIL CENTRO, 73680, ZACAPOAXTLA, TLAXCALA.",
+    "nombramiento": "Ing. Margarita Tamanis Romero",
+    "responsable": "Lic. Gabriel Dario Cruz Martiñon",
+    "correo": "recursoshumanoszp.2427@gmail.com",
+    "telefono": "2331163320"
+  },
+  {
+    "clave": "CTPCF 086",
+    "nombre": "CENTRO ESCOLAR \"HEROES DE ZACAPOAXTLA\" C.C.T. 21AOS4047H",
+    "direccion": "CALLE BUAP S/N AYOCO 73680 ZACAPOAXTLA",
+    "nombramiento": "C. Pedro Angel Bonilla Rivera (Director)",
+    "responsable": "C. Carlos Alberto Mora Bonilla",
+    "correo": "21aos4047hplantel@seppue.gob.mx",
+    "telefono": "2333142603"
+  },
+  {
+    "clave": "CTPCF 087",
+    "nombre": "CLUB DEPORTIVO VOLKSWAGEN CLINIKHER",
+    "direccion": "CARRETERA LATERAL RECTA CHOLULA, SANTIAGO MOMOXPAN 72776 SAN PEDRO CHOLULA",
+    "nombramiento": "C. José Luis Rondero Lezama",
+    "responsable": "C. José Luis Rondero Lezama",
+    "correo": "rondero.ff@hotmail.com",
+    "telefono": "2224908819"
+  },
+  {
+    "clave": "CTPCF 088",
+    "nombre": "PARQUE RECREATIVO AYOA",
+    "direccion": "PROLONGACION 3 SUR 3102, COL. FRANCISCO I. MADERO, ATLIXCO, PUEBLA",
+    "nombramiento": "C. José Roberto Cortés Cortés (Subgerente General)",
+    "responsable": "C. José Roberto Cortés Cortés (Subgerente General)",
+    "correo": "",
+    "telefono": "2444456600"
+  },
+  {
+    "clave": "CTPCF 089",
+    "nombre": "ESC. PRIMARIA \"PROFR. RAFAEL RAMIREZ CASTAÑEDA\" C.C.T. 21DPR1905C",
+    "direccion": "Esquina A. Obregón, C. Benito Juárez, San Pedro, 72210 Heroica Puebla de Zaragoza, Pue.",
+    "nombramiento": "C. Lucio Esteban Pañuela Juárez",
+    "responsable": "C. Lucio Esteban Pañuela Juárez",
+    "correo": "rafaelramirez.1905c@gmail.com",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 090",
+    "nombre": "Esc. Sec. Gral. \"Hermanos Serdán\" T/V C.C.T. 21EES0094G",
+    "direccion": "Av. Reforma No. 716, Puebla, Pue.",
+    "nombramiento": "",
+    "responsable": "",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 091",
+    "nombre": "ESC. SEC. GRAL \"GABRIELA MISTRAL\" C.C.T. 29DES0016W",
+    "direccion": "PABLO SIDAR NO. 91 BARRIO SAN BARTOLOME 90970 SAN PABLO DEL MONTE",
+    "nombramiento": "Profr. Lubin García Vázquez (Director)",
+    "responsable": "Profr. Edgar Juárez Avalos",
+    "correo": "sg29des0016w@gmail.com",
+    "telefono": "2222820111"
+  },
+  {
+    "clave": "CTPCF 092",
+    "nombre": "ESC. PRIM. MAT. \"MANUEL M. FLORES\" C.C.T. 21EPR1570F",
+    "direccion": "DIAGONAL 119 OTE 11909 LOS HEROES 72960 PUEBLA",
+    "nombramiento": "C. Amalia de Jesús Tostado Espinosa (Directora)",
+    "responsable": "C. Luis Eduardo Ayala Jiménez",
+    "correo": "manuel_m_flores@hotmail.com",
+    "telefono": "2228100999"
+  },
+  {
+    "clave": "CTPCF 093",
+    "nombre": "CENTRO DE EDUCACIÓN PREESCOLAR INDIGENA CITLALI C.C.T. 21DCC0748Q T/M",
+    "direccion": "CALLE BARTOLOMÉ No. 4 EN LA LOCALIDAD DE SAN JUAN XILOTZINGO, PUEBLA, PUE. CORDE SUR",
+    "nombramiento": "C. NELLY MARTINEZ RAMOS (DIRECTORA COMISIONADA)",
+    "responsable": "C. NELLY MARTINEZ RAMOS (DIRECTORA COMISIONADA)",
+    "correo": "21dcc0748q@gmail.com",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 094",
+    "nombre": "ESCUELA PRIMARIA FEDERAL VICENTE GUERRERO C.C.T. 21DPR0390P",
+    "direccion": "5 ORIENTE No.1202, BARRIO DE SAN JOSÉ, TECAMACHALCO, PUE.",
+    "nombramiento": "C. LUDMILA ROMERO VIDALS (DIRECTORA)",
+    "responsable": "L.E.F. FRANCISCO JAVIER PEREZ HERRERA",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 095",
+    "nombre": "ESC. SEC. TÉCNICA NO. 125",
+    "direccion": "",
+    "nombramiento": "C. ANDRES ZOE ALVAREZ LARES",
+    "responsable": "C. ANDRES ZOE ALVAREZ LARES",
+    "correo": "andrez951130@gmail.com/esc.sec.tec125@hotmail.com",
+    "telefono": "2228137640"
+  },
+  {
+    "clave": "CTPCF 096",
+    "nombre": "Esc. Prim. Prof. “Rafael Águila Rosas” Vesp.\r\nC.C.T 21EPR0748V",
+    "direccion": "AV. 42 SUR Y CALLE 65 ORIENTE, LA MARGARITA, 72560 PUEBLA",
+    "nombramiento": "C. ELIZABETH PARRA MONTIEL (Directora)",
+    "responsable": "C. Luis Eduardo Ayala Jiménez",
+    "correo": "",
+    "telefono": ""
+  },
+  {
+    "clave": "CTPCF 097",
+    "nombre": "Esc. Primaria \"Ignacio Zaragoza\" C.C.T. 21EPR0068P",
+    "direccion": "CALLE 2 NORTE NO. 20 CUAUTINCHAN 75220",
+    "nombramiento": "C. Margarita Ortiz López (Directora)",
+    "responsable": "C. Margarita Ortiz López (Directora)",
+    "correo": "21epr0068p@seppue.gob.mx",
+    "telefono": ""
+  }
+]
