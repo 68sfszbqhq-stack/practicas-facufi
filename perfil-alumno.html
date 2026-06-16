@@ -267,9 +267,12 @@
     if (tipo !== 'alumno' || !raw) { window.location.href = 'login.html'; return; }
     alumnoData = JSON.parse(raw);
 
-    // Calcular ranking global
-    const sorted = [...ALUMNOS].sort((a,b) => b.promedio - a.promedio);
+    // Calcular ranking solo dentro del mismo período (verano vs ciclo regular)
+    const miPeriodo = alumnoData.periodo;
+    const poolRanking = ALUMNOS.filter(a => a.periodo === miPeriodo);
+    const sorted = [...poolRanking].sort((a,b) => b.promedio - a.promedio);
     rankGlobal = sorted.findIndex(a => a.matricula === alumnoData.matricula) + 1;
+    const totalRanking = poolRanking.length;
 
     waitFirebase(async () => {
       solicitudesGlobales = await window._getSolicitudes();
@@ -309,8 +312,8 @@
         </div>
         <div class="stat-box">
           <div class="snum">🥇 #${rankGlobal}</div>
-          <div class="slabel">Prioridad global</div>
-          <div class="ssub">de ${ALUMNOS.length} alumnos</div>
+          <div class="slabel">Prioridad ${alumnoData.periodo === '202630' ? 'Verano 2026' : 'global'}</div>
+          <div class="ssub">de ${totalRanking} alumnos</div>
         </div>
       </div>
 
@@ -517,7 +520,7 @@
       <div class="status-banner sin-solicitud">
         <span class="sb-icon">ℹ️</span>
         <div><strong>Aún no has seleccionado tu escuela</strong>
-        <div style="font-size:.85em;margin-top:2px;opacity:.8">Tu prioridad es <strong>#${rankGlobal}</strong> de ${ALUMNOS.length} alumnos. Las escuelas se asignan por orden de promedio.</div></div>
+        <div style="font-size:.85em;margin-top:2px;opacity:.8">Tu prioridad es <strong>#${rankGlobal}</strong> de ${totalRanking} alumnos. Las escuelas se asignan por orden de promedio.</div></div>
       </div>
       <div class="priority-badge">🏆 Tu turno de elección: #${rankGlobal}</div>
       
