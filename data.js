@@ -71,7 +71,8 @@ const DOCENTES = [
     clave: "LEFS 201",
     secciones: [
       { nrc: 60857, seccion: "OO4", dias: "LM", hora: "1500-1659", salon: "1FCF1/209", inscritos: 31 },
-      { nrc: 60871, seccion: "OO7", dias: "AJ", hora: "1300-1459", salon: "1FCF1/114", inscritos: 12 }
+      { nrc: 60871, seccion: "OO7", dias: "AJ", hora: "1300-1459", salon: "1FCF1/114", inscritos: 12 },
+      { nrc: 45918, seccion: "VER", dias: "Por definir", hora: "Por definir", salon: "Verano 2026", inscritos: 18 }
     ]
   }
 ];

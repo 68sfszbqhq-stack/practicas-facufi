@@ -295,7 +295,7 @@
       <div class="hero-card">
         <div class="avatar">${initials}</div>
         <div class="hero-info">
-          <p class="small-label">🎓 Alumno · Primavera 2026</p>
+          <p class="small-label">🎓 Alumno · ${alumnoData.periodo === '202630' ? 'Verano 2026' : alumnoData.periodo === '202625' ? 'Primavera 2026' : 'Período ' + alumnoData.periodo}</p>
           <h2>${nombre}</h2>
           <div class="pills">
             <span class="pill pill-gold">📋 ${alumnoData.matricula}</span>
