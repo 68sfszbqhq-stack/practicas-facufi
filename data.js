@@ -1936,6 +1936,188 @@ const ALUMNOS = [
     "nrc": 60853,
     "docente": "Daniel Demetrio Tejeda Barrientos",
     "horarioCita": "12:05"
+  },
+
+  // ── GRUPO VERANO 2026 · NRC 45918 · Período 202630 ──────────────────────
+  {
+    "promedio": 0,
+    "matricula": "202281789",
+    "nombre": "ESTRADA LOPEZ ALEJANDRO",
+    "plan": "LEF-2016",
+    "periodo": "202630",
+    "nrc": 45918,
+    "docente": "Jesús Torrez Machorro",
+    "horarioCita": ""
+  },
+  {
+    "promedio": 0,
+    "matricula": "202119238",
+    "nombre": "FERNANDEZ DE LARA ESTRELLA JUAN ANTONIO",
+    "plan": "LEF-2016",
+    "periodo": "202630",
+    "nrc": 45918,
+    "docente": "Jesús Torrez Machorro",
+    "horarioCita": ""
+  },
+  {
+    "promedio": 0,
+    "matricula": "202344047",
+    "nombre": "FLORES PEREZ JUAN PABLO",
+    "plan": "LEF-2016",
+    "periodo": "202630",
+    "nrc": 45918,
+    "docente": "Jesús Torrez Machorro",
+    "horarioCita": ""
+  },
+  {
+    "promedio": 0,
+    "matricula": "202145552",
+    "nombre": "FRANCISCO CASTILLA ALBERTO",
+    "plan": "LEF-2016",
+    "periodo": "202630",
+    "nrc": 45918,
+    "docente": "Jesús Torrez Machorro",
+    "horarioCita": ""
+  },
+  {
+    "promedio": 0,
+    "matricula": "202330302",
+    "nombre": "FRANCO COATL DANIEL",
+    "plan": "LEF-2016",
+    "periodo": "202630",
+    "nrc": 45918,
+    "docente": "Jesús Torrez Machorro",
+    "horarioCita": ""
+  },
+  {
+    "promedio": 0,
+    "matricula": "202274300",
+    "nombre": "GUEVARA BERRA GUSTAVO EDUARDO",
+    "plan": "LEF-2016",
+    "periodo": "202630",
+    "nrc": 45918,
+    "docente": "Jesús Torrez Machorro",
+    "horarioCita": ""
+  },
+  {
+    "promedio": 0,
+    "matricula": "202242202",
+    "nombre": "LOPEZ MENDOZA DIANA",
+    "plan": "LEF-2016",
+    "periodo": "202630",
+    "nrc": 45918,
+    "docente": "Jesús Torrez Machorro",
+    "horarioCita": ""
+  },
+  {
+    "promedio": 0,
+    "matricula": "201821728",
+    "nombre": "ORTEGA SALGADO YAIR MARTINIANO",
+    "plan": "LEF-2016",
+    "periodo": "202630",
+    "nrc": 45918,
+    "docente": "Jesús Torrez Machorro",
+    "horarioCita": ""
+  },
+  {
+    "promedio": 0,
+    "matricula": "201921422",
+    "nombre": "RODRIGUEZ RODRIGUEZ EDSON GIOVANNI",
+    "plan": "LEF-2016",
+    "periodo": "202630",
+    "nrc": 45918,
+    "docente": "Jesús Torrez Machorro",
+    "horarioCita": ""
+  },
+  {
+    "promedio": 0,
+    "matricula": "201962816",
+    "nombre": "ROJAS VARGAS JONATHAN DELFINO",
+    "plan": "LEF-2016",
+    "periodo": "202630",
+    "nrc": 45918,
+    "docente": "Jesús Torrez Machorro",
+    "horarioCita": ""
+  },
+  {
+    "promedio": 0,
+    "matricula": "202253252",
+    "nombre": "SANCHEZ PEREZ JOB",
+    "plan": "LEF-2016",
+    "periodo": "202630",
+    "nrc": 45918,
+    "docente": "Jesús Torrez Machorro",
+    "horarioCita": ""
+  },
+  {
+    "promedio": 0,
+    "matricula": "202160529",
+    "nombre": "SANTIAGO GONZALEZ AMERICA FERNANDA",
+    "plan": "LEF-2016",
+    "periodo": "202630",
+    "nrc": 45918,
+    "docente": "Jesús Torrez Machorro",
+    "horarioCita": ""
+  },
+  {
+    "promedio": 0,
+    "matricula": "202162120",
+    "nombre": "TELLEZ MARTINEZ EMMANUEL",
+    "plan": "LEF-2016",
+    "periodo": "202630",
+    "nrc": 45918,
+    "docente": "Jesús Torrez Machorro",
+    "horarioCita": ""
+  },
+  {
+    "promedio": 0,
+    "matricula": "202279226",
+    "nombre": "TORRES GONZALEZ MARIA CECILIA",
+    "plan": "LEF-2016",
+    "periodo": "202630",
+    "nrc": 45918,
+    "docente": "Jesús Torrez Machorro",
+    "horarioCita": ""
+  },
+  {
+    "promedio": 0,
+    "matricula": "202320944",
+    "nombre": "TORRES MENESES JAVIER",
+    "plan": "LEF-2016",
+    "periodo": "202630",
+    "nrc": 45918,
+    "docente": "Jesús Torrez Machorro",
+    "horarioCita": ""
+  },
+  {
+    "promedio": 0,
+    "matricula": "201945262",
+    "nombre": "WILSON GONZALEZ DRUSSO NOE DANIEL",
+    "plan": "LEF-2016",
+    "periodo": "202630",
+    "nrc": 45918,
+    "docente": "Jesús Torrez Machorro",
+    "horarioCita": ""
+  },
+  {
+    "promedio": 0,
+    "matricula": "202077571",
+    "nombre": "YOUSHIMATZ CASTRO LUIS ANGEL",
+    "plan": "LEF-2016",
+    "periodo": "202630",
+    "nrc": 45918,
+    "docente": "Jesús Torrez Machorro",
+    "horarioCita": ""
+  },
+  {
+    "promedio": 0,
+    "matricula": "202256891",
+    "nombre": "ZAMORA GARCIA JESUS DONALDO",
+    "plan": "LEF-2016",
+    "periodo": "202630",
+    "nrc": 45918,
+    "docente": "Jesús Torrez Machorro",
+    "horarioCita": ""
   }
 ];
 
