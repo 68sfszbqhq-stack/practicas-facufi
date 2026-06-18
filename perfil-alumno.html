@@ -238,7 +238,7 @@
   document.dispatchEvent(new Event('firebase-ready'));
 </script>
 
-<script src="data.js?v=5"></script>
+<script src="data.js?v=6"></script>
 <script>
   let alumnoData = null;
   let solicitudesGlobales = {};
@@ -287,9 +287,11 @@
     const nombre = toTitleCase(alumnoData.nombre);
     const initials = getInitials(alumnoData.nombre);
     const badge = getPromedioBadge(alumnoData.promedio);
-    const docente = DOCENTES.find(d => d.secciones.some(s => s.nrc === alumnoData.nrc));
-    const seccion = docente ? docente.secciones.find(s => s.nrc === alumnoData.nrc) : null;
-    const compSec = ALUMNOS.filter(a => a.nrc === alumnoData.nrc);
+    // Usar == para NRC (evita fallo por string vs number en sessionStorage)
+    const docente = DOCENTES.find(d => d.secciones.some(s => s.nrc == alumnoData.nrc));
+    const seccion = docente ? docente.secciones.find(s => s.nrc == alumnoData.nrc) : null;
+    // Posición en sección: solo compañeros del mismo NRC Y mismo período
+    const compSec = ALUMNOS.filter(a => a.nrc == alumnoData.nrc && a.periodo === alumnoData.periodo);
     const posSec = compSec.sort((a,b)=>b.promedio-a.promedio).findIndex(a=>a.matricula===alumnoData.matricula)+1;
 
     document.getElementById('main-content').innerHTML = `
@@ -801,7 +803,7 @@
       const base64 = await fileToBase64(file);
       if (fill) fill.style.width = '60%';
 
-      const docente = DOCENTES.find(d=>d.secciones.some(s=>s.nrc===alumnoData.nrc));
+      const docente = DOCENTES.find(d=>d.secciones.some(s=>s.nrc==alumnoData.nrc));
       const docenteName = docente ? (docente.nombreFormato || docente.nombre) : 'SIN_DOCENTE';
       
       const docNameDict = {
