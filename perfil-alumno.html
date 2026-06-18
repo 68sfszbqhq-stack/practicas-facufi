@@ -248,6 +248,7 @@
   let selectedFile = null;
   let selectedIneFile = null;
   let rankGlobal = 0;
+  let totalRanking = 0;
 
   function getMaxCapacity(id) {
     if (parseInt(id) === 96) return 15;
@@ -272,7 +273,7 @@
     const poolRanking = ALUMNOS.filter(a => a.periodo === miPeriodo);
     const sorted = [...poolRanking].sort((a,b) => b.promedio - a.promedio);
     rankGlobal = sorted.findIndex(a => a.matricula === alumnoData.matricula) + 1;
-    const totalRanking = poolRanking.length;
+    totalRanking = poolRanking.length;
 
     waitFirebase(async () => {
       solicitudesGlobales = await window._getSolicitudes();
