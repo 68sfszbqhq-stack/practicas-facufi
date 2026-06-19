@@ -412,7 +412,9 @@
 
       if (currentRole === 'alumno') {
         const mat = document.getElementById('input-matricula').value.trim();
-        const alumno = ALUMNOS.find(a => a.matricula === mat);
+        // Si el alumno existe en varios periodos, tomar el más reciente
+        const coincidencias = ALUMNOS.filter(a => a.matricula === mat);
+        const alumno = coincidencias.sort((a, b) => String(b.periodo).localeCompare(String(a.periodo)))[0];
         if (alumno && pwd === getPasswordAlumno(alumno)) {
           sessionStorage.setItem('usuario_tipo', 'alumno');
           sessionStorage.setItem('usuario_data', JSON.stringify(alumno));

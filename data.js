@@ -2149,8 +2149,10 @@ function getNombreDias(codigo) {
 // Función para formatear hora
 function formatHora(hora) {
   if (!hora) return hora;
+  if (!hora.includes('-')) return hora;
   const [inicio, fin] = hora.split('-');
   const formatOne = h => {
+    if (!h || h.length < 4) return h;
     const hh = h.substring(0, 2);
     const mm = h.substring(2, 4);
     const hour = parseInt(hh);
